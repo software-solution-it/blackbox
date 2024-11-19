@@ -13,10 +13,7 @@ const products = [
     benefits: [
       'E-Sports',
       'Cassino',
-      'Pragmatic Play',
-      'Pg Soft',
-      'Manutenções corretivas e preventivas',
-      'Hospedagem',
+      'Live'
     ],
     contents: [
       'Plataforma completa',
@@ -30,12 +27,9 @@ const products = [
     image: plataforma_1,
     link: '/product-details/2',
     benefits: [
-      'Cassino ao Vivo',
-      'Apostas Esportivas',
-      'Quickspin',
-      'Betsoft',
-      'Suporte 24/7',
-      'Integração com API',
+      'E-Sports',
+      'Cassino',
+      'Live'
     ],
     contents: [
       'Personalização avançada',
@@ -74,13 +68,40 @@ class ProductsSection extends Component {
       nextArrow: <div className="slick-arrow slick-next">&#x2192;</div>,
       prevArrow: <div className="slick-arrow slick-prev">&#x2190;</div>,
       beforeChange: this.handleBeforeChange,
+      responsive: [
+        {
+          breakpoint: 1024, // para telas grandes (tablets e desktop)
+          settings: {
+            centerMode: true,
+            centerPadding: '20%',
+            slidesToShow: 1,
+          },
+        },
+        {
+          breakpoint: 768, // para telas médias (tablets)
+          settings: {
+            centerMode: true,
+            centerPadding: '10%',
+            slidesToShow: 1,
+          },
+        },
+        {
+          breakpoint: 480, // para telas pequenas (celulares)
+          settings: {
+            centerMode: false,  // Desativa o "centerMode" no mobile
+            slidesToShow: 1, // Mostra apenas um item
+            slidesToScroll: 1, // Só vai para o próximo slide quando o atual terminar
+          },
+        },
+      ],
     };
 
     return (
       <div>
-        <section className="products h-screen flex flex-col justify-center bg-[#1E1E1E]">
-          <div className="container mx-auto text-center bg-[#1E1E1E]">
-            <h2 className="text-7xl sm:text-6xl font-bold text-orange-500 mb-3 title-margin">
+        <section className="products h-screen flex flex-col justify-center bg-[#1E1E1E] overflow-x-hidden">
+          <div className="container mx-auto text-center bg-[#1E1E1E] px-4 sm:px-10">
+            {/* Título responsivo */}
+            <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-orange-500 mb-3 title-margin">
               Nossos Produtos
             </h2>
 
