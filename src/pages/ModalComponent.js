@@ -93,8 +93,8 @@ class ModalComponent extends Component {
     const { formData, errors, isSubmitted } = this.state;
 
     return (
-      <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 transition-opacity duration-300">
-        <div className="bg-white rounded-lg w-11/12 md:w-1/2 lg:w-1/3 p-6 relative transform transition-transform duration-300 p-10 font-poppins">
+      <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 transition-opacity duration-300 px-4 py-8">
+        <div className="bg-white rounded-lg w-full max-w-sm p-4 relative transform transition-transform duration-300 font-poppins mx-auto overflow-y-auto max-h-full">
           {/* Botão de fechar */}
           <button
             onClick={closeModal}
@@ -114,10 +114,10 @@ class ModalComponent extends Component {
           {/* Conteúdo do Modal */}
           {!isSubmitted ? (
             <form onSubmit={this.handleSubmit} className="space-y-4">
-              <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-center text-orange-500 mb-4">Entre em Contato</h2>
+              <h2 className="text-xl md:text-2xl font-bold text-center text-orange-500 mb-4">Entre em Contato</h2>
 
               <div>
-                <label htmlFor="name" className="block text-sm sm:text-base font-medium text-gray-700">
+                <label htmlFor="name" className="block text-sm font-medium text-gray-700">
                   Nome
                 </label>
                 <input
@@ -131,11 +131,11 @@ class ModalComponent extends Component {
                   } rounded-md shadow-sm focus:outline-none focus:ring-orange-500 focus:border-orange-500`}
                   required
                 />
-                {errors.name && <p className="text-red-500 text-sm mt-1">{errors.name}</p>}
+                {errors.name && <p className="text-red-500 text-xs mt-1">{errors.name}</p>}
               </div>
 
               <div>
-                <label htmlFor="email" className="block text-sm sm:text-base font-medium text-gray-700">
+                <label htmlFor="email" className="block text-sm font-medium text-gray-700">
                   E-mail
                 </label>
                 <input
@@ -149,14 +149,14 @@ class ModalComponent extends Component {
                   } rounded-md shadow-sm focus:outline-none focus:ring-orange-500 focus:border-orange-500`}
                   required
                 />
-                {errors.email && <p className="text-red-500 text-sm mt-1">{errors.email}</p>}
+                {errors.email && <p className="text-red-500 text-xs mt-1">{errors.email}</p>}
               </div>
 
               <div>
-                <label className="block text-sm sm:text-base font-medium text-gray-700">
+                <label className="block text-sm font-medium text-gray-700">
                   Serviços que gostaria de assinar
                 </label>
-                <div className="mt-2 space-y-2">
+                <div className="mt-2 space-y-1">
                   {additionalServices.map((service, index) => (
                     <div key={index} className="flex items-center">
                       <input
@@ -166,9 +166,9 @@ class ModalComponent extends Component {
                         value={service.title}
                         checked={formData.services.includes(service.title)}
                         onChange={this.handleChange}
-                        className="h-5 w-5 text-orange-500 border-gray-300 rounded"
+                        className="h-4 w-4 text-orange-500 border-gray-300 rounded"
                       />
-                      <label htmlFor={`service-${index}`} className="ml-2 block text-base sm:text-lg text-gray-700">
+                      <label htmlFor={`service-${index}`} className="ml-2 text-sm text-gray-700">
                         {service.title}
                       </label>
                     </div>
@@ -181,18 +181,18 @@ class ModalComponent extends Component {
                       value="Não tenho certeza"
                       checked={formData.services.includes('Não tenho certeza')}
                       onChange={this.handleChange}
-                      className="h-5 w-5 text-orange-500 border-gray-300 rounded"
+                      className="h-4 w-4 text-orange-500 border-gray-300 rounded"
                     />
-                    <label htmlFor="service-unsure" className="ml-2 block text-base sm:text-lg text-gray-700">
+                    <label htmlFor="service-unsure" className="ml-2 text-sm text-gray-700">
                       Não tenho certeza
                     </label>
                   </div>
                 </div>
-                {errors.services && <p className="text-red-500 text-sm mt-1">{errors.services}</p>}
+                {errors.services && <p className="text-red-500 text-xs mt-1">{errors.services}</p>}
               </div>
 
               <div>
-                <label htmlFor="favoriteProduct" className="block text-sm sm:text-base font-medium text-gray-700">
+                <label htmlFor="favoriteProduct" className="block text-sm font-medium text-gray-700">
                   Qual produto você mais gostou?
                 </label>
                 <select
@@ -213,12 +213,12 @@ class ModalComponent extends Component {
                   ))}
                 </select>
                 {errors.favoriteProduct && (
-                  <p className="text-red-500 text-sm mt-1">{errors.favoriteProduct}</p>
+                  <p className="text-red-500 text-xs mt-1">{errors.favoriteProduct}</p>
                 )}
               </div>
 
               <div>
-                <label htmlFor="observation" className="block text-sm sm:text-base font-medium text-gray-700">
+                <label htmlFor="observation" className="block text-sm font-medium text-gray-700">
                   Observação (opcional)
                 </label>
                 <textarea
@@ -242,8 +242,8 @@ class ModalComponent extends Component {
             </form>
           ) : (
             <div className="text-center">
-              <h2 className="text-3xl sm:text-4xl font-bold mb-4 text-orange-500">Enviado com sucesso!</h2>
-              <p className="text-lg sm:text-xl">Em breve você receberá um e-mail com as informações da proposta comercial.</p>
+              <h2 className="text-xl font-bold mb-4 text-orange-500">Enviado com sucesso!</h2>
+              <p className="text-sm">Em breve você receberá um e-mail com as informações da proposta comercial.</p>
               <button
                 onClick={closeModal}
                 className="mt-6 bg-orange-500 text-white py-2 px-4 rounded-md hover:bg-orange-400 transition-colors"
