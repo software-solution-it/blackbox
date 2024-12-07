@@ -1,7 +1,16 @@
 import logo from './logo.svg';
 import './App.css';
 
+console.error = () => {};
+console.warn = () => {};
+console.log = () => {};
+
 function App() {
+
+  console.error = () => {};
+  console.warn = () => {};
+  console.log = () => {};
+
   return (
     <div className="App">
       <header className="App-header">
