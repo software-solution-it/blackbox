@@ -1,0 +1,177 @@
+.product-card {
+  transition: transform 0.2s ease-in-out !important; /* Transição curta e suave */
+  padding: 20px;
+  border-radius: 10px;
+  background-size: cover;
+  background-position: center;
+  height: 450px; /* Altura padrão para os cards */
+  position: relative; /* Necessário para posicionar corretamente o overlay e as informações */
+  transform: scale(0.8); /* Diminui os cards laterais por padrão */
+}
+
+.product-card.active-slide {
+  transform: scale(1.2); /* Aumenta o card central */
+}
+
+.product-card .overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(0, 0, 0, 0.6); /* Cinza escuro com 60% de opacidade */
+  color: white;
+  font-size: 1.5rem; /* Ajuste o tamanho da fonte se necessário */
+  font-weight: bold;
+  transition: opacity 0.1s ease-out;
+  opacity: 1;
+  text-align: center;
+}
+
+.product-card:hover .overlay {
+  opacity: 0; /* Some ao passar o mouse */
+}
+
+.product-info {
+  position: absolute;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.75);
+  color: white;
+  display: flex;
+  flex-direction: column;
+  opacity: 0;
+  transition: opacity 0.1s ease-out; /* Transição rápida para a info */
+  padding: 40px;
+}
+
+.product-card:hover .product-info {
+  opacity: 1; /* Aparece ao passar o mouse */
+}
+
+/* Estilização das colunas de conteúdo */
+.content-columns {
+  display: flex;
+  justify-content: space-between; /* Espaçamento uniforme para manter as colunas nos lados esquerdo e direito */
+  width: 100%;
+  gap: 40px; /* Espaçamento entre as colunas para afastar da divisória */
+  position: relative;
+}
+
+.content-columns::before {
+  content: "";
+  position: absolute;
+  height: 100%; /* Aumenta para a altura total */
+  width: 4px; /* Aumenta a largura da linha */
+  background-color: #ffffff;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+
+/* Estilo das colunas de conteúdo */
+.content-section {
+  flex: 1;
+  align-items: center;
+  justify-content: center;
+  max-width: 45%; /* Limita a largura das colunas para não ocupar muito espaço */
+}
+
+.carousel-indicators { /* Substitua '.carousel-indicators' pelo seletor correto */
+  display: none;
+}
+
+.dot {
+  display: none;
+}
+
+
+.content-section:first-child {
+  text-align: right; /* Alinha o conteúdo da coluna esquerda à direita */
+  padding-right: 20px; /* Aproxima o conteúdo da divisória */
+}
+
+.content-section:last-child {
+  text-align: left; /* Alinha o conteúdo da coluna direita à esquerda */
+  padding-left: 20px; /* Aproxima o conteúdo da divisória */
+}
+
+.content-section ul {
+  list-style: disc;
+  padding-left: 20px;
+  margin: 0;
+}
+
+.product-info h3 {
+  font-size: 2.0rem;
+  text-align: center;
+  width: 100%;
+  margin: 20px 0;
+}
+
+.slick-prev {
+  left: -80px; /* Aumente esse valor para afastar ainda mais a seta à esquerda */
+}
+
+.slick-next {
+  right: -80px; /* Aumente esse valor para afastar ainda mais a seta à direita */
+}
+
+.slick-dots li button:before {
+  font-size: 16px; /* Aumenta o tamanho das bolinhas */
+  color: white; /* Torna as bolinhas brancas */
+  opacity: 1; /* Garante que a opacidade seja 100% */
+}
+
+/* Estilo para os indicadores ativos */
+.slick-dots li.slick-active button:before {
+  font-size: 18px; /* Tamanho maior para o indicador ativo */
+  color: orange; /* Cor branca também para o ativo */
+  opacity: 1;
+}
+
+/* Ajuste do espaçamento entre as bolinhas */
+.slick-dots {
+  bottom: 20px; /* Ajuste a posição vertical das bolinhas */
+}
+
+
+.slick-prev:before,
+.slick-next:before
+{
+    font-family: 'slick';
+    font-size: 40px !important;
+    line-height: 1;
+
+    
+
+    opacity: .75;
+    color: white;
+
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.product-info h4 {
+  font-size: 1.0rem;
+  color: #ffa500; /* Laranja */
+  margin: 1rem 0;
+}
+
+.content-section ul {
+  list-style: none; /* Remove as bolinhas */
+  padding-left: 0; /* Remove o recuo à esquerda */
+  margin: 0;
+}
+
+
+.product-info li {
+  font-size: 0.8rem;
+  margin-bottom: 0.5rem;
+}
+
+/* Ajuste do título em telas maiores */
+@media (min-width: 1024px) {
+  .title-margin {
+    margin-bottom: 5rem !important; /* Ajuste conforme necessário */
+  }
+}
