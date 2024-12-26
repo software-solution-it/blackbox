@@ -51,7 +51,7 @@ const HomePage = () => {
   ];
 
   useEffect(() => {
-    setTimeout(() => setIsLoading(false), 2000);
+    setTimeout(() => setIsLoading(false), 4000);
 
     const handleScroll = () => {
       const scrollPosition = window.scrollY;
@@ -94,8 +94,35 @@ const HomePage = () => {
     <div className="relative bg-[#121212]">
       {/* Loading Screen */}
       {isLoading && (
-        <div className="fixed inset-0 flex items-center justify-center z-50 bg-[#1E1E1E]">
-          <img src={logo} alt="Logo" className="w-48 animate-pulse" />
+        <div className="fixed inset-0 flex flex-col items-center justify-center z-50 bg-[#1E1E1E]">
+          <div className="loading-container">
+            <div className="geometric-box">
+              <div className="inner-box"></div>
+            </div>
+            <div className="loading-text-container">
+              <div className="loading-text">
+                <span>B</span>
+                <span>l</span>
+                <span>a</span>
+                <span>c</span>
+                <span>k</span>
+                <span>B</span>
+                <span>o</span>
+                <span>x</span>
+                <span>&nbsp;</span>
+                <span>I</span>
+                <span>G</span>
+                <span>a</span>
+                <span>m</span>
+                <span>i</span>
+                <span>n</span>
+                <span>g</span>
+              </div>
+              <div className="loading-bar">
+                <div className="loading-progress"></div>
+              </div>
+            </div>
+          </div>
         </div>
       )}
 
