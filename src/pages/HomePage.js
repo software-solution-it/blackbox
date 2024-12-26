@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import './HomePage.css';
-import logo from '../assets/images/logo.png';
-
 import IntroSection from './IntroSection';
 import ServicesSection from './ServicesSection';
 import ProductsSection from './ProductsSection';
@@ -51,23 +49,18 @@ const HomePage = () => {
   ];
 
   useEffect(() => {
+    if (isLoading) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'hidden';
+    }
+
     setTimeout(() => setIsLoading(false), 4000);
 
-    const handleScroll = () => {
-      const scrollPosition = window.scrollY;
-      const windowHeight = window.innerHeight;
-      const fullHeight = document.documentElement.scrollHeight - windowHeight;
-      const progress = (scrollPosition / fullHeight) * 100;
-      setScrollProgress(progress);
-
-      // Determinar seção ativa baseado no scroll
-      const sectionIndex = Math.floor((progress / 100) * sections.length);
-      setActiveSection(Math.min(sectionIndex, sections.length - 1));
+    return () => {
+      document.body.style.overflow = '';
     };
-
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, [sections.length]);
+  }, [isLoading]);
 
   const openModal = (context) => {
     setModalContext(context);
@@ -79,44 +72,43 @@ const HomePage = () => {
     setModalContext(null);
   };
 
-  const scrollToNextSection = (currentSectionId) => {
-    const sections = ['intro', 'services', 'products', 'providers', 'additional', 'about'];
-    const currentIndex = sections.indexOf(currentSectionId);
-    const nextIndex = (currentIndex + 1) % sections.length;
-    const nextSection = document.getElementById(sections[nextIndex]);
-    
-    if (nextSection) {
-      nextSection.scrollIntoView({ behavior: 'smooth' });
+  const scrollToSection = (sectionId, index) => {
+    const element = document.getElementById(sectionId);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+      setActiveSection(index);
     }
+  };
+
+  const scrollToNextSection = (currentSectionId) => {
+    const sectionIds = sections.map(section => section.id);
+    const currentIndex = sectionIds.indexOf(currentSectionId);
+    const nextIndex = (currentIndex + 1) % sections.length;
+    
+    scrollToSection(sectionIds[nextIndex], nextIndex);
   };
 
   return (
     <div className="relative bg-[#121212]">
-      {/* Loading Screen */}
       {isLoading && (
-        <div className="fixed inset-0 flex flex-col items-center justify-center z-50 bg-[#1E1E1E]">
-          <div className="loading-container">
-            <div className="geometric-box">
-              <div className="inner-box"></div>
+        <div className="loading-screen">
+          <div className="loading-content">
+            <div className="loading-box-container">
+              <div className="loading-box">
+                <div className="box-face front"></div>
+                <div className="box-face back"></div>
+                <div className="box-face right"></div>
+                <div className="box-face left"></div>
+                <div className="box-face top"></div>
+                <div className="box-face bottom"></div>
+              </div>
             </div>
-            <div className="loading-text-container">
+            <div className="loading-text-wrapper">
               <div className="loading-text">
-                <span>B</span>
-                <span>l</span>
-                <span>a</span>
-                <span>c</span>
-                <span>k</span>
-                <span>B</span>
-                <span>o</span>
-                <span>x</span>
-                <span>&nbsp;</span>
-                <span>I</span>
-                <span>G</span>
-                <span>a</span>
-                <span>m</span>
-                <span>i</span>
-                <span>n</span>
-                <span>g</span>
+                <span>B</span><span>l</span><span>a</span><span>c</span><span>k</span>
+                <span>B</span><span>o</span><span>x</span><span>&nbsp;</span>
+                <span>I</span><span>G</span><span>a</span><span>m</span><span>i</span>
+                <span>n</span><span>g</span>
               </div>
               <div className="loading-bar">
                 <div className="loading-progress"></div>
@@ -126,16 +118,12 @@ const HomePage = () => {
         </div>
       )}
 
-      {/* Navigation Dots */}
       <nav className="fixed right-8 top-1/2 -translate-y-1/2 z-40">
         <ul className="space-y-4">
           {sections.map((section, index) => (
             <li key={section.id}>
               <button
-                onClick={() => {
-                  const element = document.getElementById(section.id);
-                  element?.scrollIntoView({ behavior: 'smooth' });
-                }}
+                onClick={() => scrollToSection(section.id, index)}
                 className={`nav-dot ${activeSection === index ? 'active' : ''}`}
                 aria-label={`Seção ${index + 1}`}
               />
@@ -151,12 +139,10 @@ const HomePage = () => {
             id={section.id}
             className="relative min-h-screen"
           >
-            {/* Componente da seção */}
             <div className="h-full">
               <section.component openModal={openModal} />
             </div>
 
-            {/* Indicador de scroll quando necessário */}
             {index < sections.length - 1 && (
               <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 
                            flex flex-col items-center gap-2 text-neutral-400 z-10">
@@ -187,7 +173,6 @@ const HomePage = () => {
         ))}
       </main>
 
-      {/* Modal */}
       {isModalOpen && (
         <ModalComponent closeModal={closeModal} modalContext={modalContext} />
       )}
