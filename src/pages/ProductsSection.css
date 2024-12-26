@@ -1,177 +1,439 @@
+.products-section {
+  @apply bg-[#121212] min-h-screen relative;
+  height: 100vh;
+  overflow-y: auto;
+  scrollbar-gutter: stable;
+}
+
+.products-content {
+  @apply container mx-auto py-12 px-4 md:px-6 relative z-10;
+}
+
+/* Grid de produtos */
+.products-grid {
+  @apply grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 mt-8;
+}
+
+/* Card do produto */
 .product-card {
-  transition: transform 0.2s ease-in-out !important; /* Transição curta e suave */
-  padding: 20px;
-  border-radius: 10px;
-  background-size: cover;
-  background-position: center;
-  height: 450px; /* Altura padrão para os cards */
-  position: relative; /* Necessário para posicionar corretamente o overlay e as informações */
-  transform: scale(0.8); /* Diminui os cards laterais por padrão */
+  @apply bg-[#1a1a1a]/50 backdrop-blur-sm rounded-2xl overflow-hidden
+         border border-white/5 transition-all duration-500;
 }
 
-.product-card.active-slide {
-  transform: scale(1.2); /* Aumenta o card central */
+/* Adiciona a classe group diretamente no HTML */
+.product-header {
+  @apply relative overflow-hidden;
 }
 
-.product-card .overlay {
-  position: absolute;
-  inset: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: rgba(0, 0, 0, 0.6); /* Cinza escuro com 60% de opacidade */
-  color: white;
-  font-size: 1.5rem; /* Ajuste o tamanho da fonte se necessário */
-  font-weight: bold;
-  transition: opacity 0.1s ease-out;
-  opacity: 1;
-  text-align: center;
+.product-image {
+  @apply w-full h-48 object-cover transition-transform duration-700
+         filter brightness-90;
 }
 
-.product-card:hover .overlay {
-  opacity: 0; /* Some ao passar o mouse */
+.product-card:hover .product-image {
+  @apply brightness-100 scale-110;
 }
 
-.product-info {
-  position: absolute;
-  inset: 0;
-  background-color: rgba(0, 0, 0, 0.75);
-  color: white;
-  display: flex;
-  flex-direction: column;
-  opacity: 0;
-  transition: opacity 0.1s ease-out; /* Transição rápida para a info */
-  padding: 40px;
+/* Overlay gradiente */
+.product-overlay {
+  @apply absolute inset-0 bg-gradient-to-t from-[#1a1a1a] to-transparent
+         opacity-80 transition-opacity duration-500;
 }
 
-.product-card:hover .product-info {
-  opacity: 1; /* Aparece ao passar o mouse */
+/* Badge de status */
+.product-badge {
+  @apply absolute top-4 right-4 px-3 py-1 rounded-full text-xs font-medium
+         bg-primary/20 text-primary border border-primary/30
+         backdrop-blur-sm;
 }
 
-/* Estilização das colunas de conteúdo */
-.content-columns {
-  display: flex;
-  justify-content: space-between; /* Espaçamento uniforme para manter as colunas nos lados esquerdo e direito */
-  width: 100%;
-  gap: 40px; /* Espaçamento entre as colunas para afastar da divisória */
-  position: relative;
+/* Conteúdo do card */
+.product-content {
+  @apply p-6;
 }
 
-.content-columns::before {
+.product-title {
+  @apply text-xl font-bold text-white mb-2;
+}
+
+.product-description {
+  @apply text-sm text-neutral-400 mb-4;
+}
+
+/* Features do produto */
+.product-features {
+  @apply space-y-3 mb-6;
+}
+
+.feature-item {
+  @apply flex items-start space-x-2 text-xs text-neutral-300;
+}
+
+.feature-icon {
+  @apply text-primary text-[10px] mt-1;
+}
+
+/* Métricas do produto */
+.product-metrics {
+  @apply grid grid-cols-2 gap-4 mb-6 p-4 rounded-xl bg-black/20;
+}
+
+.metric-item {
+  @apply text-center;
+}
+
+.metric-value {
+  @apply text-base font-bold text-primary mb-0.5;
+}
+
+.metric-label {
+  @apply text-[10px] text-neutral-400;
+}
+
+/* Tecnologias usadas */
+.product-tech {
+  @apply flex flex-wrap gap-2 mb-6;
+}
+
+.tech-tag {
+  @apply px-1.5 py-0.5 text-[10px];
+}
+
+/* Botões de ação */
+.product-actions {
+  @apply flex gap-3 mt-auto;
+}
+
+/* Estilo base para os botões */
+.action-button {
+  @apply relative text-xs py-2.5 px-4 rounded-lg font-medium
+         flex items-center justify-center gap-2
+         overflow-hidden transition-all duration-300;
+  transform: scale(1);
+}
+
+.action-button:hover {
+  transform: scale(1.02);
+}
+
+/* Botão Demo */
+.demo-action {
+  @apply bg-[#1E1E1E] text-primary border border-primary/30;
+  background: linear-gradient(45deg, 
+    var(--primary) 0%,
+    var(--primary) 50%,
+    #1E1E1E 50%,
+    #1E1E1E 100%
+  );
+  background-size: 250% 100%;
+  background-position: 100% 0;
+  transition: all 0.5s ease;
+}
+
+.demo-action span,
+.demo-action svg {
+  @apply relative z-10 transition-all duration-500;
+}
+
+.demo-action:hover {
+  @apply text-white border-primary;
+  background-position: 0 0;
+  box-shadow: 0 0 20px rgba(255, 107, 0, 0.3);
+}
+
+.demo-action:hover svg {
+  @apply text-white;
+  transform: rotate(360deg);
+}
+
+.demo-action:hover span {
+  @apply text-white;
+}
+
+/* Ajuste do tamanho e espaçamento do ícone */
+.demo-action svg {
+  @apply mr-2 text-primary;
+}
+
+/* Efeito de hover mais suave */
+.demo-action {
+  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Botão Proposta */
+.primary-action {
+  @apply bg-primary text-white;
+  background: linear-gradient(45deg,
+    var(--primary-dark) 0%,
+    var(--primary) 50%,
+    var(--primary-light) 100%
+  );
+  background-size: 200% 100%;
+  background-position: 100% 0;
+}
+
+.primary-action:hover {
+  background-position: 0 0;
+  box-shadow: 
+    0 0 20px rgba(255, 107, 0, 0.3),
+    0 0 40px rgba(255, 107, 0, 0.2);
+}
+
+.primary-action svg {
+  @apply transition-all duration-300;
+  transform: translateX(0);
+}
+
+.primary-action:hover svg {
+  transform: translateX(4px);
+}
+
+/* Efeito de ripple */
+.action-button::after {
   content: "";
-  position: absolute;
-  height: 100%; /* Aumenta para a altura total */
-  width: 4px; /* Aumenta a largura da linha */
-  background-color: #ffffff;
-  left: 50%;
-  transform: translateX(-50%);
+  @apply absolute inset-0 rounded-lg opacity-0;
+  background: radial-gradient(circle at center, rgba(255, 255, 255, 0.4) 0%, transparent 70%);
+  transform: scale(0);
+  transition: transform 0.5s ease-out, opacity 0.3s ease-out;
 }
 
-
-/* Estilo das colunas de conteúdo */
-.content-section {
-  flex: 1;
-  align-items: center;
-  justify-content: center;
-  max-width: 45%; /* Limita a largura das colunas para não ocupar muito espaço */
+.action-button:active::after {
+  transform: scale(2);
+  opacity: 0.2;
+  transition: 0s;
 }
 
-.carousel-indicators { /* Substitua '.carousel-indicators' pelo seletor correto */
-  display: none;
+/* Variáveis CSS */
+:root {
+  --primary: #FF6B00;
+  --primary-dark: #E65000;
+  --primary-light: #FF8533;
 }
 
-.dot {
-  display: none;
-}
-
-
-.content-section:first-child {
-  text-align: right; /* Alinha o conteúdo da coluna esquerda à direita */
-  padding-right: 20px; /* Aproxima o conteúdo da divisória */
-}
-
-.content-section:last-child {
-  text-align: left; /* Alinha o conteúdo da coluna direita à esquerda */
-  padding-left: 20px; /* Aproxima o conteúdo da divisória */
-}
-
-.content-section ul {
-  list-style: disc;
-  padding-left: 20px;
-  margin: 0;
-}
-
-.product-info h3 {
-  font-size: 2.0rem;
-  text-align: center;
-  width: 100%;
-  margin: 20px 0;
-}
-
-.slick-prev {
-  left: -80px; /* Aumente esse valor para afastar ainda mais a seta à esquerda */
-}
-
-.slick-next {
-  right: -80px; /* Aumente esse valor para afastar ainda mais a seta à direita */
-}
-
-.slick-dots li button:before {
-  font-size: 16px; /* Aumenta o tamanho das bolinhas */
-  color: white; /* Torna as bolinhas brancas */
-  opacity: 1; /* Garante que a opacidade seja 100% */
-}
-
-/* Estilo para os indicadores ativos */
-.slick-dots li.slick-active button:before {
-  font-size: 18px; /* Tamanho maior para o indicador ativo */
-  color: orange; /* Cor branca também para o ativo */
-  opacity: 1;
-}
-
-/* Ajuste do espaçamento entre as bolinhas */
-.slick-dots {
-  bottom: 20px; /* Ajuste a posição vertical das bolinhas */
-}
-
-
-.slick-prev:before,
-.slick-next:before
-{
-    font-family: 'slick';
-    font-size: 40px !important;
-    line-height: 1;
-
-    
-
-    opacity: .75;
-    color: white;
-
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-}
-
-.product-info h4 {
-  font-size: 1.0rem;
-  color: #ffa500; /* Laranja */
-  margin: 1rem 0;
-}
-
-.content-section ul {
-  list-style: none; /* Remove as bolinhas */
-  padding-left: 0; /* Remove o recuo à esquerda */
-  margin: 0;
-}
-
-
-.product-info li {
-  font-size: 0.8rem;
-  margin-bottom: 0.5rem;
-}
-
-/* Ajuste do título em telas maiores */
-@media (min-width: 1024px) {
-  .title-margin {
-    margin-bottom: 5rem !important; /* Ajuste conforme necessário */
+/* Ajustes responsivos para os botões */
+@media (max-width: 768px) {
+  .product-actions {
+    @apply flex-col gap-2;
   }
+
+  .action-button {
+    @apply w-full py-3;
+  }
+}
+
+/* Animação de rotação */
+@keyframes rotate-360 {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.rotate-360 {
+  animation: rotate-360 0.5s ease-out;
+}
+
+/* Efeito hover no card */
+.product-card:hover {
+  @apply border-primary/20 bg-[#1a1a1a]/80;
+  box-shadow: 0 0 30px rgba(255, 107, 0, 0.1);
+  transform: translateY(-4px);
+}
+
+/* Animação de entrada */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fadeInUp {
+  animation: fadeInUp 0.6s ease-out forwards;
+}
+
+/* Preview button */
+.preview-button {
+  @apply absolute top-4 left-4 w-5 h-5 md:w-6 md:h-6 rounded-full bg-black/50 
+         flex items-center justify-center text-white opacity-0
+         transition-all duration-300 backdrop-blur-sm
+         hover:bg-primary/80;
+  transform: translateY(-10px);
+}
+
+.product-card:hover .preview-button {
+  @apply opacity-100;
+  transform: translateY(0);
+}
+
+/* Preview overlay */
+.preview-overlay {
+  @apply fixed inset-0 bg-black/90 z-50 flex items-center justify-center
+         backdrop-blur-sm;
+  animation: fadeIn 0.3s ease-out;
+}
+
+.preview-content {
+  @apply relative w-full h-full max-w-[90vw] mx-auto my-8;
+}
+
+.preview-scroll {
+  @apply w-full h-full overflow-y-auto overflow-x-hidden;
+  scroll-behavior: smooth;
+}
+
+.preview-image {
+  @apply w-full h-auto;
+}
+
+.preview-close {
+  @apply absolute top-4 right-4 w-10 h-10 rounded-full bg-black/50
+         flex items-center justify-center text-white text-xl
+         hover:bg-primary/80 transition-all duration-300
+         backdrop-blur-sm z-10;
+}
+
+/* Responsividade */
+@media (min-width: 1024px) {
+  .products-grid {
+    @apply gap-12;
+  }
+
+  .product-card {
+    @apply max-w-xl mx-auto;
+  }
+}
+
+/* Scroll personalizado */
+.products-section::-webkit-scrollbar {
+  width: 6px;
+}
+
+.products-section::-webkit-scrollbar-track {
+  @apply bg-black/20;
+}
+
+.products-section::-webkit-scrollbar-thumb {
+  @apply bg-primary/30 rounded-full hover:bg-primary/50 transition-colors duration-300;
+}
+
+/* Ajuste do espaçamento dos cards */
+.products-grid {
+  @apply grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 mt-8;
+}
+
+/* Ajuste do tamanho dos ícones nos botões */
+.action-button svg {
+  @apply w-2.5 h-2.5;
+}
+
+/* Ajuste do preview button */
+.preview-button {
+  @apply w-5 h-5 md:w-6 md:h-6;
+}
+
+.preview-button svg {
+  @apply w-2.5 h-2.5 md:w-3 md:h-3;
+}
+
+/* Estilos do carrossel mobile */
+.mobile-slider {
+  @apply px-4 -mx-4;
+}
+
+.slider-item {
+  @apply px-2;
+}
+
+/* Customização dos dots do carrossel */
+.mobile-slider .slick-dots {
+  @apply bottom-0 mb-[-20px];
+}
+
+.mobile-slider .slick-dots li {
+  @apply mx-1;
+}
+
+.custom-dot {
+  @apply w-2 h-2 rounded-full bg-neutral-700 transition-all duration-300;
+}
+
+.slick-active .custom-dot {
+  @apply w-4 bg-primary;
+}
+
+/* Ajustes responsivos */
+@media (max-width: 768px) {
+  .products-section {
+    @apply pb-12;
+  }
+
+  .product-card {
+    @apply mx-auto max-w-sm;
+  }
+
+  .product-content {
+    @apply p-4;
+  }
+
+  .product-metrics {
+    @apply p-3 gap-3;
+  }
+
+  .product-features {
+    @apply mb-4;
+  }
+
+  .product-tech {
+    @apply mb-4;
+  }
+
+  .product-actions {
+    @apply flex-col gap-2;
+  }
+
+  .action-button {
+    @apply w-full justify-center;
+  }
+}
+
+/* Ajuste do container para mobile */
+@media (max-width: 768px) {
+  .products-content {
+    @apply py-8;
+  }
+
+  .mobile-slider {
+    @apply mt-4;
+  }
+
+  .mobile-slider .slick-list {
+    @apply overflow-visible;
+  }
+
+  .mobile-slider .slick-track {
+    @apply flex gap-4;
+  }
+}
+
+/* Animação de slide */
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateX(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.slider-item {
+  animation: slideIn 0.5s ease-out forwards;
 }

@@ -1,157 +1,229 @@
-import React, { Component } from 'react';
+import React, { useState, useEffect } from 'react';
 import Slider from 'react-slick';
-import plataforma_1 from '../assets/images/plataforma_1.png';
-import 'slick-carousel/slick/slick.css';
-import 'slick-carousel/slick/slick-theme.css';
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 import './ProductsSection.css';
+import { FiCheck, FiArrowRight, FiGlobe, FiMaximize2, FiPlay } from 'react-icons/fi';
+import whitelabelImage from '../assets/images/plataforma_1.png';
+import exchangeImage from '../assets/images/plataforma_1.png';
 
 const products = [
   {
-    title: 'Plataforma tipo 1',
-    image: plataforma_1,
-    link: '/product-details/1',
-    benefits: [
-      'E-Sports',
-      'Cassino',
-      'Live'
+    id: 1,
+    title: "Plataforma White Label",
+    description: "Solução completa de cassino online com interface personalizável e sistema de gestão avançado",
+    image: whitelabelImage,
+    status: "Mais Vendido",
+    features: [
+      "Interface totalmente personalizável",
+      "Múltiplos provedores de jogos",
+      "Sistema de afiliados integrado",
+      "Gestão completa de usuários",
+      "Relatórios em tempo real",
+      "Suporte 24/7"
     ],
-    contents: [
-      'Plataforma completa',
-      'Suporte dedicado',
-      'Atualizações automáticas',
-      'Integração com provedores',
+    metrics: [
+      { value: "10 dias", label: "Implementação" },
+      { value: "99.9%", label: "Uptime" },
+      { value: "24/7", label: "Suporte" },
+      { value: "100%", label: "Personalizável" }
     ],
+    technologies: [
+      "React", "Node.js", "PostgreSQL", "Redis", "Docker", "AWS"
+    ],
+    demoUrl: "https://demo-whitelabel.exemplo.com",
+    previewImage: whitelabelImage
   },
   {
-    title: 'Plataforma tipo 2',
-    image: plataforma_1,
-    link: '/product-details/2',
-    benefits: [
-      'E-Sports',
-      'Cassino',
-      'Live'
+    id: 2,
+    title: "Plataforma de Exchange",
+    description: "Exchange de apostas esportivas P2P com odds dinâmicas e mercados em tempo real",
+    image: exchangeImage,
+    status: "Novo",
+    features: [
+      "Trading esportivo P2P",
+      "Odds dinâmicas em tempo real",
+      "Sistema de matching automático",
+      "Liquidez compartilhada",
+      "API para traders",
+      "Dashboard profissional"
     ],
-    contents: [
-      'Personalização avançada',
-      'Analytics em tempo real',
-      'Ferramentas de marketing',
-      'Segurança aprimorada',
+    metrics: [
+      { value: "15 dias", label: "Implementação" },
+      { value: "99.9%", label: "Uptime" },
+      { value: "0.1s", label: "Latência" },
+      { value: "1M+", label: "Transações/dia" }
     ],
-  },
+    technologies: [
+      "Next.js", "Go", "MongoDB", "RabbitMQ", "Kubernetes", "GCP"
+    ],
+    demoUrl: "https://demo-exchange.exemplo.com",
+    previewImage: exchangeImage
+  }
 ];
 
-class ProductsSection extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      activeSlide: 0,
-    };
-    this.sliderRef = React.createRef();
-  }
+const ProductCard = ({ product, openModal }) => {
+  const [isPreviewOpen, setIsPreviewOpen] = useState(false);
 
-  handleBeforeChange = (current, next) => {
-    this.setState({ activeSlide: next });
+  return (
+    <div className="product-card group animate-fadeInUp">
+      <div className="product-header">
+        <img 
+          src={product.image} 
+          alt={product.title} 
+          className="product-image"
+        />
+        <div className="product-overlay" />
+        {product.status && (
+          <span className="product-badge">{product.status}</span>
+        )}
+        
+        {/* Preview Button */}
+        <button 
+          className="preview-button"
+          onClick={() => setIsPreviewOpen(true)}
+          title="Ver site completo"
+        >
+          <FiMaximize2 />
+        </button>
+      </div>
+
+      <div className="product-content">
+        <h3 className="product-title">{product.title}</h3>
+        <p className="product-description">{product.description}</p>
+
+        <div className="product-metrics">
+          {product.metrics.map((metric, index) => (
+            <div key={index} className="metric-item">
+              <div className="metric-value">{metric.value}</div>
+              <div className="metric-label">{metric.label}</div>
+            </div>
+          ))}
+        </div>
+
+        <div className="product-features">
+          {product.features.map((feature, index) => (
+            <div key={index} className="feature-item">
+              <FiCheck className="feature-icon" />
+              <span>{feature}</span>
+            </div>
+          ))}
+        </div>
+
+        <div className="product-tech">
+          {product.technologies.map((tech, index) => (
+            <span key={index} className="tech-tag">{tech}</span>
+          ))}
+        </div>
+
+        <div className="product-actions">
+          <a 
+            href={product.demoUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="action-button demo-action group"
+          >
+            <FiPlay className="transition-transform duration-300 group-hover:rotate-360" />
+            <span>Ver Demo</span>
+          </a>
+          <button 
+            className="action-button primary-action group"
+            onClick={() => openModal(product.title)}
+          >
+            <span>Solicitar Proposta</span>
+            <FiArrowRight className="transition-transform duration-300 group-hover:translate-x-1" />
+          </button>
+        </div>
+      </div>
+
+      {/* Full Preview Overlay */}
+      {isPreviewOpen && (
+        <div className="preview-overlay" onClick={() => setIsPreviewOpen(false)}>
+          <div className="preview-content" onClick={e => e.stopPropagation()}>
+            <button 
+              className="preview-close"
+              onClick={() => setIsPreviewOpen(false)}
+            >
+              ✕
+            </button>
+            <div className="preview-scroll">
+              <img 
+                src={product.previewImage} 
+                alt={`${product.title} preview`}
+                className="preview-image"
+              />
+            </div>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+};
+
+const ProductsSection = ({ openModal }) => {
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  const sliderSettings = {
+    dots: true,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    arrows: false,
+    autoplay: true,
+    autoplaySpeed: 5000,
+    pauseOnHover: true,
+    customPaging: (i) => (
+      <div className="custom-dot"></div>
+    )
   };
 
-  render() {
-    const { openModal } = this.props;
-    const { activeSlide } = this.state;
+  return (
+    <section className="products-section">
+      <div className="products-content">
+        <div className="text-center">
+          <h2 className="text-2xl md:text-3xl font-bold text-white mb-3">
+            Nossas Soluções
+          </h2>
+          <p className="text-sm md:text-base text-neutral-400 max-w-2xl mx-auto mb-8">
+            Escolha a solução ideal para seu negócio com nossa linha completa de produtos
+            para iGaming. Tecnologia de ponta com suporte especializado.
+          </p>
+        </div>
 
-    const sliderSettings = {
-      dots: true,
-      infinite: true,
-      speed: 500,
-      slidesToShow: 1,
-      slidesToScroll: 1,
-      centerMode: true,
-      centerPadding: '15%',
-      nextArrow: <div className="slick-arrow slick-next">&#x2192;</div>,
-      prevArrow: <div className="slick-arrow slick-prev">&#x2190;</div>,
-      beforeChange: this.handleBeforeChange,
-      responsive: [
-        {
-          breakpoint: 1024, // para telas grandes (tablets e desktop)
-          settings: {
-            centerMode: true,
-            centerPadding: '20%',
-            slidesToShow: 1,
-          },
-        },
-        {
-          breakpoint: 768, // para telas médias (tablets)
-          settings: {
-            centerMode: true,
-            centerPadding: '10%',
-            slidesToShow: 1,
-          },
-        },
-        {
-          breakpoint: 480, // para telas pequenas (celulares)
-          settings: {
-            centerMode: false,  // Desativa o "centerMode" no mobile
-            slidesToShow: 1, // Mostra apenas um item
-            slidesToScroll: 1, // Só vai para o próximo slide quando o atual terminar
-          },
-        },
-      ],
-    };
-
-    return (
-      <div>
-        <section className="products h-screen flex flex-col justify-center bg-[#1E1E1E] overflow-x-hidden">
-          <div className="container mx-auto text-center bg-[#1E1E1E] px-4 sm:px-10">
-            {/* Título responsivo */}
-            <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-orange-500 mb-3 title-margin">
-              Nossos Produtos
-            </h2>
-
-            <Slider {...sliderSettings} ref={this.sliderRef} className="mx-auto w-full max-w-7xl">
-              {products.map((product, index) => (
-                <div key={index} className="px-4">
-                  <div
-                    className={`product-card ${index === activeSlide ? 'active-slide' : ''}`}
-                    style={{
-                      backgroundImage: `url(${product.image})`,
-                    }}
-                  >
-                    <div className="overlay px-5">Passe o mouse para visualizar</div>
-                    <div className="product-info">
-                      <h3>{product.title}</h3>
-                      <div className="content-columns">
-                        <div className="content-section">
-                          <h4 className="mb-3">Benefícios</h4>
-                          <ul>
-                            {product.benefits.map((benefit, i) => (
-                              <li key={i}>{benefit}</li>
-                            ))}
-                          </ul>
-                        </div>
-                        <div className="content-section">
-                          <h4>Conteúdo</h4>
-                          <ul>
-                            {product.contents.map((content, i) => (
-                              <li key={i}>{content}</li>
-                            ))}
-                          </ul>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
+        {isMobile ? (
+          <div className="mobile-slider">
+            <Slider {...sliderSettings}>
+              {products.map(product => (
+                <div key={product.id} className="slider-item">
+                  <ProductCard product={product} openModal={openModal} />
                 </div>
               ))}
             </Slider>
-
-            <button
-              onClick={() => openModal('Entre em Contato')}
-              className="btn bg-orange-500 text-white py-3 px-24 text-xl sm:text-2xl mt-12 rounded-lg hover:bg-orange-400 transition-all hidden md:block mx-auto"
-            >
-              Entre em Contato
-            </button>
           </div>
-        </section>
+        ) : (
+          <div className="products-grid">
+            {products.map(product => (
+              <ProductCard 
+                key={product.id} 
+                product={product} 
+                openModal={openModal}
+              />
+            ))}
+          </div>
+        )}
       </div>
-    );
-  }
-}
+    </section>
+  );
+};
 
 export default ProductsSection;

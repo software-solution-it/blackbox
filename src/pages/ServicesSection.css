@@ -1,17 +1,490 @@
-.fade-in-card {
+/* Base */
+.services-section {
+  @apply bg-[#121212] min-h-screen py-12 md:py-16 relative;
+  height: 100vh;
+  overflow-y: auto;
+  scroll-behavior: smooth;
+}
+
+.services-content {
+  @apply container mx-auto px-4 relative z-10;
+  overflow-y: visible; /* Remove o scroll interno */
+}
+
+/* Cabeçalho */
+.section-header {
+  @apply text-center mb-8 md:mb-12;
+}
+
+.section-title {
+  @apply text-2xl md:text-3xl font-bold text-white mb-3;
+}
+
+.section-subtitle {
+  @apply text-sm md:text-base text-neutral-400 max-w-2xl mx-auto;
+}
+
+/* Layout Principal */
+.services-layout {
+  @apply h-[calc(100%-100px)] relative;
+}
+
+/* Grid principal */
+.services-grid {
+  @apply grid md:grid-cols-12 gap-8 mt-8;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+/* Lista de serviços */
+.services-list {
+  @apply md:col-span-5;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(160px, 200px));
+  gap: 20px;
+  padding: 8px;
+  border-radius: 16px;
+  justify-content: center;
+  align-content: center;
+  margin: 0 auto;
+  width: fit-content;
+  backdrop-filter: blur(10px);
+}
+
+/* Cards de serviço */
+.service-card {
+  @apply flex flex-col p-4 rounded-lg bg-[#1a1a1a]/70 
+         border border-white/10 cursor-pointer transition-all duration-300
+         hover:bg-[#1a1a1a] hover:border-primary/30 hover:transform hover:scale-[1.02];
+  min-height: 120px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+
+.service-details-wrapper {
+  @apply md:col-span-7 sticky top-8 pl-2;
+}
+
+/* Cards de serviço */
+.services-cards {
+  @apply space-y-4;
+}
+
+.service-card {
+  @apply flex flex-col p-4 rounded-lg bg-[#1a1a1a]/70 
+         border border-white/10 cursor-pointer transition-all duration-300
+         hover:bg-[#1a1a1a] hover:border-primary/30 hover:transform hover:scale-[1.02];
+  min-height: 120px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.service-card.active {
+  @apply bg-[#1a1a1a] border-primary/40;
+  box-shadow: 0 0 20px rgba(255, 107, 0, 0.15);
+  transform: scale(1.02);
+}
+
+.service-icon {
+  @apply w-10 h-10 rounded-lg flex items-center justify-center text-white text-lg
+         transition-transform duration-300 mb-2;
+}
+
+.service-card:hover .service-icon {
+  transform: scale(1.1);
+}
+
+.service-info {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  height: 70px;
+}
+
+.service-info h3 {
+  @apply text-sm font-semibold text-white mb-1;
+}
+
+.service-info p {
+  @apply text-xs text-neutral-400 leading-relaxed;
+}
+
+.service-arrow {
+  @apply text-neutral-500 transition-transform duration-300;
+}
+
+.service-card:hover .service-arrow,
+.service-card.active .service-arrow {
+  @apply text-primary transform translate-x-1;
+}
+
+/* Detalhes do serviço */
+.service-details {
+  @apply p-6 md:p-8 rounded-xl bg-[#1a1a1a]/70 border border-white/10
+         transition-all duration-300 backdrop-blur-sm;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+}
+
+.detail-header {
+  @apply flex items-center gap-4 mb-8;
+}
+
+.detail-header h3 {
+  @apply text-2xl font-bold text-white;
+}
+
+.detail-icon {
+  display: none;
+}
+
+.detail-title {
+  @apply text-xl font-bold text-white mb-3;
+}
+
+.detail-description {
+  @apply text-base leading-relaxed text-neutral-300 mb-8;
+}
+
+/* Métricas */
+.detail-metrics {
+  @apply grid grid-cols-2 gap-6 mb-10;
+}
+
+.metric-card {
+  @apply p-5 rounded-xl bg-black/40 text-center border border-white/10
+         hover:border-primary/30 transition-all duration-300 hover:transform hover:scale-[1.03];
+  backdrop-filter: blur(8px);
+}
+
+.metric-value {
+  @apply text-2xl font-bold text-primary mb-2;
+}
+
+.metric-label {
+  @apply text-sm text-neutral-300;
+}
+
+/* Features */
+.detail-features {
+  @apply mb-10;
+}
+
+.detail-features h4 {
+  @apply text-lg font-semibold text-white mb-6;
+}
+
+.features-grid {
+  @apply grid grid-cols-2 gap-6;
+}
+
+.feature-item {
+  @apply flex items-center gap-3 text-sm text-neutral-200;
+}
+
+.feature-check {
+  @apply text-primary text-lg;
+}
+
+/* Botão de detalhes */
+.detail-button {
+  @apply w-full py-3 px-6 rounded-xl bg-primary text-white text-base font-medium
+         flex items-center justify-center gap-3 transition-all duration-300
+         hover:bg-primary-dark hover:scale-[1.02] relative overflow-hidden;
+  box-shadow: 0 4px 15px rgba(255, 107, 0, 0.2);
+}
+
+.detail-button::after {
+  content: '';
+  @apply absolute inset-0 bg-white/10 opacity-0 transition-opacity duration-300;
+}
+
+.detail-button:hover::after {
+  @apply opacity-100;
+}
+
+.detail-button svg {
+  @apply transition-transform duration-300;
+}
+
+.detail-button:hover svg {
+  transform: translateX(4px);
+}
+
+/* Animações */
+@keyframes fadeIn {
+  from {
     opacity: 0;
-    transform: translateY(20px);
-    animation: fadeInUp 0.8s ease forwards;
+    transform: translateY(15px);
   }
-  
-  @keyframes fadeInUp {
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
-  
-  .invisible {
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateX(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes overlayFadeIn {
+  from {
     opacity: 0;
   }
+  to {
+    opacity: 1;
+  }
+}
+
+.animate-slideIn {
+  animation: slideIn 0.5s ease-out forwards;
+}
+
+.animate-fadeIn {
+  opacity: 0;
+  animation: fadeIn 0.5s ease-out forwards;
+}
+
+.service-details-overlay {
+  animation: overlayFadeIn 0.3s ease-out forwards;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+  .services-grid {
+    @apply grid-cols-1;
+  }
+
+  .services-list {
+    @apply flex flex-wrap gap-2 mb-6;
+  }
+
+  /* Ajustando os cards de serviço para mobile */
+  .service-card {
+    @apply w-[calc(50%-0.5rem)] flex-col items-start p-3;
+  }
+
+  .service-icon {
+    @apply w-10 h-10 text-base mb-2;
+  }
+
+  .service-info {
+    @apply w-full;
+  }
+
+  .service-info h3 {
+    @apply text-xs;
+  }
+
+  .service-info p {
+    @apply text-[10px];
+  }
+
+  .service-arrow {
+    display: none;
+  }
+
+  /* Ajustando os detalhes do serviço para mobile */
+  .service-details-wrapper {
+    @apply mt-4;
+  }
+
+  .service-details {
+    @apply p-4;
+  }
+
+  .detail-metrics {
+    @apply grid-cols-2 gap-3;
+  }
+
+  .metric-card {
+    @apply p-3;
+  }
+
+  .metric-value {
+    @apply text-base;
+  }
+
+  .metric-label {
+    @apply text-[10px];
+  }
+
+  .features-grid {
+    @apply grid-cols-1 gap-2;
+  }
+
+  .feature-item {
+    @apply text-[11px];
+  }
+
+  .detail-button {
+    @apply py-2 text-xs;
+  }
+
+  .services-content {
+    height: calc(100vh - 2rem);
+    padding-bottom: 2rem;
+  }
+
+  .mobile-services {
+    @apply h-full overflow-y-auto;
+  }
+
+  .mobile-services::-webkit-scrollbar {
+    width: 4px;
+  }
+
+  .mobile-services::-webkit-scrollbar-track {
+    @apply bg-black/20;
+    border-radius: 10px;
+  }
+
+  .mobile-services::-webkit-scrollbar-thumb {
+    @apply bg-primary/30 rounded-full hover:bg-primary/50;
+    transition: background-color 0.3s ease;
+  }
+
+  .services-section {
+    padding-bottom: 2rem;
+  }
+
+  .mobile-services {
+    @apply overflow-visible; /* Remove scroll interno no mobile */
+  }
+
+  .services-list {
+    grid-template-columns: repeat(2, minmax(140px, 1fr));
+    gap: 6px;
+    padding: 6px;
+  }
+
+  .service-card {
+    @apply p-3;
+    min-height: 100px;
+  }
+
+  .service-details {
+    @apply p-4 mt-6;
+  }
+
+  .metric-card {
+    @apply p-3;
+  }
+
+  /* Melhorando scroll no mobile */
+  .services-section {
+    @apply py-8;
+  }
+
+  .mobile-services::-webkit-scrollbar {
+    width: 3px;
+  }
+
+  .mobile-services::-webkit-scrollbar-thumb {
+    @apply bg-primary/40;
+  }
+}
+
+/* Estilizando a única barra de rolagem */
+.services-section::-webkit-scrollbar {
+  width: 5px;
+}
+
+.services-section::-webkit-scrollbar-track {
+  @apply bg-black/20;
+  border-radius: 10px;
+}
+
+.services-section::-webkit-scrollbar-thumb {
+  @apply bg-primary/40 rounded-full hover:bg-primary/60;
+  transition: background-color 0.2s ease;
+}
+
+/* Vista Detalhada */
+.detailed-view {
+  @apply fixed inset-0 bg-[#121212] z-50 overflow-y-auto;
+}
+
+.back-button {
+  @apply fixed top-6 left-6 flex items-center gap-2 text-neutral-400 
+         hover:text-white transition-colors duration-300 z-10;
+}
+
+.detailed-content {
+  @apply max-w-5xl mx-auto px-4 py-20;
+}
+
+/* Header Detalhado */
+.detailed-header {
+  @apply flex items-center gap-6 mb-12;
+}
+
+.detailed-icon {
+  @apply w-20 h-20 rounded-2xl flex items-center justify-center text-white text-3xl;
+}
+
+.detailed-title {
+  @apply text-3xl md:text-4xl font-bold text-white;
+}
+
+/* Métricas Detalhadas */
+.detailed-metrics {
+  @apply grid grid-cols-2 md:grid-cols-4 gap-6 mb-16;
+}
+
+.detailed-metric-card {
+  @apply bg-[#1a1a1a] rounded-xl p-6 text-center
+         border border-white/5 hover:border-primary/20
+         transition-all duration-300 hover:transform hover:scale-105;
+}
+
+/* Features Detalhadas */
+.detailed-features {
+  @apply mb-16;
+}
+
+.detailed-features h3 {
+  @apply text-xl font-bold text-white mb-8;
+}
+
+.detailed-features-grid {
+  @apply grid md:grid-cols-2 gap-8;
+}
+
+.detailed-feature-item {
+  @apply flex gap-4 p-6 rounded-xl bg-[#1a1a1a]/50
+         border border-white/5 hover:border-primary/20
+         transition-all duration-300 hover:transform hover:translate-y-[-4px];
+}
+
+.feature-icon {
+  @apply w-8 h-8 rounded-full bg-primary/10 text-primary
+         flex items-center justify-center text-lg;
+}
+
+.detailed-feature-item h4 {
+  @apply text-white font-semibold mb-2;
+}
+
+.detailed-feature-item p {
+  @apply text-sm text-neutral-400;
+}
+
+/* CTA Final */
+.detailed-cta {
+  @apply mt-16 text-center;
+}
+
+.cta-button {
+  @apply px-8 py-4 bg-primary text-white rounded-xl
+         flex items-center gap-2 mx-auto
+         hover:bg-primary-dark transition-all duration-300
+         transform hover:scale-105;
+}
   

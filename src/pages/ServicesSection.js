@@ -1,166 +1,278 @@
-import React, { Component } from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {
-  faLock,
-  faPencilAlt,
-  faHeadset,
-  faUserTie,
-  faDollarSign,
-} from '@fortawesome/free-solid-svg-icons';
+import React, { useState, useEffect } from 'react';
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+import './ServicesSection.css';
+import { 
+  FiMonitor, FiServer, FiShield, FiUsers, 
+  FiArrowRight, FiArrowLeft, FiCheck 
+} from 'react-icons/fi';
+import ServiceDetails from '../components/ServiceDetails';
 
 const services = [
   {
-    title: 'Segurança',
-    description: 'Garantimos sua plataforma com extrema segurança para você e seu cliente.',
-    icon: faLock,
-    advantages: [
-      'Protocolos de segurança avançados para proteção de dados',
-      'Autenticação de dois fatores para maior segurança de acesso',
-      'Monitoramento contínuo contra fraudes e acessos não autorizados',
-      'Criptografia de ponta a ponta para transações seguras',
+    id: 1,
+    icon: <FiMonitor />,
+    title: "Interface Personalizada",
+    shortDesc: "Design único e responsivo",
+    description: "Interface totalmente customizável de acordo com sua marca, oferecendo a melhor experiência para seus usuários em qualquer dispositivo.",
+    features: [
+      "Design responsivo",
+      "Temas personalizáveis",
+      "UX/UI otimizada",
+      "Integração perfeita"
     ],
+    metrics: [
+      { value: "100%", label: "Customizável" },
+      { value: "99%", label: "Satisfação" }
+    ],
+    color: "from-blue-500 to-purple-500"
   },
   {
-    title: 'Customização',
-    description: 'Não abra mão do seu diferencial. Deixe a plataforma com a sua cara.',
-    icon: faPencilAlt,
-    advantages: [
-      'Opções de design totalmente personalizáveis',
-      'Temas exclusivos com paletas de cores e logotipo',
-      'Customização de layout responsivo para dispositivos móveis',
-      'Experiência de usuário otimizada com base na identidade da marca',
+    id: 2,
+    icon: <FiServer />,
+    title: "Infraestrutura Robusta",
+    shortDesc: "Alta disponibilidade garantida",
+    description: "Infraestrutura escalável e redundante, garantindo máxima disponibilidade e performance para sua operação.",
+    features: [
+      "Servidores dedicados",
+      "Load balancing",
+      "Backup automático",
+      "Monitoramento 24/7"
     ],
+    metrics: [
+      { value: "99.9%", label: "Uptime" },
+      { value: "24/7", label: "Suporte" }
+    ],
+    color: "from-green-500 to-teal-500"
   },
   {
-    title: 'Suporte 24/7',
-    description: 'Estamos à disposição para garantir que sua plataforma esteja em alta performance.',
-    icon: faHeadset,
-    advantages: [
-      'Equipe de suporte dedicada disponível 24/7',
-      'Atendimento por chat, e-mail e telefone',
-      'Resolução rápida de problemas técnicos e operacionais',
-      'Monitoramento e suporte proativo para evitar interrupções',
+    id: 3,
+    icon: <FiShield />,
+    title: "Segurança Avançada",
+    shortDesc: "Proteção total dos dados",
+    description: "Sistema de segurança multicamada com as mais avançadas tecnologias de proteção e criptografia.",
+    features: [
+      "Criptografia SSL",
+      "Firewall dedicado",
+      "Anti-fraude",
+      "Backup criptografado"
     ],
+    metrics: [
+      { value: "100%", label: "Dados protegidos" },
+      { value: "0", label: "Vazamentos" }
+    ],
+    color: "from-red-500 to-pink-500"
   },
   {
-    title: 'Consultoria Especializada',
-    description: 'Consultoria em conformidade regulatória e legislação além de análise de mercado.',
-    icon: faUserTie,
-    advantages: [
-      'Consultoria para adequação às regulamentações locais',
-      'Análise de mercado e insights estratégicos',
-      'Planejamento de marketing e atração de usuários',
-      'Assessoria em parcerias e afiliações no setor',
+    id: 4,
+    icon: <FiUsers />,
+    title: "Gestão de Usuários",
+    shortDesc: "Controle total de acessos",
+    description: "Sistema completo de gestão de usuários com múltiplos níveis de acesso e relatórios detalhados.",
+    features: [
+      "Múltiplos perfis",
+      "Logs detalhados",
+      "Autenticação 2FA",
+      "Gestão de permissões"
     ],
-  },
-  {
-    title: 'Gateway de Pagamento',
-    description: 'Seguros e certificados, com integração para diversas moedas e criptomoedas.',
-    icon: faDollarSign,
-    advantages: [
-      'Suporte a múltiplas moedas, incluindo criptomoedas',
-      'Processamento de pagamentos com alta segurança',
-      'Integração com diversos provedores de pagamento',
-      'Pagamentos rápidos e automatizados para clientes',
+    metrics: [
+      { value: "1M+", label: "Usuários" },
+      { value: "100%", label: "Controle" }
     ],
-  },
+    color: "from-yellow-500 to-orange-500"
+  }
 ];
 
-class ServicesSection extends Component {
-  state = {
-    activeService: services[1], // Customização como padrão
-    selectedService: 'Customização', // Definir o serviço selecionado no select
+const ServiceCard = ({ service, isActive, onClick }) => (
+  <div
+    className={`service-card ${isActive ? 'active' : ''}`}
+    onClick={onClick}
+  >
+    <div className={`service-icon bg-gradient-to-br ${service.color}`}>
+      {service.icon}
+    </div>
+    <div className="service-info">
+      <h3>{service.title}</h3>
+      <p>{service.shortDesc}</p>
+    </div>
+  </div>
+);
+
+const ServicesSection = () => {
+  const [selectedService, setSelectedService] = useState(services[0]);
+  const [isAnimating, setIsAnimating] = useState(false);
+  const [showDetails, setShowDetails] = useState(false);
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  const sliderSettings = {
+    dots: true,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    arrows: false,
+    autoplay: true,
+    autoplaySpeed: 3000,
+    customPaging: i => (
+      <div className="custom-dot"></div>
+    )
   };
 
-  handleServiceChange = (e) => {
-    const selectedService = e.target.value;
-    const activeService = services.find(service => service.title === selectedService);
-    this.setState({ selectedService, activeService });
-  };
+  if (showDetails) {
+    return <ServiceDetails service={selectedService} onClose={() => setShowDetails(false)} />;
+  }
 
-  render() {
-    const { activeService, selectedService } = this.state;
-    return (
-      <div>
-        <section className="services min-h-screen flex flex-col justify-center bg-[#1E1E1E] text-white relative px-4 sm:px-10 py-20">
-          <div className="container mx-auto flex flex-col">
-            <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-10 sm:mb-20">
-              Conheça <span className="text-orange-500">nossos serviços</span>
-            </h2>
+  return (
+    <section className="services-section">
+      <div className="services-content">
+        {/* Header */}
+        <div className="section-header">
+          <span className="section-badge">Nossos Serviços</span>
+          <h2 className="section-title">
+            Soluções <span className="text-gradient">Completas</span> para seu Negócio
+          </h2>
+          <p className="section-description">
+            Oferecemos uma gama completa de serviços para impulsionar sua plataforma de iGaming
+          </p>
+        </div>
 
-            <div className="flex flex-col lg:flex-row gap-8 px-4">
-              {/* Select para dispositivos móveis */}
-              <div className="block lg:hidden mb-6">
-                <select
-                  value={selectedService}
-                  onChange={this.handleServiceChange}
-                  className="w-full p-4 text-lg rounded-lg bg-orange-600 text-white"
+        {isMobile ? (
+          // Mobile View
+          <div className="mobile-services">
+            <div className="services-list">
+              {services.map((service) => (
+                <div
+                  key={service.id}
+                  className={`service-card ${selectedService.id === service.id ? 'active' : ''}`}
+                  onClick={() => setSelectedService(service)}
                 >
-                  {services.map((service, index) => (
-                    <option key={index} value={service.title}>
-                      {service.title}
-                    </option>
-                  ))}
-                </select> 
-              </div>
-
-              {/* Grid de Serviços para desktop */}
-              <div className="hidden lg:flex flex-wrap justify-start gap-6 lg:w-2/3">
-                {services.map((service, index) => (
-                  <div
-                    key={index}
-                    onClick={() => this.setState({ activeService: service })}
-                    className={`p-6 rounded-lg shadow-lg cursor-pointer flex flex-col items-center text-center transition-transform duration-300 transform hover:scale-105 ${
-                      activeService.title === service.title
-                        ? 'bg-orange-500 text-white'
-                        : 'bg-gray-800 hover:bg-orange-400 hover:text-white'
-                    }`}
-                    style={{
-                      width: '100%', // Utiliza a largura total disponível dentro do grid
-                      maxWidth: '200px', // Garante o tamanho máximo do card
-                      justifyContent: 'center',
-                      alignItems: 'center',
-                      maxHeight: '200px', // Garante que o card não ultrapasse essa altura
-                      flex: '1 1 200px', // Flexível para responsividade
-                    }}
-                  >
-                    <FontAwesomeIcon
-                      icon={service.icon}
-                      size="2x"
-                      className={`mb-4 ${
-                        activeService.title === service.title
-                          ? 'text-white'
-                          : 'text-orange-500'
-                      }`}
-                    />
-                    <h3 className="text-lg sm:text-xl font-semibold">{service.title}</h3>
+                  <div className={`service-icon bg-gradient-to-br ${service.color}`}>
+                    {service.icon}
                   </div>
-                ))}
-              </div>
+                  <div className="service-info">
+                    <h3>{service.title}</h3>
+                    <p>{service.shortDesc}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
 
-              {/* Descrição detalhada */}
-              <div className="w-full lg:w-1/3 flex flex-col items-center lg:items-start text-left rounded-lg">
-                <h3 className="text-2xl sm:text-3xl font-bold text-orange-500 mb-4">
-                  {activeService.title}
-                </h3>
-                <p className="text-sm sm:text-lg text-gray-300 mb-4">
-                  {activeService.description}
-                </p>
-                <h4 className="text-xl sm:text-2xl font-semibold text-orange-500 mb-3">
-                  Vantagens
-                </h4>
-                <ul className="text-gray-300 list-disc list-inside text-sm sm:text-base">
-                  {activeService.advantages.map((advantage, i) => (
-                    <li key={i}>{advantage}</li>
+            <div className="service-details-wrapper">
+              <div className={`service-details ${isAnimating ? 'fade-out' : 'fade-in'}`}>
+                <div className="detail-header">
+                  <h3>{selectedService.title}</h3>
+                </div>
+
+                <p className="detail-description">{selectedService.description}</p>
+
+                <div className="detail-metrics">
+                  {selectedService.metrics.map((metric, index) => (
+                    <div key={index} className="metric-card">
+                      <div className="metric-value">{metric.value}</div>
+                      <div className="metric-label">{metric.label}</div>
+                    </div>
                   ))}
-                </ul>
+                </div>
+
+                <div className="detail-features">
+                  <h4>Recursos Inclusos</h4>
+                  <div className="features-grid">
+                    {selectedService.features.map((feature, index) => (
+                      <div key={index} className="feature-item">
+                        <div className="feature-check">
+                          <FiCheck />
+                        </div>
+                        <span>{feature}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                <button 
+                  className="detail-button"
+                  onClick={() => setShowDetails(true)}
+                >
+                  Saiba mais
+                  <FiArrowRight />
+                </button>
               </div>
             </div>
           </div>
-        </section>
+        ) : (
+          // Desktop View
+          <div className="services-grid">
+            <div className="services-list">
+              {services.map((service) => (
+                <ServiceCard
+                  key={service.id}
+                  service={service}
+                  isActive={selectedService.id === service.id}
+                  onClick={() => {
+                    setIsAnimating(true);
+                    setTimeout(() => {
+                      setSelectedService(service);
+                      setIsAnimating(false);
+                    }, 300);
+                  }}
+                />
+              ))}
+            </div>
+
+            <div className="service-details-wrapper">
+              <div className={`service-details ${isAnimating ? 'fade-out' : 'fade-in'}`}>
+                <div className="detail-header">
+                  <h3>{selectedService.title}</h3>
+                </div>
+
+                <p className="detail-description">{selectedService.description}</p>
+
+                <div className="detail-metrics">
+                  {selectedService.metrics.map((metric, index) => (
+                    <div key={index} className="metric-card">
+                      <div className="metric-value">{metric.value}</div>
+                      <div className="metric-label">{metric.label}</div>
+                    </div>
+                  ))}
+                </div>
+
+                <div className="detail-features">
+                  <h4>Recursos Inclusos</h4>
+                  <div className="features-grid">
+                    {selectedService.features.map((feature, index) => (
+                      <div key={index} className="feature-item">
+                        <div className="feature-check">
+                          <FiCheck />
+                        </div>
+                        <span>{feature}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                <button 
+                  className="detail-button"
+                  onClick={() => setShowDetails(true)}
+                >
+                  Saiba mais
+                  <FiArrowRight />
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
       </div>
-    );
-  }
-}
+    </section>
+  );
+};
 
 export default ServicesSection;
