@@ -7,6 +7,7 @@ import AdditionalServicesSection from './AdditionalServicesSection';
 import AboutUsSection from './AboutUsSection';
 import ProvidersSection from './ProvidersSection';
 import ModalComponent from './ModalComponent';
+import NavigationMenu from '../components/NavigationMenu';
 
 const HomePage = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -14,40 +15,41 @@ const HomePage = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [activeSection, setActiveSection] = useState(0);
   const [scrollProgress, setScrollProgress] = useState(0);
+  const [isScrolled, setIsScrolled] = useState(false);
 
   const sections = [
     {
-      id: 'intro',
+      id: 'home',
       component: IntroSection,
       bgColor: '#1E1E1E',
       gradientTo: '#FF6B00'
     },
     {
-      id: 'services',
+      id: 'serviços',
       component: ServicesSection,
       bgColor: '#FF6B00',
       gradientTo: '#374151'
     },
     {
-      id: 'products',
+      id: 'produtos',
       component: ProductsSection,
       bgColor: '#374151',
       gradientTo: '#FFFFFF'
     },
     {
-      id: 'providers',
+      id: 'provedores',
       component: ProvidersSection,
       bgColor: '#FFFFFF',
       gradientTo: '#1E1E1E'
     },
     {
-      id: 'additional',
+      id: 'roadmap',
       component: AdditionalServicesSection,
       bgColor: '#1E1E1E',
       gradientTo: '#FF6B00'
     },
     {
-      id: 'about',
+      id: 'sobre nós',
       component: AboutUsSection,
       bgColor: '#FF6B00',
       gradientTo: '#1E1E1E'
@@ -67,6 +69,19 @@ const HomePage = () => {
       document.body.style.overflow = '';
     };
   }, [isLoading]);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollPosition = window.scrollY;
+      setIsScrolled(scrollPosition > 50);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
 
   const openModal = (context) => {
     setModalContext(context);
@@ -96,6 +111,13 @@ const HomePage = () => {
 
   return (
     <div className="relative bg-[#121212]">
+      <NavigationMenu 
+        sections={sections}
+        activeSection={activeSection}
+        onSectionChange={scrollToSection}
+        isScrolled={isScrolled}
+      />
+
       {isLoading && (
         <div className="loading-screen">
           <div className="loading-content">
@@ -123,20 +145,6 @@ const HomePage = () => {
           </div>
         </div>
       )}
-
-      <nav className="fixed right-8 top-1/2 -translate-y-1/2 z-40">
-        <ul className="space-y-4">
-          {sections.map((section, index) => (
-            <li key={section.id}>
-              <button
-                onClick={() => scrollToSection(section.id, index)}
-                className={`nav-dot ${activeSection === index ? 'active' : ''}`}
-                aria-label={`Seção ${index + 1}`}
-              />
-            </li>
-          ))}
-        </ul>
-      </nav>
 
       <main className="relative">
         {sections.map((section, index) => (
@@ -184,6 +192,21 @@ const HomePage = () => {
           </section>
         ))}
       </main>
+
+      <div className="dots-navigation">
+        {sections.map((section, index) => (
+          <div 
+            key={section.id} 
+            className="dot-wrapper"
+            onClick={() => scrollToSection(section.id, index)}
+          >
+            <div className={`dot ${activeSection === index ? 'active' : ''}`} />
+            <span className="dot-label">
+              {section.id.charAt(0).toUpperCase() + section.id.slice(1)}
+            </span>
+          </div>
+        ))}
+      </div>
 
       {isModalOpen && (
         <ModalComponent closeModal={closeModal} modalContext={modalContext} />

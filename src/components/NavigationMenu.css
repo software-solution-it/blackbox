@@ -1,0 +1,338 @@
+.navigation-menu {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 80px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 50;
+  transition: all 0.3s ease;
+  opacity: 0.2;
+  background: rgba(18, 18, 18, 0.85);
+  backdrop-filter: blur(8px);
+}
+
+/* Menu visível apenas nestas condições */
+.navigation-menu.page-static,
+.navigation-menu:hover,
+.navigation-menu:focus-within,
+.navigation-menu.menu-open {
+  opacity: 1;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+  .mobile-menu-button {
+    display: block;
+    position: absolute;
+    right: 20px;
+    top: 20px;
+  }
+
+  .navigation-menu {
+    height: 70px;
+    background: rgba(18, 18, 18, 0.95);
+    opacity: 0.2; /* Mantém opacity baixa no mobile */
+  }
+
+  /* Mantém as mesmas condições de visibilidade no mobile */
+  .navigation-menu.page-static,
+  .navigation-menu:hover,
+  .navigation-menu:focus-within,
+  .navigation-menu.menu-open {
+    opacity: 1;
+  }
+
+  .nav-items-container {
+    position: fixed;
+    top: 0;
+    right: -100%;
+    width: 70%;
+    height: 100vh;
+    background: rgba(18, 18, 18, 0.98);
+    backdrop-filter: blur(10px);
+    flex-direction: column;
+    justify-content: center;
+    gap: 2rem;
+    padding: 2rem;
+    transition: 0.3s ease-in-out;
+    box-shadow: -5px 0 30px rgba(0, 0, 0, 0.3);
+  }
+
+  .nav-items-container.open {
+    right: 0;
+    opacity: 1;
+  }
+
+  /* Resto dos estilos mobile permanecem iguais */
+}
+
+.nav-items-container {
+  display: flex;
+  gap: 3rem;
+  padding: 0 2rem;
+  transition: all 0.3s ease;
+}
+
+.navigation-menu:hover .nav-items-container {
+  transform: scale(1.05);
+}
+
+.nav-item {
+  position: relative;
+  padding: 0.5rem 1rem;
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 0.95rem;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.navigation-menu:hover .nav-item {
+  color: white;
+}
+
+/* Efeito de hover melhorado */
+.nav-item::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.1);
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 0.3s ease;
+  z-index: -1;
+  border-radius: 4px;
+}
+
+.nav-item:hover::before {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+
+/* Linha inferior com efeito melhorado */
+.nav-item-line {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  width: 0;
+  height: 2px;
+  background: #ffffff;
+  transform: translateX(-50%);
+  transition: width 0.3s ease;
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+}
+
+.nav-item:hover .nav-item-line,
+.nav-item.active .nav-item-line {
+  width: 100%;
+}
+
+/* Item ativo com mais destaque */
+.nav-item.active {
+  color: #ffffff;
+  text-shadow: 
+    0 0 10px rgba(255, 255, 255, 0.3),
+    0 0 20px rgba(255, 255, 255, 0.2);
+}
+
+.navigation-menu:hover .nav-item.active {
+  transform: scale(1.1);
+  font-weight: 600;
+}
+
+/* Animação de entrada aprimorada */
+.nav-item {
+  opacity: 0;
+  animation: fadeInDown 0.5s ease forwards;
+}
+
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Efeito de brilho no hover */
+.navigation-menu:hover .nav-item:hover {
+  color: #ffffff;
+  text-shadow: 
+    0 0 10px rgba(255, 255, 255, 0.4),
+    0 0 20px rgba(255, 255, 255, 0.2);
+  transform: translateY(-2px) scale(1.1);
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+  .nav-items-container {
+    gap: 1.5rem;
+    padding: 0 1rem;
+  }
+
+  .nav-item {
+    font-size: 0.8rem;
+    padding: 0.4rem 0.8rem;
+  }
+}
+
+/* Delays na animação */
+.nav-item-wrapper:nth-child(1) .nav-item { animation-delay: 0.1s; }
+.nav-item-wrapper:nth-child(2) .nav-item { animation-delay: 0.2s; }
+.nav-item-wrapper:nth-child(3) .nav-item { animation-delay: 0.3s; }
+.nav-item-wrapper:nth-child(4) .nav-item { animation-delay: 0.4s; }
+.nav-item-wrapper:nth-child(5) .nav-item { animation-delay: 0.5s; }
+.nav-item-wrapper:nth-child(6) .nav-item { animation-delay: 0.6s; }
+
+/* Menu Mobile Styles */
+.mobile-menu-button {
+  display: none;
+  position: relative;
+  z-index: 60;
+  padding: 10px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+.hamburger-icon {
+  width: 25px;
+  height: 20px;
+  position: relative;
+  transform: rotate(0deg);
+  transition: .5s ease-in-out;
+}
+
+.hamburger-icon span {
+  display: block;
+  position: absolute;
+  height: 2px;
+  width: 100%;
+  background: #ffffff;
+  border-radius: 2px;
+  opacity: 1;
+  left: 0;
+  transform: rotate(0deg);
+  transition: .25s ease-in-out;
+}
+
+.hamburger-icon span:nth-child(1) { top: 0px; }
+.hamburger-icon span:nth-child(2) { top: 9px; }
+.hamburger-icon span:nth-child(3) { top: 18px; }
+
+/* Menu aberto */
+.hamburger-icon.open span:nth-child(1) {
+  top: 9px;
+  transform: rotate(135deg);
+}
+
+.hamburger-icon.open span:nth-child(2) {
+  opacity: 0;
+  left: -60px;
+}
+
+.hamburger-icon.open span:nth-child(3) {
+  top: 9px;
+  transform: rotate(-135deg);
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+  .mobile-menu-button {
+    display: block;
+    position: absolute;
+    right: 20px;
+    top: 20px;
+  }
+
+  .nav-items-container {
+    position: fixed;
+    top: 0;
+    right: -100%;
+    width: 70%;
+    height: 100vh;
+    background: rgba(18, 18, 18, 0.98);
+    backdrop-filter: blur(10px);
+    flex-direction: column;
+    justify-content: center;
+    gap: 2rem;
+    padding: 2rem;
+    transition: 0.3s ease-in-out;
+    box-shadow: -5px 0 30px rgba(0, 0, 0, 0.3);
+  }
+
+  .nav-items-container.open {
+    right: 0;
+    opacity: 1;
+  }
+
+  .navigation-menu {
+    height: 70px;
+    background: rgba(18, 18, 18, 0.95);
+    opacity: 0.2;
+  }
+
+  /* Menu visível nas mesmas condições no mobile */
+  .navigation-menu.page-static,
+  .navigation-menu:hover,
+  .navigation-menu:focus-within,
+  .navigation-menu.menu-open {
+    opacity: 1;
+  }
+
+  /* Menu lateral sempre visível quando aberto */
+  .nav-items-container.open {
+    opacity: 1;
+  }
+
+  .nav-item {
+    font-size: 1.1rem;
+    width: 100%;
+    text-align: left;
+    padding: 1rem;
+  }
+
+  .nav-item-line {
+    display: none;
+  }
+
+  /* Efeito no item do menu mobile */
+  .nav-item::before {
+    background: rgba(255, 255, 255, 0.05);
+  }
+
+  .nav-item:hover {
+    padding-left: 1.5rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .navigation-menu {
+    transition: opacity 0.3s ease;
+    opacity: 1;
+  }
+
+  /* Opacidade reduzida apenas quando scrollando para baixo */
+  .navigation-menu.scrolling-down {
+    opacity: 0.2;
+  }
+
+  /* Menu sempre visível quando aberto ou em hover */
+  .navigation-menu.menu-open,
+  .navigation-menu:hover,
+  .navigation-menu:focus-within {
+    opacity: 1;
+  }
+} 

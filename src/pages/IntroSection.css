@@ -39,7 +39,6 @@
     min-height: calc(100vh - 80px);
     display: flex;
     align-items: center;
-    padding: 2rem 1rem;
   }
   
   .content-wrapper {
@@ -181,9 +180,7 @@
   }
   
   @media (min-width: 1280px) {
-    .hero-content {
-      padding: 2.5rem;
-    }
+
     
     .stats-card {
       min-height: 200px;
