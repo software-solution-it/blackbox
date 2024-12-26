@@ -3,67 +3,76 @@ import Slider from 'react-slick';
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import './ProductsSection.css';
+import NextBetPdf from '../../src/assets/images/nextbet.pdf'
+import OnePixPdf from '../../src/assets/images/onepix.pdf'
+import NextBetImage from '../../src/assets/images/nextbet.png'
+import OnePixImage from '../../src/assets/images/onepixbet.png'
 import { FiCheck, FiArrowRight, FiGlobe, FiMaximize2, FiPlay } from 'react-icons/fi';
-import whitelabelImage from '../assets/images/plataforma_1.png';
-import exchangeImage from '../assets/images/plataforma_1.png';
 
 const products = [
   {
     id: 1,
     title: "Plataforma White Label",
     description: "Solução completa de cassino online com interface personalizável e sistema de gestão avançado",
-    image: whitelabelImage,
+    image: NextBetImage,
     status: "Mais Vendido",
     features: [
       "Interface totalmente personalizável",
       "Múltiplos provedores de jogos",
+      "Painel Administrativo",
       "Sistema de afiliados integrado",
       "Gestão completa de usuários",
       "Relatórios em tempo real",
       "Suporte 24/7"
     ],
     metrics: [
-      { value: "10 dias", label: "Implementação" },
+      { value: "1 dia", label: "Implementação" },
       { value: "99.9%", label: "Uptime" },
       { value: "24/7", label: "Suporte" },
       { value: "100%", label: "Personalizável" }
     ],
     technologies: [
-      "React", "Node.js", "PostgreSQL", "Redis", "Docker", "AWS"
+      "React", "Node.js", "MySql", "Php"
     ],
-    demoUrl: "https://demo-whitelabel.exemplo.com",
-    previewImage: whitelabelImage
+    demoUrl: "https://nextbet.games",
+    previewPdf: NextBetPdf,
+    previewImage: NextBetImage
   },
   {
     id: 2,
-    title: "Plataforma de Exchange",
-    description: "Exchange de apostas esportivas P2P com odds dinâmicas e mercados em tempo real",
-    image: exchangeImage,
+    title: "Plataforma Cassino + Esportes",
+    description: "Plataforma de apostas esportivas e cassino P2P com odds dinâmicas e em tempo real",
+    image: OnePixImage,
     status: "Novo",
     features: [
       "Trading esportivo P2P",
       "Odds dinâmicas em tempo real",
-      "Sistema de matching automático",
       "Liquidez compartilhada",
-      "API para traders",
-      "Dashboard profissional"
+      "Abas Promocionais",
+      "Gateways de pagamentos Integrados",
+      "Painel Administrativo",
+      "API completa",
     ],
     metrics: [
-      { value: "15 dias", label: "Implementação" },
+      { value: "2 dias", label: "Implementação" },
       { value: "99.9%", label: "Uptime" },
-      { value: "0.1s", label: "Latência" },
+      { value: "0.4s", label: "Latência" },
       { value: "1M+", label: "Transações/dia" }
     ],
     technologies: [
-      "Next.js", "Go", "MongoDB", "RabbitMQ", "Kubernetes", "GCP"
+      "Php", "PostgreSql"
     ],
-    demoUrl: "https://demo-exchange.exemplo.com",
-    previewImage: exchangeImage
+    demoUrl: "https://onepix.io",
+    previewPdf: OnePixPdf,
+    previewImage: OnePixPdf
   }
 ];
 
 const ProductCard = ({ product, openModal }) => {
-  const [isPreviewOpen, setIsPreviewOpen] = useState(false);
+  const handlePreviewClick = (e) => {
+    e.preventDefault();
+    window.open(product.previewPdf, '_blank', 'noopener,noreferrer');
+  };
 
   return (
     <div className="product-card group animate-fadeInUp">
@@ -81,8 +90,8 @@ const ProductCard = ({ product, openModal }) => {
         {/* Preview Button */}
         <button 
           className="preview-button"
-          onClick={() => setIsPreviewOpen(true)}
-          title="Ver site completo"
+          onClick={handlePreviewClick}
+          title="Ver plataforma completa"
         >
           <FiMaximize2 />
         </button>
@@ -135,27 +144,6 @@ const ProductCard = ({ product, openModal }) => {
           </button>
         </div>
       </div>
-
-      {/* Full Preview Overlay */}
-      {isPreviewOpen && (
-        <div className="preview-overlay" onClick={() => setIsPreviewOpen(false)}>
-          <div className="preview-content" onClick={e => e.stopPropagation()}>
-            <button 
-              className="preview-close"
-              onClick={() => setIsPreviewOpen(false)}
-            >
-              ✕
-            </button>
-            <div className="preview-scroll">
-              <img 
-                src={product.previewImage} 
-                alt={`${product.title} preview`}
-                className="preview-image"
-              />
-            </div>
-          </div>
-        </div>
-      )}
     </div>
   );
 };
