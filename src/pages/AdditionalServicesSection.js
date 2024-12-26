@@ -1,10 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import './AdditionalServicesSection.css';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FaArrowRight, FaArrowLeft } from 'react-icons/fa';
 
 const AdditionalServicesSection = () => {
   const [expandedCard, setExpandedCard] = useState(null);
+  const [scrollProgress, setScrollProgress] = useState(0);
+  const roadmapContainerRef = useRef(null);
 
   const services = [
     {
@@ -165,56 +167,30 @@ const AdditionalServicesSection = () => {
     setExpandedCard(expandedCard === index ? null : index);
   };
 
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: { 
-        staggerChildren: 0.1,
-        delayChildren: 0.2
-      }
-    }
+  // Função para calcular o progresso do scroll
+  const calculateScrollProgress = () => {
+    const container = roadmapContainerRef.current;
+    if (!container) return;
+
+    const totalHeight = container.scrollHeight - container.clientHeight;
+    const currentScroll = container.scrollTop;
+    const progress = (currentScroll / totalHeight) * 100;
+    setScrollProgress(progress);
   };
 
-  const itemVariants = {
-    hidden: { y: 20, opacity: 0 },
-    visible: {
-      y: 0,
-      opacity: 1,
-      transition: { 
-        type: "spring",
-        stiffness: 100,
-        damping: 10,
-        duration: 0.3
-      }
-    }
-  };
+  useEffect(() => {
+    const container = roadmapContainerRef.current;
+    if (!container) return;
 
-  const expandedCardVariants = {
-    hidden: {
-      opacity: 0,
-      scale: 0.9,
-      y: 20,
-    },
-    visible: {
-      opacity: 1,
-      scale: 1,
-      y: 0,
-      transition: {
-        type: "spring",
-        stiffness: 300,
-        damping: 25
-      }
-    },
-    exit: {
-      opacity: 0,
-      scale: 0.9,
-      y: 20,
-      transition: {
-        duration: 0.2
-      }
-    }
-  };
+    container.addEventListener('scroll', calculateScrollProgress);
+
+    // Calcular progresso inicial
+    calculateScrollProgress();
+
+    return () => {
+      container.removeEventListener('scroll', calculateScrollProgress);
+    };
+  }, []);
 
   return (
     <section className="additional-services bg-gradient-to-b from-[#1E1E1E] to-[#2A2A2A]">
@@ -226,37 +202,48 @@ const AdditionalServicesSection = () => {
           className="text-center mb-12"
         >
           <h2 className="text-2xl font-bold mb-4">
-            <span className="text-orange-500">Soluções</span> Completas
+            <span className="text-orange-500">Roadmap</span> de Soluções
           </h2>
           <p className="text-gray-400 max-w-2x3 mx-auto text-lg">
-            Ferramentas essenciais para o sucesso do seu negócio
+            Nossa jornada de ferramentas essenciais para o seu sucesso
           </p>
         </motion.div>
 
-        <div className="services-container py-10">
-          <motion.div
-            variants={containerVariants}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
-          >
+        <div className="roadmap-wrapper" ref={roadmapContainerRef}>
+          <div className="roadmap-container">
+            {/* Linha cinza do roadmap */}
+            <div className="roadmap-line"></div>
+            {/* Linha de progresso colorida */}
+            <motion.div
+              className="roadmap-line-progress"
+              style={{ height: `${scrollProgress}%` }}
+              initial={{ height: 0 }}
+              animate={{ height: `${scrollProgress}%` }}
+              transition={{ duration: 0.3, ease: 'easeOut' }}
+            ></motion.div>
+
             {services.map((service, index) => (
               <motion.div
                 key={index}
-                variants={itemVariants}
-                className="service-card"
+                initial={{ opacity: 0, x: index % 2 === 0 ? -50 : 50 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true, margin: "-100px" }}
+                transition={{ duration: 0.5, delay: index * 0.1 }}
+                className={`roadmap-item ${index % 2 === 0 ? 'left' : 'right'}`}
                 onClick={() => handleCardClick(index)}
               >
-                <div className="service-icon">{service.icon}</div>
-                <h3 className="service-title">{service.title}</h3>
-                <p className="service-description">{service.description}</p>
-                <div className="card-arrow">
-                  <FaArrowRight />
+                <div className="roadmap-dot"></div>
+                <div className="roadmap-card">
+                  <div className="service-icon">{service.icon}</div>
+                  <h3 className="service-title">{service.title}</h3>
+                  <p className="service-description">{service.description}</p>
+                  <div className="card-arrow">
+                    <FaArrowRight />
+                  </div>
                 </div>
               </motion.div>
             ))}
-          </motion.div>
+          </div>
         </div>
 
         <AnimatePresence mode="wait">
@@ -272,7 +259,32 @@ const AdditionalServicesSection = () => {
               />
               <motion.div
                 key="expanded-card"
-                variants={expandedCardVariants}
+                variants={{
+                  hidden: {
+                    opacity: 0,
+                    scale: window.innerWidth > 768 ? 0.9 : 1,
+                    y: window.innerWidth > 768 ? 20 : 100,
+                    transition: {
+                      duration: 0.2
+                    }
+                  },
+                  visible: {
+                    opacity: 1,
+                    scale: 1,
+                    y: 0,
+                    transition: {
+                      duration: 0.3
+                    }
+                  },
+                  exit: {
+                    opacity: 0,
+                    scale: 0.9,
+                    y: 20,
+                    transition: {
+                      duration: 0.2
+                    }
+                  }
+                }}
                 initial="hidden"
                 animate="visible"
                 exit="exit"

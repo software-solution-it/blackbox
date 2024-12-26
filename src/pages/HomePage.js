@@ -45,6 +45,12 @@ const HomePage = () => {
       component: AdditionalServicesSection,
       bgColor: '#1E1E1E',
       gradientTo: '#FF6B00'
+    },
+    {
+      id: 'about',
+      component: AboutUsSection,
+      bgColor: '#FF6B00',
+      gradientTo: '#1E1E1E'
     }
   ];
 
@@ -154,7 +160,7 @@ const HomePage = () => {
                     Próxima seção
                   </span>
                   <svg 
-                    className="w-5 h-5 text-neutral-500 group-hover:text-primary scroll-indicator" 
+                    className="w-6 h-6 text-neutral-500 group-hover:text-primary scroll-indicator" 
                     fill="none" 
                     stroke="currentColor" 
                     viewBox="0 0 24 24"
@@ -163,7 +169,13 @@ const HomePage = () => {
                       strokeLinecap="round" 
                       strokeLinejoin="round" 
                       strokeWidth={2} 
-                      d="M19 14l-7 7m0 0l-7-7m7 7V3" 
+                      d="M7 13l5 5 5-5"
+                    />
+                    <path 
+                      strokeLinecap="round" 
+                      strokeLinejoin="round" 
+                      strokeWidth={2} 
+                      d="M7 7l5 5 5-5"
                     />
                   </svg>
                 </button>

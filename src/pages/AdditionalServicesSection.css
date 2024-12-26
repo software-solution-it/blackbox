@@ -1,5 +1,4 @@
 .additional-services {
-    min-height: 100vh;
     width: 100%;
     color: #ffffff;
     position: relative;
@@ -8,8 +7,8 @@
   
   .services-container {
     padding: 0 4rem;
-    max-height: calc(100vh - 200px);
-    overflow-y: auto;
+    max-height: calc(100vh);
+
   }
   
   .service-card {
@@ -188,12 +187,10 @@
     from {
       opacity: 0;
       transform: translate(-50%, -48%) scale(0.95);
-      backdrop-filter: blur(0px);
     }
     to {
       opacity: 1;
       transform: translate(-50%, -50%) scale(1);
-      backdrop-filter: blur(16px);
     }
   }
   
@@ -218,3 +215,190 @@
   .overlay {
     transition: all 0.3s ease-in-out;
   }
+  
+  @media (max-width: 768px) {
+    .expanded-card {
+      width: 100%;
+      height: 100vh;
+      max-height: 100vh;
+      top: 0;
+      left: 0;
+      transform: none;
+      border-radius: 0;
+      padding: 1rem;
+    }
+  
+    .expanded-content {
+      margin-top: 4rem;
+      height: calc(100vh - 5rem);
+      max-height: none;
+      padding-bottom: 2rem;
+    }
+  
+    .close-button {
+      top: 1rem;
+      left: 1rem;
+      z-index: 1002;
+    }
+  
+    .expanded-title {
+      font-size: 2rem;
+      margin-bottom: 1.5rem;
+    }
+  
+    .detailed-info h4 {
+      font-size: 1.1rem;
+      margin: 1.25rem 0 0.75rem;
+    }
+  
+    .detailed-info li {
+      padding: 0.4rem 0;
+      padding-left: 1.25rem;
+    }
+  }
+  
+  @media (max-width: 768px) {
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+  }
+
+.roadmap-container {
+  position: relative;
+  padding: 2rem 0;
+  max-width: 1200px;
+  margin: 0 auto;
+  height: auto;
+}
+
+.roadmap-line {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 4px;
+    height: 100%;
+    top: 0;
+    z-index: 1;
+    background: #cccccc; /* Cor cinza padrão */
+  }
+  
+  /* Linha de progresso colorida */
+/* Linha de progresso colorida */
+.roadmap-line-progress {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 4px;
+    height: 0%; /* Inicialmente 0 */
+    top: 0;
+    z-index: 2;
+    background: linear-gradient(180deg, #ff6b00, #ff8e53); /* Cor gradiente desejada */
+    transition: height 0.3s ease-out;
+  }
+  
+
+.roadmap-item {
+  display: flex;
+  margin: 4rem 0;
+  position: relative;
+  width: 100%;
+}
+
+.roadmap-item:first-child {
+  margin-top: 2rem;
+}
+
+.roadmap-item:last-child {
+  margin-bottom: 2rem;
+}
+
+.roadmap-item.left {
+  justify-content: flex-end;
+  padding-right: calc(50% + 2rem);
+}
+
+.roadmap-item.right {
+  justify-content: flex-start;
+  padding-left: calc(50% + 2rem);
+}
+
+.roadmap-dot {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 20px;
+  height: 20px;
+  background: #ff8e53;
+  border-radius: 50%;
+  border: 4px solid #1E1E1E;
+  z-index: 2;
+}
+
+.roadmap-card {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 1rem;
+  padding: 2rem;
+  width: 100%;
+  max-width: 450px;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: pointer;
+}
+
+.roadmap-card:hover {
+  transform: translateY(-8px);
+  background: rgba(255, 255, 255, 0.08);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);
+}
+
+@media (max-width: 768px) {
+  .roadmap-line {
+    left: 2rem;
+    transform: none;
+  }
+
+  .roadmap-line-progress {
+    left: 2rem;
+    transform: none;
+  }
+
+  .roadmap-item.left,
+  .roadmap-item.right {
+    padding-left: 4rem;
+    padding-right: 1rem;
+    justify-content: flex-start;
+  }
+
+  .roadmap-dot {
+    left: 2.1rem;
+  }
+}
+
+.roadmap-wrapper {
+  position: relative;
+  width: 100%;
+  height: 70vh; /* Altura fixa para permitir scroll */
+  overflow-y: scroll; /* Mantém o scroll funcional */
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE and Edge */
+}
+
+/* Esconde a barra de scroll no Chrome, Safari e Opera */
+.roadmap-wrapper::-webkit-scrollbar {
+  display: none;
+}
+
+/* Ajustes para telas menores */
+@media (max-width: 768px) {
+  .roadmap-wrapper {
+    height: 400px; /* Ajuste conforme necessário */
+  }
+}

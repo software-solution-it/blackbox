@@ -9,6 +9,7 @@ import logo5 from '../assets/images/logo5.png';
 import image1 from '../assets/images/image1.png';
 import image2 from '../assets/images/image2.png';
 import image3 from '../assets/images/image3.png';
+import { FiMousePointer } from 'react-icons/fi';
 
 const providerStats = [
   { number: "1000+", label: "Jogos disponíveis", description: "Variedade de jogos de diferentes categorias" },
@@ -112,7 +113,7 @@ const useIsMobile = () => {
   return isMobile;
 };
 
-const CategoryCard = ({ image, title, count, details, type }) => {
+const CategoryCard = ({ title, count, details, type }) => {
   const [isFlipped, setIsFlipped] = useState(false);
   const isMobile = useIsMobile();
 
@@ -123,7 +124,7 @@ const CategoryCard = ({ image, title, count, details, type }) => {
   };
 
   const handleBackButtonClick = (e) => {
-    e.stopPropagation(); // Previne que o clique se propague para o card
+    e.stopPropagation();
     setIsFlipped(false);
   };
 
@@ -135,10 +136,12 @@ const CategoryCard = ({ image, title, count, details, type }) => {
       <div className="category-card-inner">
         {/* Frente do Card */}
         <div className="category-card-front">
-          <img src={image} alt={title} className="category-image" />
           <div className="category-content">
             <h3 className="category-title">{title}</h3>
             <p className="category-subtitle">{count} jogos disponíveis</p>
+            <div className="hover-indicator">
+              <FiMousePointer size={24} />
+            </div>
           </div>
         </div>
 
@@ -275,21 +278,18 @@ const ProvidersSection = ({ openModal }) => {
           {/* Categorias */}
           <div className="categories-grid">
             <CategoryCard
-              image={image1}
               title="Cassino ao Vivo"
               count="200+"
               details={categoryDetails.casino}
               type="casino"
             />
             <CategoryCard
-              image={image2}
               title="Apostas Esportivas"
               count="1000+"
               details={categoryDetails.sports}
               type="sports"
             />
             <CategoryCard
-              image={image3}
               title="Slots"
               count="5000+"
               details={categoryDetails.slots}

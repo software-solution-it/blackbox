@@ -1,14 +1,12 @@
 /* Base */
 .services-section {
-  @apply bg-[#121212] min-h-screen py-12 md:py-16 relative;
-  height: 100vh;
-  overflow-y: auto;
-  scroll-behavior: smooth;
+  @apply bg-[#121212] relative;
+  min-height: 100vh;
+  overflow-y: visible;
 }
 
 .services-content {
-  @apply container mx-auto px-4 relative z-10;
-  overflow-y: visible; /* Remove o scroll interno */
+  @apply container mx-auto px-4 relative z-10 md:pt-8 pb-32;
 }
 
 /* Cabeçalho */
@@ -296,7 +294,7 @@
   }
 
   .service-details {
-    @apply p-4;
+    @apply p-4 mb-8;
   }
 
   .detail-metrics {
@@ -325,10 +323,11 @@
 
   .detail-button {
     @apply py-2 text-xs;
+    margin-bottom: 32px;
   }
 
   .services-content {
-    height: calc(100vh - 2rem);
+    height: auto;
     padding-bottom: 2rem;
   }
 
@@ -351,7 +350,8 @@
   }
 
   .services-section {
-    padding-bottom: 2rem;
+    @apply py-16;
+    padding-bottom: 140px;
   }
 
   .mobile-services {
@@ -379,7 +379,7 @@
 
   /* Melhorando scroll no mobile */
   .services-section {
-    @apply py-8;
+    @apply py-16;
   }
 
   .mobile-services::-webkit-scrollbar {
