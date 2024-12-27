@@ -1,141 +1,93 @@
-  </url>
-
-  <url>
-    <loc>https://black-box.games/blog/gamificacao-cassinos-online</loc>
-    <lastmod>2024-03-15</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-
-  <url>
-    <loc>https://black-box.games/blog/seguranca-compliance-igaming</loc>
-    <lastmod>2024-03-14</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-
-  <url>
-    <loc>https://black-box.games/blog/live-casino-futuro-apostas-online</loc>
-    <lastmod>2024-03-13</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-
-  <url>
-    <loc>https://black-box.games/blog/analise-dados-igaming</loc>
-    <lastmod>2024-03-12</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-
-  <url>
-    <loc>https://black-box.games/blog/integracao-provedores-jogos</loc>
-    <lastmod>2024-03-11</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-
-  <url>
-    <loc>https://black-box.games/blog/responsible-gaming-2024</loc>
-    <lastmod>2024-03-10</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
 <?xml version="1.0" encoding="UTF-8"?>
-  </url>
-
-  <url>
-    <loc>https://black-box.games/blog/mobile-first-igaming</loc>
-    <lastmod>2024-03-09</lastmod>
-    <changefreq>weekly</changefreq>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <!-- Página Principal -->
   <url>
-    <loc>https://black-box.games/</loc>
-    <lastmod>2024-03-19</lastmod>
+    <loc>https://black-box.games</loc>
+    <lastmod>2024-12-27</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
-
-  <!-- Posts do Blog -->
   <url>
     <loc>https://black-box.games/blog/regulamentacao-igaming-brasil-2024</loc>
     <lastmod>2024-03-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
-
   <url>
     <loc>https://black-box.games/blog/inteligencia-artificial-cassinos-online</loc>
     <lastmod>2024-03-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
-
   <url>
     <loc>https://black-box.games/blog/tendencias-pagamento-igaming</loc>
     <lastmod>2024-03-17</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
-
   <url>
     <loc>https://black-box.games/blog/marketing-afiliados-igaming</loc>
     <lastmod>2024-03-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
-
   <url>
     <loc>https://black-box.games/blog/gamificacao-cassinos-online</loc>
-    <priority>0.8</priority>
-  </url>
-
-  <url>
-    <loc>https://black-box.games/blog/fidelizacao-jogadores</loc>
-    <lastmod>2024-03-08</lastmod>
-    <changefreq>weekly</changefreq>
     <lastmod>2024-03-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
-
   <url>
     <loc>https://black-box.games/blog/seguranca-compliance-igaming</loc>
-    <priority>0.8</priority>
-  </url>
-
-  <url>
-    <loc>https://black-box.games/blog/tendencias-slots-online</loc>
-    <lastmod>2024-03-07</lastmod>
     <lastmod>2024-03-14</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
-
   <url>
     <loc>https://black-box.games/blog/live-casino-futuro-apostas-online</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-
-  <url>
-    <loc>https://black-box.games/blog/kyc-prevencao-fraude</loc>
     <lastmod>2024-03-13</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
-
   <url>
     <loc>https://black-box.games/blog/analise-dados-igaming</loc>
     <lastmod>2024-03-12</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
-
   <url>
     <loc>https://black-box.games/blog/integracao-provedores-jogos</loc>
+    <lastmod>2024-03-11</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://black-box.games/blog/responsible-gaming-2024</loc>
+    <lastmod>2024-03-10</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://black-box.games/blog/mobile-first-igaming</loc>
+    <lastmod>2024-03-09</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://black-box.games/blog/fidelizacao-jogadores</loc>
+    <lastmod>2024-03-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://black-box.games/blog/tendencias-slots-online</loc>
+    <lastmod>2024-03-07</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://black-box.games/blog/kyc-prevencao-fraude</loc>
     <lastmod>2024-03-06</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
-</urlset> 
+</urlset>
