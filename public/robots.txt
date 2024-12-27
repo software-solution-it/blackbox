@@ -1,3 +1,26 @@
 # https://www.robotstxt.org/robotstxt.html
 User-agent: *
-Disallow:
+Allow: /
+
+# Permitir rastreamento de todos os recursos importantes
+Allow: /*.js
+Allow: /*.css
+Allow: /*.png
+Allow: /*.jpg
+Allow: /*.gif
+Allow: /*.svg
+Allow: /*.ico
+
+# Sitemap
+Sitemap: https://black-box.games/sitemap.xml
+
+# Taxa de rastreamento
+Crawl-delay: 1
+
+# Diretórios específicos para não indexar
+Disallow: /admin/
+Disallow: /private/
+Disallow: /temp/
+Disallow: /api/
+Disallow: /cgi-bin/
+Disallow: /*?*

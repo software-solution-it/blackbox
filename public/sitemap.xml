@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml"
+        xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
+        http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
+
+  <!-- Página Principal -->
+  <url>
+    <loc>https://black-box.games/</loc>
+    <lastmod>2024-03-19</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>1.0</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://black-box.games/en/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://black-box.games/es/"/>
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://black-box.games/"/>
+  </url>
+
+  <!-- Produtos/Serviços -->
+  <url>
+    <loc>https://black-box.games/produtos</loc>
+    <lastmod>2024-03-19</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <!-- White Label -->
+  <url>
+    <loc>https://black-box.games/white-label</loc>
+    <lastmod>2024-03-19</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <!-- Scripts de Cassino -->
+  <url>
+    <loc>https://black-box.games/scripts</loc>
+    <lastmod>2024-03-19</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <!-- Sobre Nós -->
+  <url>
+    <loc>https://black-box.games/sobre</loc>
+    <lastmod>2024-03-19</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <!-- Contato -->
+  <url>
+    <loc>https://black-box.games/contato</loc>
+    <lastmod>2024-03-19</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- Blog -->
+  <url>
+    <loc>https://black-box.games/blog</loc>
+    <lastmod>2024-03-19</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- Versão em Inglês -->
+  <url>
+    <loc>https://black-box.games/en/</loc>
+    <lastmod>2024-03-19</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <!-- Versão em Espanhol -->
+  <url>
+    <loc>https://black-box.games/es/</loc>
+    <lastmod>2024-03-19</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+</urlset> 
