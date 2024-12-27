@@ -153,7 +153,6 @@ body {
 /* Section Styles */
 section {
   height: 100vh;
-  padding-top: 40px;
   padding-bottom: 40px;
   overflow: hidden;
 }

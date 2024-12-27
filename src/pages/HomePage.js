@@ -8,6 +8,7 @@ import AboutUsSection from './AboutUsSection';
 import ProvidersSection from './ProvidersSection';
 import ModalComponent from './ModalComponent';
 import NavigationMenu from '../components/NavigationMenu';
+import BlogSection from './BlogSection';
 
 const HomePage = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -49,10 +50,16 @@ const HomePage = () => {
       gradientTo: '#FF6B00'
     },
     {
-      id: 'sobre nós',
-      component: AboutUsSection,
+      id: 'blog',
+      component: BlogSection,
       bgColor: '#FF6B00',
       gradientTo: '#1E1E1E'
+    },
+    {
+      id: 'sobre nós',
+      component: AboutUsSection,
+      bgColor: '#1E1E1E',
+      gradientTo: '#FF6B00'
     }
   ];
 
