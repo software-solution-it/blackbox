@@ -86,22 +86,25 @@ const IntroSection = ({ openModal }) => {
 
               <div className="space-y-4 md:space-y-6">
                 <h1 className="hero-title text-2xl sm:text-3xl md:text-4xl xl:text-6xl font-bold leading-tight">
-                  Revolucione seu
+                Seu site de apostas online e cassino 
                   <br className="hidden xl:block" />
-                  negócio com nossa
+                  a partir de R$300,00
                   <br className="hidden xl:block" />
-                  <span className="whitespace-normal xl:whitespace-nowrap">plataforma iGaming</span>
                 </h1>
 
                 <div className="flex flex-wrap gap-2 md:gap-3">
-                  <span className="gaming-chip">Pronto em 10 dias</span>
+                  <span className="gaming-chip">Pronto em 3 dias</span>
                   <span className="gaming-chip">Suporte 24/7</span>
-                  <span className="gaming-chip">Alta Performance</span>
+                  <span className="gaming-chip">100% personalizado</span>
                 </div>
 
                 <p className="text-base md:text-lg text-neutral-300 max-w-2xl leading-relaxed">
-                  Tecnologia de ponta para impulsionar seu negócio digital com
-                  segurança, escalabilidade e suporte especializado.
+                  Plataforma completa com esportes e slots e cassino ao vivo
+                  <br />
+                  <span className="whitespace-normal xl:whitespace-nowrap">Tenha até 50% mais conversão em seu site</span>
+                  <br />
+                  <span className="whitespace-normal xl:whitespace-nowrap">com um sistema de altíssima qualidade e conversão.</span>
+                  
                 </p>
 
                 <div className="flex flex-col sm:flex-row gap-3">
@@ -142,10 +145,10 @@ const IntroSection = ({ openModal }) => {
               </div>
 
               <div className="stats-card">
-                <div className="highlight-number text-xl sm:text-2xl md:text-3xl xl:text-4xl">10d</div>
+                <div className="highlight-number text-xl sm:text-2xl md:text-3xl xl:text-4xl">3 dias</div>
                 <h3 className="text-sm sm:text-base md:text-lg xl:text-xl font-medium mb-2 text-white">Setup Rápido</h3>
                 <p className="text-xs md:text-sm text-neutral-400">
-                  Do conceito ao lançamento em 10 dias
+                  Do conceito ao lançamento em 3 dias
                 </p>
               </div>
             </div>

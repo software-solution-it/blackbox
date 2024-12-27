@@ -71,8 +71,8 @@ const services = [
     shortDesc: "Controle total de acessos",
     description: "Sistema completo de gestão de usuários com múltiplos níveis de acesso e relatórios detalhados.",
     features: [
-      "Múltiplos perfis",
-      "Logs detalhados",
+      "Gestão de afiliados",
+      "Logs detalhados",  
       "Autenticação 2FA",
       "Gestão de permissões"
     ],
