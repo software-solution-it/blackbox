@@ -1,55 +1,10 @@
-Disallow: /temp/
-Disallow: /api/
-Disallow: /cgi-bin/
-Disallow: /*?*
-Disallow: /*?
-Disallow: /*/wp-admin/
-Disallow: /*/wp-includes/
-Disallow: /search/
-Disallow: /tag/
-Disallow: /category/
-Disallow: /draft/
-Disallow: /preview/
-
-# Regras específicas para bots populares
-User-agent: Googlebot
+User-agent: *
 Allow: /
-Crawl-delay: 1
-
-User-agent: Bingbot
-Allow: /
-Crawl-delay: 2
-
-User-agent: Yandex
-Allow: /
-Crawl-delay: 2
-
-# Regras para imagens
-User-agent: Googlebot-Image
-Allow: /assets/images/
-Allow: /*.jpg
-Allow: /*.jpeg
-Allow: /*.gif
-Allow: /*.png
-Allow: /*.webp
 
 # Sitemap
 Sitemap: https://black-box.games/sitemap.xml
 
-# Clean Parameters
-# Instruções para parâmetros de URL que não devem ser considerados para indexação
-*?utm_source=*
-*?utm_medium=*
-*?utm_campaign=*
-*?fbclid=*
-*?gclid=*
-*?ref=*
-*?source=*
-*?_ga=*
-
-# Host
-Host: https://black-box.games
-
-# Cache Control
-# Permitir cache de recursos estáticos
-Cache-Control: public, max-age=31536000
+# Desallow
+Disallow: /api/
+Disallow: /admin/
+Disallow: /temp/

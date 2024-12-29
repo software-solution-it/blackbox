@@ -4,7 +4,7 @@ import AppRoutes from './routes/AppRoutes';
 import './index.css';
 import './styles/global.css';
 
-// Adicione o script do Google Tag Manager
+// Google Tag Manager script
 (function () {
   window.dataLayer = window.dataLayer || [];
   const script = document.createElement('script');
@@ -13,12 +13,11 @@ import './styles/global.css';
   document.head.appendChild(script);
 
   script.onload = () => {
-    function gtag() {
-      // eslint-disable-next-line no-undef
-      dataLayer.push(arguments);
+    window.gtag = function() {
+      window.dataLayer.push(arguments);
     }
-    gtag('js', new Date());
-    gtag('config', 'AW-16813181591');
+    window.gtag('js', new Date());
+    window.gtag('config', 'AW-16813181591');
   };
 })();
 
