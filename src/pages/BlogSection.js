@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { Link } from 'react-router-dom';
 import { allBlogPosts } from '../data/blogPosts';
 import './BlogSection.css';
@@ -6,6 +6,17 @@ import './BlogSection.css';
 const BlogSection = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isTransitioning, setIsTransitioning] = useState(false);
+
+  const handleNext = useCallback(() => {
+    if (isTransitioning || !allBlogPosts || allBlogPosts.length === 0) return;
+    
+    setIsTransitioning(true);
+    setCurrentIndex((prevIndex) => (prevIndex + 1) % allBlogPosts.length);
+    
+    setTimeout(() => {
+      setIsTransitioning(false);
+    }, 500);
+  }, [isTransitioning]);
 
   useEffect(() => {
     if (allBlogPosts && allBlogPosts.length > 0) {
@@ -17,18 +28,7 @@ const BlogSection = () => {
 
       return () => clearInterval(interval);
     }
-  }, [isTransitioning]);
-
-  const handleNext = () => {
-    if (isTransitioning || !allBlogPosts || allBlogPosts.length === 0) return;
-    
-    setIsTransitioning(true);
-    setCurrentIndex((prevIndex) => (prevIndex + 1) % allBlogPosts.length);
-    
-    setTimeout(() => {
-      setIsTransitioning(false);
-    }, 500);
-  };
+  }, [isTransitioning, handleNext]);
 
   const getCardClassName = (index) => {
     const diff = index - currentIndex;
