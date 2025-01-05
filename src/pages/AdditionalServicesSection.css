@@ -52,11 +52,11 @@
     position: fixed;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%) !important;
     width: 90%;
     max-width: 800px;
     max-height: 85vh;
-    background: rgba(20, 20, 20, 0.7);
+    background: rgba(20, 20, 20, 0.95);
     backdrop-filter: blur(16px);
     -webkit-backdrop-filter: blur(16px);
     border: 1px solid rgba(255, 255, 255, 0.1);
@@ -125,10 +125,12 @@
     margin-bottom: 2rem;
     color: #ffffff;
     margin-top: 1rem;
+    text-align: left;
   }
   
   .detailed-info {
     color: #a0aec0;
+    text-align: left;
   }
   
   .detailed-info h4 {
@@ -136,11 +138,17 @@
     font-size: 1.25rem;
     font-weight: 600;
     margin: 1.5rem 0 1rem;
+    text-align: left;
+  }
+  
+  .detailed-info p {
+    text-align: left;
   }
   
   .detailed-info ul {
     list-style-type: none;
     padding: 0;
+    text-align: left;
   }
   
   .detailed-info li {
@@ -186,7 +194,7 @@
   @keyframes fadeIn {
     from {
       opacity: 0;
-      transform: translate(-50%, -48%) scale(0.95);
+      transform: translate(-50%, -50%) scale(0.95);
     }
     to {
       opacity: 1;
@@ -218,14 +226,14 @@
   
   @media (max-width: 768px) {
     .expanded-card {
-      width: 100%;
-      height: 100vh;
-      max-height: 100vh;
-      top: 0;
-      left: 0;
-      transform: none;
-      border-radius: 0;
-      padding: 1rem;
+      width: 95%;
+      height: 90vh;
+      max-height: 90vh;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%) !important;
+      border-radius: 1.5rem;
+      padding: 1.5rem;
     }
   
     .expanded-content {
@@ -261,11 +269,11 @@
     @keyframes fadeIn {
       from {
         opacity: 0;
-        transform: translateY(20px);
+        transform: translate(-50%, -50%) scale(0.95);
       }
       to {
         opacity: 1;
-        transform: translateY(0);
+        transform: translate(-50%, -50%) scale(1);
       }
     }
   }

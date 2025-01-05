@@ -2,10 +2,13 @@ import React from 'react';
 import { FaWhatsapp } from 'react-icons/fa';
 import './WhatsAppButton.css';
 
-const WhatsAppButton = () => {
+const WhatsAppButton = ({ isLoading }) => {
   const handleWhatsAppClick = () => {
     window.open('https://wa.me/5515991540730', '_blank');
   };
+
+  // Se estiver carregando, não renderiza o botão
+  if (isLoading) return null;
 
   return (
     <button 

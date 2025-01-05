@@ -220,7 +220,7 @@ const HomePage = () => {
         <ModalComponent closeModal={closeModal} modalContext={modalContext} />
       )}
 
-      <WhatsAppButton />
+      <WhatsAppButton isLoading={isLoading} />
     </div>
   );
 };
