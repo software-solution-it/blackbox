@@ -9,6 +9,7 @@ import ProvidersSection from './ProvidersSection';
 import ModalComponent from './ModalComponent';
 import NavigationMenu from '../components/NavigationMenu';
 import BlogSection from './BlogSection';
+import WhatsAppButton from '../components/WhatsAppButton';
 
 const HomePage = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -218,6 +219,8 @@ const HomePage = () => {
       {isModalOpen && (
         <ModalComponent closeModal={closeModal} modalContext={modalContext} />
       )}
+
+      <WhatsAppButton />
     </div>
   );
 };

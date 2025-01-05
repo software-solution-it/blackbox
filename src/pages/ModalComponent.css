@@ -1,0 +1,416 @@
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(8px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  padding: 20px;
+}
+
+.modal-container {
+  background: linear-gradient(145deg, rgba(26, 26, 26, 0.95), rgba(42, 42, 42, 0.95));
+  border-radius: 24px;
+  padding: 2rem;
+  width: 100%;
+  max-width: 500px;
+  position: relative;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+  overflow: visible;
+}
+
+.close-button-modal-wrapper {
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: 1001;
+}
+
+.close-button-modal {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 107, 0, 0.2);
+  background: #1a1a1a;
+  color: #FF6B00;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  padding: 0;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.close-button-modal:hover {
+  background: rgba(255, 107, 0, 0.2);
+  transform: rotate(90deg);
+}
+
+.modal-header {
+  text-align: center;
+  margin-top: 0.5rem;
+  margin-bottom: 2rem;
+}
+
+/* Responsividade */
+@media (max-width: 640px) {
+  .close-button-modal {
+    top: 12px;
+    right: 12px;
+    width: 36px;
+    height: 36px;
+  }
+  
+  .modal-container {
+    padding: 1.5rem;
+    margin: 1rem;
+  }
+}
+
+@media (max-width: 360px) {
+  .close-button-modal {
+    top: 12px;
+    right: 12px;
+    width: 32px;
+    height: 32px;
+  }
+}
+
+/* Barra de Progresso Estilizada */
+.progress-bar-container {
+  background: rgba(255, 255, 255, 0.1);
+  height: 6px;
+  border-radius: 3px;
+  overflow: hidden;
+  margin: 1.5rem 0;
+  position: relative;
+}
+
+.progress-bar {
+  height: 100%;
+  background: linear-gradient(90deg, #FF6B00, #FF8533);
+  border-radius: 3px;
+  transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.progress-bar::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.3),
+    transparent
+  );
+  animation: shimmer 2s infinite;
+}
+
+/* Botões de Opção */
+.option-button {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 1.2rem;
+  margin: 0.5rem 0;
+  border-radius: 16px;
+  color: white;
+  width: 100%;
+  text-align: left;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+  backdrop-filter: blur(5px);
+  transform: translateY(0);
+}
+
+.option-button:hover {
+  background: rgba(255, 107, 0, 0.1);
+  border-color: rgba(255, 107, 0, 0.3);
+  transform: translateY(-3px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+.option-button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    45deg,
+    transparent,
+    rgba(255, 107, 0, 0.1),
+    transparent
+  );
+  transform: translateX(-100%);
+  transition: transform 0.6s ease;
+}
+
+.option-button:hover::before {
+  transform: translateX(100%);
+}
+
+/* Animações */
+@keyframes overlayShow {
+  from {
+    background: rgba(0, 0, 0, 0);
+    backdrop-filter: blur(0px);
+  }
+  to {
+    background: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(8px);
+  }
+}
+
+@keyframes modalEnter {
+  from {
+    transform: scale(0.95) translateY(30px);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1) translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+/* Animação de Saída */
+.modal-exit {
+  animation: modalExit 0.3s ease forwards;
+}
+
+.overlay-exit {
+  animation: overlayHide 0.3s ease forwards;
+}
+
+@keyframes modalExit {
+  from {
+    transform: scale(1) translateY(0);
+    opacity: 1;
+  }
+  to {
+    transform: scale(0.95) translateY(30px);
+    opacity: 0;
+  }
+}
+
+@keyframes overlayHide {
+  from {
+    background: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(8px);
+  }
+  to {
+    background: rgba(0, 0, 0, 0);
+    backdrop-filter: blur(0px);
+  }
+}
+
+/* Estilos do Título e Texto */
+.step-title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  background: linear-gradient(90deg, #FF6B00, #FF8533);
+  -webkit-background-clip: text;
+  color: transparent;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+.step-description {
+  color: rgba(255, 255, 255, 0.7);
+  text-align: center;
+  margin-bottom: 2rem;
+  line-height: 1.6;
+}
+
+/* Ajustes para telas muito pequenas */
+@media (max-width: 360px) {
+  .modal-container {
+    margin: 0.5rem;
+    padding: 1rem;
+  }
+
+  .close-button-modal {
+    width: 32px;
+    height: 32px;
+  }
+
+  .step-title {
+    font-size: 1.1rem;
+  }
+
+  .option-button {
+    padding: 0.8rem;
+    font-size: 0.85rem;
+  }
+}
+
+/* Ajuste para altura da tela */
+@media (max-height: 600px) {
+  .modal-container {
+    max-height: 95vh;
+  }
+
+  .options-grid {
+    gap: 0.6rem;
+  }
+
+  .option-button {
+    padding: 0.8rem;
+  }
+}
+
+.step-title {
+  padding: 0 2rem;
+  margin-bottom: 1.5rem;
+}
+
+.progress-bar-container {
+  margin: 2rem 1.5rem;
+}
+
+/* Ajustes responsivos */
+@media (max-width: 640px) {
+  .modal-header {
+    margin-bottom: 1.5rem;
+    padding: 0.5rem 0.5rem 0 0.5rem;
+  }
+
+  .close-button-modal {
+    width: 40px;
+    height: 40px;
+    margin: 0.75rem;
+  }
+
+  .options-grid {
+    gap: 1rem;
+    margin-top: 1.5rem;
+    padding: 0 0.75rem;
+  }
+
+  .option-button {
+    padding: 1.2rem 1.5rem;
+    font-size: 1rem;
+  }
+
+  .step-title {
+    padding: 0 1.5rem;
+    margin-bottom: 1rem;
+  }
+
+  .progress-bar-container {
+    margin: 1.5rem 1rem;
+  }
+}
+
+/* Ajustes para telas muito pequenas */
+@media (max-width: 360px) {
+  .modal-header {
+    margin-bottom: 1rem;
+  }
+
+  .close-button-modal {
+    width: 36px;
+    height: 36px;
+    margin: 0.5rem;
+  }
+
+  .options-grid {
+    gap: 0.8rem;
+    padding: 0 0.5rem;
+  }
+
+  .option-button {
+    padding: 1rem 1.25rem;
+    font-size: 0.9rem;
+  }
+
+  .step-title {
+    padding: 0 1rem;
+  }
+
+  .progress-bar-container {
+    margin: 1rem 0.75rem;
+  }
+}
+
+.final-step {
+  text-align: center;
+  padding: 2rem 1rem;
+}
+
+.step-description {
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 1.1rem;
+  line-height: 1.6;
+  margin-bottom: 2.5rem;
+}
+
+.contact-button {
+  background: #25D366; /* Cor do WhatsApp */
+  color: white;
+  border: none;
+  border-radius: 12px;
+  padding: 1.2rem 2.5rem;
+  font-size: 1.1rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 0 auto;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(37, 211, 102, 0.3);
+}
+
+.contact-button:hover {
+  background: #22c35e;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(37, 211, 102, 0.4);
+}
+
+.contact-button:active {
+  transform: translateY(0);
+}
+
+.whatsapp-icon {
+  width: 24px;
+  height: 24px;
+}
+
+/* Responsividade */
+@media (max-width: 640px) {
+  .final-step {
+    padding: 1.5rem 0.5rem;
+  }
+
+  .step-description {
+    font-size: 1rem;
+    margin-bottom: 2rem;
+  }
+
+  .contact-button {
+    padding: 1rem 2rem;
+    font-size: 1rem;
+  }
+}

@@ -75,7 +75,7 @@ const IntroSection = ({ openModal }) => {
         <div className="container mx-auto px-4 relative z-10">
           <div className="grid xl:grid-cols-2 gap-8 xl:gap-16 items-center">
             {/* Coluna da Esquerda */}
-            <div className="space-y-6 md:space-y-8">
+            <div className="space-y-6 md:space-y-8 text-left">
               <div className="logo-container">
                 <img
                   src={logo}
@@ -84,7 +84,7 @@ const IntroSection = ({ openModal }) => {
                 />
               </div>
 
-              <div className="space-y-4 md:space-y-6">
+              <div className="text-left space-y-4 md:space-y-6">
                 <h1 className="hero-title text-2xl sm:text-3xl md:text-4xl xl:text-6xl font-bold leading-tight">
                 Seu site de apostas online e cassino 
                   <br className="hidden xl:block" />
@@ -98,7 +98,7 @@ const IntroSection = ({ openModal }) => {
                   <span className="gaming-chip">100% personalizado</span>
                 </div>
 
-                <p className="text-base md:text-lg text-neutral-300 max-w-2xl leading-relaxed">
+                <p className="text-base text-left md:text-lg text-neutral-300 max-w-2xl leading-relaxed">
                   Plataforma completa com esportes e slots e cassino ao vivo
                   <br />
                   <span className="whitespace-normal xl:whitespace-nowrap">Tenha até 50% mais conversão em seu site</span>
