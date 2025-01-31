@@ -53,6 +53,8 @@
   display: grid;
   grid-template-columns: 1fr 1.5fr;
   gap: 40px;
+  width: 100%;
+  max-width: 100%;
 }
 
 .services-grid.mobile {
@@ -98,15 +100,24 @@
   color: #fff;
 }
 
+.service-info {
+  flex: 1;
+  min-width: 0;
+}
+
 .service-info h3 {
   color: #fff;
   font-size: 18px;
   margin-bottom: 4px;
+  word-wrap: break-word;
+  line-height: 1.3;
 }
 
 .service-info p {
   color: #888;
   font-size: 14px;
+  word-wrap: break-word;
+  line-height: 1.4;
 }
 
 .service-details-wrapper {
@@ -114,6 +125,9 @@
   border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 24px;
   padding: 32px;
+  width: 100%;
+  min-width: 0;
+  overflow-wrap: break-word;
 }
 
 .service-details {
@@ -170,7 +184,8 @@
 }
 
 .detail-features {
-  margin-top: 2rem;
+  margin-top: 2.5rem;
+  padding: 1rem;
 }
 
 .detail-features h4 {
@@ -185,36 +200,50 @@
 .features-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 1.5rem;
-  margin-bottom: 2rem;
+  grid-template-rows: repeat(2, 1fr);
+  gap: 1rem;
+  margin-top: 1.5rem;
+  width: 100%;
+  min-height: 160px;
 }
 
 .feature-item {
   display: flex;
-  align-items: center;
-  gap: 1rem;
+  align-items: flex-start;
+  gap: 0.75rem;
   padding: 1rem;
   background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 0.75rem;
   transition: all 0.3s ease;
+  height: 100%;
+  max-height: 80px;
+}
+
+.feature-item:hover {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: rgba(255, 107, 0, 0.2);
 }
 
 .feature-check {
-  min-width: 32px;
-  width: 32px;
-  height: 32px;
   display: flex;
   align-items: center;
   justify-content: center;
+  min-width: 32px;
+  height: 32px;
   background: rgba(255, 107, 0, 0.1);
   border-radius: 8px;
   color: #FF6B00;
+  flex-shrink: 0;
 }
 
-.feature-item span {
-  color: #94A3B8;
+.feature-text {
+  color: #fff;
   font-size: 0.95rem;
-  line-height: 1.5;
+  line-height: 1.4;
+  word-wrap: break-word;
+  flex: 1;
+  min-width: 0;
 }
 
 .detail-button {
@@ -234,6 +263,13 @@
   box-shadow: 0 8px 30px rgba(255, 107, 0, 0.2);
 }
 
+@media (max-width: 1024px) {
+  .services-grid {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+}
+
 @media (max-width: 768px) {
   .services-section {
     padding: 60px 0;
@@ -247,30 +283,40 @@
     grid-template-columns: 1fr;
   }
 
+  .services-content {
+    padding: 0 16px;
+    width: 100%;
+    max-width: 100%;
+  }
+
   .service-details-wrapper {
-    padding: 24px;
+    padding: 20px;
   }
 
   .features-grid {
     grid-template-columns: 1fr;
-    gap: 1rem;
+    grid-template-rows: repeat(4, 1fr);
+    gap: 0.75rem;
+    min-height: auto;
   }
 
   .detail-metrics {
     grid-template-columns: 1fr;
   }
 
+  .service-card {
+    padding: 16px;
+  }
+
   .feature-item {
-    padding: 0.875rem;
+    max-height: none;
   }
 
-  .feature-check {
-    min-width: 28px;
-    width: 28px;
-    height: 28px;
+  .service-info h3 {
+    font-size: 16px;
   }
 
-  .feature-item span {
-    font-size: 0.875rem;
+  .service-info p {
+    font-size: 13px;
   }
 }

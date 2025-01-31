@@ -164,24 +164,17 @@ const ServicesSection = () => {
               </div>
 
               <div className="detail-features">
-                <h4 className="text-xl font-semibold mb-10 text-gradient">Recursos Inclusos</h4>
+                <h4 className="text-xl font-semibold mb-6 text-[#FF6B00]">RECURSOS INCLUSOS</h4>
                 <div className="features-grid">
-                  {selectedService.features.map((feature, index) => (
+                  {selectedService.features.slice(0, 4).map((feature, index) => (
                     <div 
                       key={index} 
-                      className="feature-item group"
-                      style={{ animationDelay: `${index * 100}ms` }}
+                      className="feature-item"
                     >
-                      <div className="feature-icon">
-                        <div className="icon-cube">
-                          <FiCheck className="check-icon" />
-                        </div>
-                        <div className="icon-ring"></div>
+                      <div className="feature-check">
+                        <FiCheck className="w-4 h-4" />
                       </div>
-                      <div className="feature-content">
-                        <span className="feature-text">{feature}</span>
-                        <div className="feature-line"></div>
-                      </div>
+                      <span className="feature-text">{feature}</span>
                     </div>
                   ))}
                 </div>
