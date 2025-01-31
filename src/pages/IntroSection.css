@@ -151,7 +151,23 @@
 
 @media (max-width: 768px) {
   .intro-section {
-    padding: 60px 0;
+    padding: 0;
+    min-height: calc(100vh - 70px);
+    margin-top: 70px;
+  }
+
+  .hero-content {
+    padding: 2rem 1rem;
+  }
+
+  .hero-title {
+    font-size: 2rem;
+    line-height: 1.3;
+  }
+
+  .gaming-chip {
+    font-size: 0.875rem;
+    padding: 0.5rem 0.875rem;
   }
 
   .stats-card {

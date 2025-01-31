@@ -42,8 +42,8 @@ const ServiceDetails = ({ service, onClose }) => {
           </div>
         </header>
 
-        <div className="details-content">
-          <div className="service-intro bg-gradient-to-br from-[#141E30]/80 to-[#243B55]/80">
+        <div className="">
+          <div className="service-intro details-content bg-gradient-to-br from-[#141E30]/80 to-[#243B55]/80">
             <div className="service-intro-content">
               <h1>{service.title}</h1>
               <p className="service-description">{service.description}</p>
