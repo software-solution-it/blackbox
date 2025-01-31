@@ -15,15 +15,6 @@ const HomeNew = () => {
   const [modalContext, setModalContext] = useState(null);
   const [showModal, setShowModal] = useState(false);
 
-  const sections = [
-    { id: 'home', label: 'Home' },
-    { id: 'serviços', label: 'Serviços' },
-    { id: 'produtos', label: 'Produtos' },
-    { id: 'provedores', label: 'Provedores' },
-    { id: 'blog', label: 'Blog' },
-    { id: 'sobre', label: 'Sobre nós' }
-  ];
-
   // Mover a restauração do scroll para antes da renderização
   const scrollPosition = sessionStorage.getItem('scrollPosition');
   if (scrollPosition) {
@@ -44,13 +35,6 @@ const HomeNew = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const scrollToSection = (sectionId) => {
-    const element = document.getElementById(sectionId);
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
-    }
-  };
-
   const handleOpenModal = (context) => {
     setModalContext(context);
     setShowModal(true);
@@ -64,8 +48,6 @@ const HomeNew = () => {
   return (
     <>
       <NavigationMenu 
-        sections={sections}
-        onSectionChange={scrollToSection}
         isScrolled={isScrolled}
       />
 
@@ -97,11 +79,25 @@ const HomeNew = () => {
       )}
 
       <main>
-        <IntroSection openModal={handleOpenModal} />
-        <ServicesSection openModal={handleOpenModal} />
-        <ProductsSection openModal={handleOpenModal} />
-        <ProvidersSection openModal={handleOpenModal} />
-        <BlogSection />
+        <section id="home">
+          <IntroSection openModal={handleOpenModal} />
+        </section>
+
+        <section id="serviços">
+          <ServicesSection openModal={handleOpenModal} />
+        </section>
+
+        <section id="produtos">
+          <ProductsSection openModal={handleOpenModal} />
+        </section>
+
+        <section id="provedores">
+          <ProvidersSection openModal={handleOpenModal} />
+        </section>
+
+        <section id="blog">
+          <BlogSection />
+        </section>
         
         <section id="sobre">
           <AboutUsSection />
