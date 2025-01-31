@@ -106,26 +106,30 @@ const IntroSection = ({ openModal }) => {
             {/* Coluna da Esquerda */}
             <div className="space-y-8 md:space-y-10 text-left">
               <div className="text-left space-y-6 md:space-y-8">
-                <h1 className="hero-title text-3xl sm:text-4xl md:text-5xl xl:text-6xl font-bold leading-tight md:leading-tight xl:leading-tight">
-                  <span className="block mb-2">Bem-vindo à BlackBox</span>
-                  <span className="block text-gradient">Sua plataforma de jogos</span>
+                <h1 className="text-2xl sm:text-3xl md:text-4xl xl:text-6xl font-bold leading-tight text-white">
+                  Seu site de apostas online e cassino 
+                  <br className="hidden xl:block" />
+                  a partir de <span className="text-[#FF6B00]">R$300,00</span>
+                  <br className="hidden xl:block" />
                 </h1>
 
-                <div className="flex flex-wrap gap-3 md:gap-4 py-2">
+                <div className="flex flex-wrap gap-3 md:gap-4 py-4">
                   <span className="gaming-chip">Jogos Exclusivos</span>
                   <span className="gaming-chip">Apostas Online</span>
                   <span className="gaming-chip">Cassino ao Vivo</span>
                 </div>
 
-                <p className="text-base md:text-lg text-neutral-300 max-w-2xl leading-relaxed">
-                  Explore um mundo de entretenimento e emoção
+                <p className="text-base text-left md:text-lg text-neutral-300 max-w-2xl leading-relaxed space-y-2">
+                  Plataforma completa com esportes e slots e cassino ao vivo
                   <br />
-                  <span className="whitespace-normal xl:whitespace-nowrap">com os melhores jogos de apostas online.</span>
+                  <span className="whitespace-normal xl:whitespace-nowrap">Tenha até 50% mais conversão em seu site</span>
+                  <br />
+                  <span className="whitespace-normal xl:whitespace-nowrap">com um sistema de altíssima qualidade e conversão.</span>
                 </p>
 
-                <div className="flex flex-col sm:flex-row gap-4">
+                <div className="flex flex-col sm:flex-row gap-4 pt-4">
                   <button 
-                    className="cta-primary px-6 sm:px-8 py-4 rounded-xl text-white text-base md:text-lg w-full sm:w-auto"
+                    className="cta-primary px-5 sm:px-6 py-3 rounded-xl text-white text-base w-auto"
                     onClick={handleStartNow}
                   >
                     Começar Agora →

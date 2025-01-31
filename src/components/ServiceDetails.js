@@ -1,17 +1,34 @@
-import React, { useState } from 'react';
-import { FiArrowLeft, FiArrowRight, FiCheck, FiServer, FiShield, FiDatabase, FiGlobe, FiCpu } from 'react-icons/fi';
+import React, { useEffect, useState } from 'react';
+import { useParams, useNavigate } from 'react-router-dom';
+import { FiArrowLeft, FiArrowRight, FiCheck, FiServer, FiShield, FiDatabase, FiGlobe } from 'react-icons/fi';
 import ModalComponent from '../pages/ModalComponent';
+import { services } from '../pages/ServicesSection';
 import './ServiceDetails.css';
 
-const ServiceDetails = ({ service, onClose }) => {
+const ServiceDetails = () => {
+  const { id } = useParams();
+  const navigate = useNavigate();
   const [isModalOpen, setIsModalOpen] = useState(false);
-  
+  const [service, setService] = useState(null);
+
+  useEffect(() => {
+    // Simular busca do serviço pelo ID
+    const currentService = services.find(s => s.id === parseInt(id));
+    if (!currentService) {
+      navigate('/');
+      return;
+    }
+    setService(currentService);
+  }, [id, navigate]);
+
+  if (!service) return null;
+
   const technicalSpecs = {
     infrastructure: [
-      { icon: <FiServer />, title: "Cloud Servers", desc: "Alta disponibilidade e escalabilidade" },
-      { icon: <FiShield />, title: "Segurança", desc: "Proteção avançada e monitoramento 24/7" },
-      { icon: <FiDatabase />, title: "Database", desc: "Replicação e backup automático" },
-      { icon: <FiGlobe />, title: "CDN Global", desc: "Distribuição otimizada de conteúdo" }
+      { icon: <FiServer className="w-6 h-6" />, title: "Cloud Servers", desc: "Alta disponibilidade e escalabilidade" },
+      { icon: <FiShield className="w-6 h-6" />, title: "Segurança", desc: "Proteção avançada e monitoramento 24/7" },
+      { icon: <FiDatabase className="w-6 h-6" />, title: "Database", desc: "Replicação e backup automático" },
+      { icon: <FiGlobe className="w-6 h-6" />, title: "CDN Global", desc: "Distribuição otimizada de conteúdo" }
     ],
     highlights: [
       { value: "99.9%", label: "Uptime garantido" },
@@ -21,99 +38,82 @@ const ServiceDetails = ({ service, onClose }) => {
     ]
   };
 
-  const handleOpenModal = () => {
-    setIsModalOpen(true);
-  };
-
-  const handleCloseModal = () => {
-    setIsModalOpen(false);
-  };
-
   return (
-    <div className="service-details-modal">
-      <div className="service-details-overlay bg-gradient-to-br from-[#141E30]/95 to-[#243B55]/95 backdrop-blur-lg" />
-      <div className="service-details-container">
-        <header className="details-header bg-gradient-to-r from-[#141E30] to-[#243B55]">
-          <div className="header-content">
-            <button className="back-button" onClick={onClose}>
-              <FiArrowLeft />
-              <span>Voltar</span>
-            </button>
-          </div>
-        </header>
+    <div className="service-details-page">
+      <header className="details-header">
+        <div className="header-content">
+          <button className="back-button" onClick={() => navigate('/')}>
+            <FiArrowLeft className="w-5 h-5" />
+            <span>Voltar</span>
+          </button>
+        </div>
+      </header>
 
-        <div className="">
-          <div className="service-intro details-content bg-gradient-to-br from-[#141E30]/80 to-[#243B55]/80">
-            <div className="service-intro-content">
-              <h1>{service.title}</h1>
-              <p className="service-description">{service.description}</p>
+      <main className="details-content">
+        <section className="service-intro">
+          <div>
+            <h1>{service.title}</h1>
+            <p className="service-description">{service.description}</p>
+          </div>
+          
+          <div className="highlight-metrics">
+            {technicalSpecs.highlights.map((highlight, index) => (
+              <div key={index} className="highlight-card">
+                <span className="highlight-value">{highlight.value}</span>
+                <span className="highlight-label">{highlight.label}</span>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        <section className="main-features">
+          <h2 className="section-title">Recursos Principais</h2>
+          <div className="features-grid">
+            {service.features?.map((feature, index) => (
+              <div key={index} className="feature-card">
+                <div className="feature-check">
+                  <FiCheck className="w-5 h-5" />
+                </div>
+                <h3 className="text-white font-medium">{feature}</h3>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        <section className="tech-infrastructure">
+          <h2 className="section-title">Infraestrutura</h2>
+          <div className="infrastructure-grid">
+            {technicalSpecs.infrastructure.map((item, index) => (
+              <div key={index} className="infrastructure-card">
+                <div className="infra-icon">{item.icon}</div>
+                <div className="infra-content">
+                  <h3>{item.title}</h3>
+                  <p>{item.desc}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        <section className="service-cta">
+          <div className="cta-content">
+            <h2>Pronto para transformar seu negócio?</h2>
+            <p>Comece agora e aproveite todos os benefícios</p>
+            <div className="cta-buttons">
               <button 
                 className="primary-button"
-                onClick={handleOpenModal}
+                onClick={() => setIsModalOpen(true)}
               >
-                Começar agora
-                <FiArrowRight />
+                Falar com consultor
+                <FiArrowRight className="w-5 h-5" />
               </button>
             </div>
-            <div className="highlight-metrics">
-              {technicalSpecs.highlights.map((highlight, index) => (
-                <div key={index} className="highlight-card">
-                  <span className="highlight-value">{highlight.value}</span>
-                  <span className="highlight-label">{highlight.label}</span>
-                </div>
-              ))}
-            </div>
           </div>
+        </section>
+      </main>
 
-          <div className="main-features">
-            <h2 className="text-[#F8FAFC] mb-5">Recursos Principais</h2>
-            <div className="features-grid">
-              {service.features?.map((feature, index) => (
-                <div key={index} className="feature-card bg-[#ffffff05] hover:bg-[#ffffff08] border border-[#ffffff1a]">
-                  <div className="feature-check text-[#22C55E]">
-                    <FiCheck />
-                  </div>
-                  <h3 className="text-[#F8FAFC]">{feature}</h3>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          <div className="tech-infrastructure">
-            <h2 className='mb-5'>Infraestrutura</h2>
-            <div className="infrastructure-grid">
-              {technicalSpecs.infrastructure.map((item, index) => (
-                <div key={index} className="infrastructure-card">
-                  <div className="infra-icon">{item.icon}</div>
-                  <div className="infra-content">
-                    <h3>{item.title}</h3>
-                    <p>{item.desc}</p>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          <div className="service-cta">
-            <div className="cta-content">
-              <h2>Pronto para transformar seu negócio?</h2>
-              <p>Comece agora e aproveite</p>
-              <div className="cta-buttons">
-                <button 
-                  className="secondary-button"
-                  onClick={handleOpenModal}
-                >
-                  Falar com consultor
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {/* Modal de Funil de Vendas */}
       {isModalOpen && (
-        <ModalComponent closeModal={handleCloseModal} />
+        <ModalComponent closeModal={() => setIsModalOpen(false)} />
       )}
     </div>
   );

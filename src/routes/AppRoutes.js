@@ -1,7 +1,8 @@
 import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import HomeNew from '../pages/HomeNew';
-import BlogPost from '../pages/BlogPost'; // Precisamos criar este componente
+import BlogPost from '../pages/BlogPost';
+import ServiceDetails from '../components/ServiceDetails';
 
 const AppRoutes = () => {
   return (
@@ -9,6 +10,7 @@ const AppRoutes = () => {
       <Routes>
         <Route path="/" element={<HomeNew />} />
         <Route path="/blog/:slug" element={<BlogPost />} />
+        <Route path="/servicos/:id" element={<ServiceDetails />} />
       </Routes>
     </BrowserRouter>
   );
