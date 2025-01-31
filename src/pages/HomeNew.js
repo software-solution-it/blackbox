@@ -100,7 +100,7 @@ const HomeNew = () => {
         </section>
         
         <section id="sobre">
-          <AboutUsSection />
+          <AboutUsSection openModal={handleOpenModal} />
         </section>
       </main>
 
