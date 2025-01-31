@@ -27,7 +27,7 @@ const ModalComponent = ({ closeModal }) => {
       `Prazo: ${answers.timeline}\n` +
       `Interesse: ${answers.interest}`
     );
-    window.open(`https://wa.me/5515991540730?text=${message}`);
+    window.open(`https://wa.me/5522988270013?text=${message}`);
   };
  
   const stepContent = {
@@ -89,7 +89,7 @@ const ModalComponent = ({ closeModal }) => {
           </p>
           <motion.button
             className="contact-button"
-            onClick={() => window.open('https://wa.me/5515991540730', '_blank')}
+            onClick={() => window.open('https://wa.me/5522988270013', '_blank')}
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
           >

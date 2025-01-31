@@ -1,11 +1,12 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { allBlogPosts } from '../data/blogPosts';
 import './BlogSection.css';
 
 const BlogSection = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isTransitioning, setIsTransitioning] = useState(false);
+  const navigate = useNavigate();
 
   const handleNext = useCallback(() => {
     if (isTransitioning || !allBlogPosts || allBlogPosts.length === 0) return;
@@ -42,6 +43,12 @@ const BlogSection = () => {
     return 'blog-card';
   };
 
+  const handleReadMore = (e, slug) => {
+    e.preventDefault();
+    sessionStorage.setItem('scrollPosition', window.scrollY);
+    navigate(`/blog/${slug}`);
+  };
+
   return (
     <section className="blog-section">
       {allBlogPosts && allBlogPosts.length > 0 ? (
@@ -70,7 +77,8 @@ const BlogSection = () => {
                   <div className="blog-footer">
                     <span className="blog-date">{post.date}</span>
                     <Link 
-                      to={`/blog/${post.slug}`} 
+                      to={`/blog/${post.slug}`}
+                      onClick={(e) => handleReadMore(e, post.slug)}
                       className="read-more"
                     >
                       Ler mais

@@ -31,9 +31,9 @@ const ServiceDetails = ({ service, onClose }) => {
 
   return (
     <div className="service-details-modal">
-      <div className="service-details-overlay" onClick={onClose} />
+      <div className="service-details-overlay bg-gradient-to-br from-[#141E30]/95 to-[#243B55]/95 backdrop-blur-lg" />
       <div className="service-details-container">
-        <header className="details-header">
+        <header className="details-header bg-gradient-to-r from-[#141E30] to-[#243B55]">
           <div className="header-content">
             <button className="back-button" onClick={onClose}>
               <FiArrowLeft />
@@ -43,7 +43,7 @@ const ServiceDetails = ({ service, onClose }) => {
         </header>
 
         <div className="details-content">
-          <div className="service-intro">
+          <div className="service-intro bg-gradient-to-br from-[#141E30]/80 to-[#243B55]/80">
             <div className="service-intro-content">
               <h1>{service.title}</h1>
               <p className="service-description">{service.description}</p>
@@ -66,14 +66,14 @@ const ServiceDetails = ({ service, onClose }) => {
           </div>
 
           <div className="main-features">
-            <h2 className='mb-5'>Recursos Principais</h2>
+            <h2 className="text-[#F8FAFC] mb-5">Recursos Principais</h2>
             <div className="features-grid">
               {service.features?.map((feature, index) => (
-                <div key={index} className="feature-card">
-                  <div className="feature-check">
+                <div key={index} className="feature-card bg-[#ffffff05] hover:bg-[#ffffff08] border border-[#ffffff1a]">
+                  <div className="feature-check text-[#22C55E]">
                     <FiCheck />
                   </div>
-                  <h3>{feature}</h3>
+                  <h3 className="text-[#F8FAFC]">{feature}</h3>
                 </div>
               ))}
             </div>

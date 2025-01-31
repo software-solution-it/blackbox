@@ -1,23 +1,31 @@
 .products-section {
-  @apply bg-[#121212] min-h-screen relative;
-  height: 100vh;
-  overflow-y: auto;
-  scrollbar-gutter: stable;
+  padding: 80px 0;
+  background: linear-gradient(180deg, #0A0A0A 0%, #121212 100%);
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
 }
 
 .products-content {
-  @apply container mx-auto py-12 px-4 md:px-6 relative z-10;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
+  width: 100%;
 }
 
-/* Grid de produtos */
 .products-grid {
-  @apply grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 mt-8;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  width: 100%;
 }
 
-/* Card do produto */
 .product-card {
-  @apply bg-[#1a1a1a]/50 backdrop-blur-sm rounded-2xl overflow-hidden
-         border border-white/5 transition-all duration-500;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 1rem;
+  overflow: hidden;
+  transition: all 0.3s ease;
 }
 
 /* Adiciona a classe group diretamente no HTML */
@@ -343,6 +351,15 @@
 
 /* Ajustes responsivos */
 @media (max-width: 768px) {
+  .products-section {
+    padding: 40px 0;
+  }
+
+  .products-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
   .products-section {
     @apply pb-12;
   }

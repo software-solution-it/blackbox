@@ -4,7 +4,7 @@ import './WhatsAppButton.css';
 
 const WhatsAppButton = ({ isLoading }) => {
   const handleWhatsAppClick = () => {
-    window.open('https://wa.me/5515991540730', '_blank');
+    window.open('https://wa.me/5522988270013', '_blank');
   };
 
   // Se estiver carregando, não renderiza o botão

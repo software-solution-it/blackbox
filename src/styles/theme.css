@@ -1,0 +1,35 @@
+:root {
+  /* Cores principais */
+  --primary: #FF6B00;      /* Laranja vibrante para CTAs e destaques */
+  --primary-light: #FF8533; /* Variação mais clara do laranja */
+  --primary-dark: #CC5500;  /* Variação mais escura do laranja */
+
+  /* Cores de fundo em gradiente */
+  --bg-gradient-start: #141E30;  /* Azul escuro profissional */
+  --bg-gradient-end: #243B55;    /* Azul médio elegante */
+  
+  /* Cores de texto */
+  --text-primary: #F8FAFC;    /* Branco suave para textos principais */
+  --text-secondary: #94A3B8;  /* Cinza claro para textos secundários */
+  --text-muted: #64748B;      /* Cinza mais escuro para textos terciários */
+
+  /* Cores de destaque */
+  --accent-blue: #38BDF8;     /* Azul claro para elementos interativos */
+  --accent-green: #22C55E;    /* Verde para sucesso/confirmação */
+  --accent-purple: #8B5CF6;   /* Roxo para elementos especiais */
+
+  /* Cores de fundo para cards */
+  --card-bg: rgba(255, 255, 255, 0.05);  /* Fundo semi-transparente */
+  --card-bg-hover: rgba(255, 255, 255, 0.08);
+  --card-border: rgba(255, 255, 255, 0.1);
+
+  /* Sombras */
+  --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.1);
+  --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
+  --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
+
+  /* Efeitos de vidro */
+  --glass-bg: rgba(255, 255, 255, 0.05);
+  --glass-border: rgba(255, 255, 255, 0.1);
+  --glass-blur: blur(10px);
+} 

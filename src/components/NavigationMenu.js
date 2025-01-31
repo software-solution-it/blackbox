@@ -1,76 +1,43 @@
-import React, { useState, useEffect, useRef } from 'react';
-import './NavigationMenu.css';
+import React from 'react';
 
-const NavigationMenu = ({ sections, activeSection, onSectionChange, isScrolled }) => {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [isPageStatic, setIsPageStatic] = useState(true);
-  const staticTimer = useRef(null);
+const NavigationMenu = ({ isScrolled }) => {
+  const menuItems = [
+    { id: 'home', label: 'Home' },
+    { id: 'serviços', label: 'Serviços' },
+    { id: 'produtos', label: 'Produtos' },
+    { id: 'provedores', label: 'Provedores' },
+    { id: 'roadmap', label: 'Roadmap' },
+    { id: 'blog', label: 'Blog' },
+    { id: 'sobre', label: 'Sobre nós' }
+  ];
 
-  useEffect(() => {
-    const handleMovement = () => {
-      setIsPageStatic(false);
-      clearTimeout(staticTimer.current);
-      
-      staticTimer.current = setTimeout(() => {
-        setIsPageStatic(true);
-      }, 1000); // 1 segundo
-    };
-
-    // Adicionar listeners para qualquer tipo de movimento
-    window.addEventListener('scroll', handleMovement);
-    window.addEventListener('mousemove', handleMovement);
-    window.addEventListener('touchmove', handleMovement);
-    window.addEventListener('keydown', handleMovement);
-
-    return () => {
-      window.removeEventListener('scroll', handleMovement);
-      window.removeEventListener('mousemove', handleMovement);
-      window.removeEventListener('touchmove', handleMovement);
-      window.removeEventListener('keydown', handleMovement);
-      clearTimeout(staticTimer.current);
-    };
-  }, []);
-
-  const toggleMenu = () => {
-    setIsMenuOpen(!isMenuOpen);
+  const handleClick = (id) => {
+    const element = document.getElementById(id);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
   };
-
-  const handleItemClick = (id, index) => {
-    onSectionChange(id, index);
-    setIsMenuOpen(false);
-  };
-
-  const menuClassName = `navigation-menu ${isScrolled ? 'scrolled' : ''} 
-    ${isPageStatic ? 'page-static' : ''} ${isMenuOpen ? 'menu-open' : ''}`;
 
   return (
-    <nav className={menuClassName}>
-      <button 
-        className="mobile-menu-button"
-        onClick={toggleMenu}
-        aria-label="Menu"
-      >
-        <div className={`hamburger-icon ${isMenuOpen ? 'open' : ''}`}>
-          <span></span>
-          <span></span>
-          <span></span>
-        </div>
-      </button>
-
-      <div className={`nav-items-container ${isMenuOpen ? 'open' : ''}`}>
-        {sections.map((section, index) => (
-          <div key={section.id} className="nav-item-wrapper">
-            <button
-              onClick={() => handleItemClick(section.id, index)}
-              className={`nav-item ${activeSection === index ? 'active' : ''}`}
-            >
-              <span className="nav-item-text">
-                {section.id.charAt(0).toUpperCase() + section.id.slice(1)}
-              </span>
-              <div className="nav-item-line"></div>
-            </button>
+    <nav className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${
+      isScrolled ? 'bg-[#121212]/90 backdrop-blur-lg' : 'bg-transparent'
+    }`}>
+      <div className="container mx-auto px-4">
+        <div className="flex items-center justify-between h-20">
+          <div className="text-white font-bold text-xl">BlackBox</div>
+          
+          <div className="hidden md:flex space-x-8">
+            {menuItems.map((item) => (
+              <button
+                key={item.id}
+                onClick={() => handleClick(item.id)}
+                className="text-gray-300 hover:text-white transition-colors"
+              >
+                {item.label}
+              </button>
+            ))}
           </div>
-        ))}
+        </div>
       </div>
     </nav>
   );

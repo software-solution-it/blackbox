@@ -1,20 +1,19 @@
-import React, { useState, useEffect } from 'react';
-import './HomePage.css';
+import { useState, useEffect } from 'react';
+import NavigationMenu from '../components/NavigationMenu';
+import WhatsAppButton from '../components/WhatsAppButton';
 import IntroSection from './IntroSection';
 import ServicesSection from './ServicesSection';
 import ProductsSection from './ProductsSection';
-import ProvidersSection from '../pages_old/ProvidersSection';
+import ProvidersSection from './ProvidersSection';
 import BlogSection from './BlogSection';
 import AboutUsSection from './AboutUsSection';
 import ModalComponent from './ModalComponent';
-import NavigationMenu from '../components/NavigationMenu';
-import WhatsAppButton from '../components/WhatsAppButton';
 
-const HomePage = () => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [modalContext, setModalContext] = useState(null);
+const HomeNew = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [isScrolled, setIsScrolled] = useState(false);
+  const [modalContext, setModalContext] = useState(null);
+  const [showModal, setShowModal] = useState(false);
 
   const sections = [
     { id: 'home', label: 'Home' },
@@ -24,6 +23,13 @@ const HomePage = () => {
     { id: 'blog', label: 'Blog' },
     { id: 'sobre', label: 'Sobre nós' }
   ];
+
+  // Mover a restauração do scroll para antes da renderização
+  const scrollPosition = sessionStorage.getItem('scrollPosition');
+  if (scrollPosition) {
+    window.scrollTo(0, parseInt(scrollPosition));
+    sessionStorage.removeItem('scrollPosition');
+  }
 
   useEffect(() => {
     setTimeout(() => setIsLoading(false), 4000);
@@ -38,16 +44,6 @@ const HomePage = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const openModal = (context) => {
-    setModalContext(context);
-    setIsModalOpen(true);
-  };
-
-  const closeModal = () => {
-    setIsModalOpen(false);
-    setModalContext(null);
-  };
-
   const scrollToSection = (sectionId) => {
     const element = document.getElementById(sectionId);
     if (element) {
@@ -55,8 +51,18 @@ const HomePage = () => {
     }
   };
 
+  const handleOpenModal = (context) => {
+    setModalContext(context);
+    setShowModal(true);
+  };
+
+  const handleCloseModal = () => {
+    setShowModal(false);
+    setModalContext(null);
+  };
+
   return (
-    <div className="page-container bg-gradient-to-br from-[#141E30] to-[#243B55]">
+    <>
       <NavigationMenu 
         sections={sections}
         onSectionChange={scrollToSection}
@@ -64,7 +70,7 @@ const HomePage = () => {
       />
 
       {isLoading && (
-        <div className="loading-screen bg-gradient-to-br from-[#141E30] to-[#243B55]">
+        <div className="loading-screen">
           <div className="loading-content">
             <div className="loading-box-container">
               <div className="loading-box">
@@ -78,10 +84,9 @@ const HomePage = () => {
             </div>
             <div className="loading-text-wrapper">
               <div className="loading-text">
-                <span>B</span><span>l</span><span>a</span><span>c</span><span>k</span>
-                <span>B</span><span>o</span><span>x</span><span>&nbsp;</span>
-                <span>I</span><span>G</span><span>a</span><span>m</span><span>i</span>
-                <span>n</span><span>g</span>
+                {['B','l','a','c','k','B','o','x',' ','I','G','a','m','i','n','g'].map((letter, index) => (
+                  <span key={index} style={{'--i': index + 1}}>{letter}</span>
+                ))}
               </div>
               <div className="loading-bar">
                 <div className="loading-progress"></div>
@@ -91,43 +96,28 @@ const HomePage = () => {
         </div>
       )}
 
-      <div className="page-content">
-        <section id="home" className="bg-gradient-to-br from-[#141E30]/80 to-[#243B55]/80 backdrop-blur-lg">
-          <IntroSection openModal={openModal} />
-        </section>
-
-        <section id="serviços" className="bg-gradient-to-br from-[#141E30]/90 to-[#243B55]/90">
-          <ServicesSection openModal={openModal} />
-        </section>
-
-        <section id="produtos">
-          <ProductsSection openModal={openModal} />
-        </section>
-
-        <section id="provedores">
-          <ProvidersSection openModal={openModal} />
-        </section>
-
-        <section id="blog">
-          <BlogSection />
-        </section>
-
+      <main>
+        <IntroSection openModal={handleOpenModal} />
+        <ServicesSection openModal={handleOpenModal} />
+        <ProductsSection openModal={handleOpenModal} />
+        <ProvidersSection openModal={handleOpenModal} />
+        <BlogSection />
+        
         <section id="sobre">
           <AboutUsSection />
         </section>
-      </div>
+      </main>
 
-      {isModalOpen && (
+      {showModal && (
         <ModalComponent 
-          closeModal={closeModal} 
-          modalContext={modalContext}
-          className="bg-gradient-to-br from-[#141E30] to-[#243B55]"
+          closeModal={handleCloseModal}
+          context={modalContext}
         />
       )}
 
       <WhatsAppButton isLoading={isLoading} />
-    </div>
+    </>
   );
 };
 
-export default HomePage;
+export default HomeNew;

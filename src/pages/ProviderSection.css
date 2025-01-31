@@ -1,22 +1,40 @@
-/* Container principal */
 .providers-wrapper {
-  @apply h-screen overflow-hidden relative bg-[#121212];
+  background: #121212;
+  min-height: 100vh;
+  position: relative;
+  padding: 80px 0;
+  display: flex;
+  align-items: center;
 }
 
 .providers-content {
-  @apply h-full overflow-y-auto overflow-x-hidden;
-  scrollbar-gutter: stable;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
+  width: 100%;
 }
 
 /* Estilos do carrossel */
 .provider-carousel {
-  @apply w-full py-8 px-4 md:px-8;
+  width: 100%;
+  padding: 2rem 0;
+  overflow: hidden;
+}
+
+.provider-carousel .slick-track {
+  display: flex !important;
+  align-items: center;
+}
+
+.provider-carousel .slick-slider {
+  overflow: hidden;
 }
 
 .provider-card {
   @apply bg-[#1a1a1a]/50 backdrop-blur-sm p-4 md:p-8 rounded-xl md:rounded-2xl 
          transition-all duration-500 mx-2 md:mx-4 cursor-pointer;
   transform-style: preserve-3d;
+  max-width: calc(100vw - 32px);
 }
 
 .provider-card:hover {
@@ -56,7 +74,8 @@
 
 /* Grid de features */
 .features-grid {
-  @apply grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-8 px-4 md:px-8 mb-12 md:mb-20 max-w-6xl mx-auto;
+  @apply grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-8 px-4 md:px-8 
+         mb-12 md:mb-20 max-w-6xl mx-auto;
 }
 
 .feature-card {
@@ -229,23 +248,6 @@
   @apply bg-primary/50 rounded-full;
 }
 
-.providers-content::-webkit-scrollbar {
-  width: 6px;
-}
-
-.providers-content::-webkit-scrollbar-track {
-  background: rgba(255, 255, 255, 0.05);
-}
-
-.providers-content::-webkit-scrollbar-thumb {
-  background: rgba(255, 107, 0, 0.3);
-  border-radius: 8px;
-}
-
-.providers-content::-webkit-scrollbar-thumb:hover {
-  background: rgba(255, 107, 0, 0.5);
-}
-
 /* Header */
 .section-header {
   @apply text-center px-4 md:px-0 mb-8 md:mb-16;
@@ -292,6 +294,23 @@
 
 /* Mobile */
 @media (max-width: 768px) {
+  .providers-wrapper {
+    padding: 40px 0;
+  }
+
+  .providers-content {
+    padding: 0 16px;
+  }
+
+  .provider-carousel {
+    padding: 1rem 0;
+  }
+
+  .provider-card {
+    padding: 1rem;
+    margin: 0 4px;
+  }
+
   .category-card.flipped .category-card-inner {
     transform: rotateY(180deg);
   }
@@ -332,4 +351,49 @@
 .category-card.flipped .category-card-back {
   position: relative;
   z-index: 30;
+}
+
+/* Scrollbar personalizada */
+.providers-wrapper::-webkit-scrollbar {
+  width: 6px;
+}
+
+.providers-wrapper::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.providers-wrapper::-webkit-scrollbar-thumb {
+  background: rgba(255, 107, 0, 0.3);
+  border-radius: 8px;
+}
+
+.providers-wrapper::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 107, 0, 0.5);
+}
+
+/* Ajuste para o container do carrossel */
+.slick-list {
+  margin: 0 -8px;
+  overflow: hidden;
+}
+
+.slick-track {
+  margin-left: 0;
+  margin-right: 0;
+}
+
+/* Ajustes responsivos */
+@media (max-width: 768px) {
+  .provider-carousel {
+    padding: 1rem 0;
+  }
+
+  .provider-card {
+    padding: 1rem;
+    margin: 0 4px;
+  }
+
+  .slick-list {
+    margin: 0 -4px;
+  }
 }

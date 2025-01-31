@@ -1,0 +1,211 @@
+/* Reset e estilos base */
+html, 
+body {
+  margin: 0;
+  padding: 0;
+  background: #121212;
+  overflow-x: hidden;
+  height: 100%;
+}
+
+/* Container principal */
+.page-container {
+  position: relative;
+  width: 100%;
+  background: #121212;
+  overflow-x: hidden;
+}
+
+/* Conteúdo da página */
+.page-content {
+  padding-top: 80px;
+  width: 100%;
+}
+
+/* Seções */
+section {
+  width: 100%;
+  position: relative;
+  padding: 60px 0;
+}
+
+/* Loading Screen */
+.loading-screen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: #1E1E1E;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+
+/* Loading animations e estilos específicos serão adicionados aqui */
+.loading-content {
+  text-align: center;
+}
+
+.loading-text-wrapper {
+  margin-top: 20px;
+}
+
+.loading-text span {
+  color: #FF6B00;
+  font-size: 24px;
+  font-weight: bold;
+  opacity: 0;
+  animation: fadeIn 0.5s ease forwards;
+}
+
+.loading-bar {
+  width: 200px;
+  height: 4px;
+  background: rgba(255, 107, 0, 0.2);
+  margin: 20px auto;
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.loading-progress {
+  height: 100%;
+  background: #FF6B00;
+  animation: progress 4s linear;
+}
+
+/* Scrollbar personalizada */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 107, 0, 0.5);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 107, 0, 0.7);
+}
+
+/* Animações */
+@keyframes fadeIn {
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes progress {
+  from {
+    width: 0;
+  }
+  to {
+    width: 100%;
+  }
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+  .page-content {
+    padding-top: 60px;
+  }
+  
+  section {
+    padding: 40px 0;
+  }
+}
+
+/* Loading Box Animation */
+.loading-box-container {
+  perspective: 800px;
+  width: 100px;
+  height: 100px;
+  margin: 0 auto;
+}
+
+.loading-box {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  transform-style: preserve-3d;
+  animation: rotate 4s linear infinite;
+}
+
+.box-face {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border: 2px solid #FF6B00;
+  background: rgba(255, 107, 0, 0.1);
+}
+
+.front  { transform: rotateY(0deg) translateZ(50px); }
+.back   { transform: rotateY(180deg) translateZ(50px); }
+.right  { transform: rotateY(90deg) translateZ(50px); }
+.left   { transform: rotateY(-90deg) translateZ(50px); }
+.top    { transform: rotateX(90deg) translateZ(50px); }
+.bottom { transform: rotateX(-90deg) translateZ(50px); }
+
+/* Loading Text Animation */
+.loading-text span {
+  display: inline-block;
+  animation-delay: calc(0.1s * var(--i));
+}
+
+.loading-text span:nth-child(1) { --i: 1; }
+.loading-text span:nth-child(2) { --i: 2; }
+.loading-text span:nth-child(3) { --i: 3; }
+.loading-text span:nth-child(4) { --i: 4; }
+.loading-text span:nth-child(5) { --i: 5; }
+.loading-text span:nth-child(6) { --i: 6; }
+.loading-text span:nth-child(7) { --i: 7; }
+.loading-text span:nth-child(8) { --i: 8; }
+.loading-text span:nth-child(9) { --i: 9; }
+.loading-text span:nth-child(10) { --i: 10; }
+.loading-text span:nth-child(11) { --i: 11; }
+.loading-text span:nth-child(12) { --i: 12; }
+.loading-text span:nth-child(13) { --i: 13; }
+.loading-text span:nth-child(14) { --i: 14; }
+.loading-text span:nth-child(15) { --i: 15; }
+.loading-text span:nth-child(16) { --i: 16; }
+
+@keyframes rotate {
+  from {
+    transform: rotateX(0deg) rotateY(0deg);
+  }
+  to {
+    transform: rotateX(360deg) rotateY(360deg);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.loading-progress {
+  height: 100%;
+  background: #FF6B00;
+  width: 0;
+  animation: progress 4s linear forwards;
+}
+
+@keyframes progress {
+  0% {
+    width: 0;
+  }
+  100% {
+    width: 100%;
+  }
+}

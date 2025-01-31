@@ -11,7 +11,7 @@
 
   }
   
-  .service-card {
+  .roadmap-service-card {
     background: rgba(255, 255, 255, 0.05);
     backdrop-filter: blur(10px);
     display: flex;
@@ -29,13 +29,13 @@
     flex-direction: column;
   }
   
-  .service-card:hover {
+  .roadmap-service-card:hover {
     transform: translateY(-8px);
     background: rgba(255, 255, 255, 0.08);
     box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);
   }
   
-  .card-arrow {
+  .roadmap-card-arrow {
     position: absolute;
     bottom: 1rem;
     right: 1rem;
@@ -43,7 +43,7 @@
     transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   }
   
-  .service-card:hover .card-arrow {
+  .roadmap-service-card:hover .roadmap-card-arrow {
     transform: translateX(8px);
   }
   
@@ -110,13 +110,24 @@
     border-radius: 4px;
   }
   
-  .service-icon-large {
+  .roadmap-service-icon {
     font-size: 4rem;
     margin-bottom: 2rem;
     background: linear-gradient(45deg, #ff6b6b, #ff8e53);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     display: inline-block;
+  }
+  
+  .roadmap-service-info h3 {
+    color: #fff;
+    font-size: 18px;
+    margin-bottom: 4px;
+  }
+  
+  .roadmap-service-info p {
+    color: #888;
+    font-size: 14px;
   }
   
   .expanded-title {
@@ -176,17 +187,17 @@
       -webkit-overflow-scrolling: touch;
     }
   
-    .service-card {
+    .roadmap-service-card {
       height: 200px;
       padding: 1.25rem;
       margin-bottom: 1rem;
     }
   
-    .service-title {
+    .roadmap-service-info h3 {
       font-size: 1.125rem;
     }
   
-    .service-description {
+    .roadmap-service-info p {
       font-size: 0.8125rem;
     }
   }

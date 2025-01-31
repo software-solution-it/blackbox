@@ -5,8 +5,8 @@ import logo_footer from '../assets/images/logo_footer.png';
 class AboutUsSection extends Component {
   render() {
     return (
-      <section className="bg-[#1E1E1E] w-full h-screen flex items-center text-left p-4 sm:p-8">
-        <div className="container mx-auto px-4">
+      <div className="bg-[#1E1E1E] w-full text-left p-4 sm:p-8">
+        <div className="container mx-auto px-4 max-w-7xl">
           <h2 className="text-4xl sm:text-5xl md:text-6xl font-bold text-gray-100 mb-6 sm:mb-10 font-poppins">
             <span className="text-orange-500">Sobre</span> nós
           </h2>
@@ -35,7 +35,7 @@ class AboutUsSection extends Component {
             />
           </div>
         </div>
-      </section>
+      </div>
     );
   }
 }

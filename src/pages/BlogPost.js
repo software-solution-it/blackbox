@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { useParams, Link, useNavigate } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { allBlogPosts } from '../data/blogPosts';
 import './BlogPost.css';
 
@@ -11,10 +11,13 @@ const BlogPost = () => {
 
   useEffect(() => {
     if (!post) {
-      navigate('/'); // Redireciona para home se o post não for encontrado
+      navigate('/');
     }
-    window.scrollTo(0, 0);
   }, [post, navigate]);
+
+  const handleBack = () => {
+    window.history.back();
+  };
 
   if (!post) {
     return null;
@@ -22,10 +25,10 @@ const BlogPost = () => {
 
   return (
     <article className="blog-post">
-      <Link to="/" className="back-button-fixed">
+      <button onClick={handleBack} className="back-button-fixed">
         <i className="fas fa-arrow-left"></i>
         Voltar para o Blog
-      </Link>
+      </button>
       
       <div className="blog-post-container">
         <aside className="blog-post-sidebar">

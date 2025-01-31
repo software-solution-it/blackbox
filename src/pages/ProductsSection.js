@@ -1,7 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import Slider from 'react-slick';
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
 import './ProductsSection.css';
 import NextBetPdf from '../../src/assets/images/nextbet.pdf'
 import OnePixPdf from '../../src/assets/images/onepix.pdf'
@@ -160,21 +157,6 @@ const ProductsSection = ({ openModal }) => {
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
-  const sliderSettings = {
-    dots: true,
-    infinite: true,
-    speed: 500,
-    slidesToShow: 1,
-    slidesToScroll: 1,
-    arrows: false,
-    autoplay: true,
-    autoplaySpeed: 5000,
-    pauseOnHover: true,
-    customPaging: (i) => (
-      <div className="custom-dot"></div>
-    )
-  };
-
   return (
     <section className="products-section">
       <div className="products-content">
@@ -188,27 +170,15 @@ const ProductsSection = ({ openModal }) => {
           </p>
         </div>
 
-        {isMobile ? (
-          <div className="mobile-slider">
-            <Slider {...sliderSettings}>
-              {products.map(product => (
-                <div key={product.id} className="slider-item">
-                  <ProductCard product={product} openModal={openModal} />
-                </div>
-              ))}
-            </Slider>
-          </div>
-        ) : (
-          <div className="products-grid">
-            {products.map(product => (
-              <ProductCard 
-                key={product.id} 
-                product={product} 
-                openModal={openModal}
-              />
-            ))}
-          </div>
-        )}
+        <div className="products-grid">
+          {products.map(product => (
+            <ProductCard 
+              key={product.id} 
+              product={product} 
+              openModal={openModal}
+            />
+          ))}
+        </div>
       </div>
     </section>
   );

@@ -1,5 +1,4 @@
 import React, { useEffect, useRef } from 'react';
-import logo from '../assets/images/logo.png';
 import './IntroSection.css';
 
 const IntroSection = ({ openModal }) => {
@@ -10,48 +9,69 @@ const IntroSection = ({ openModal }) => {
     const ctx = canvas.getContext('2d');
     
     const handleResize = () => {
+      const width = document.documentElement.clientWidth;
+      const height = document.documentElement.clientHeight;
       const dpr = window.devicePixelRatio || 1;
-      canvas.width = window.innerWidth * dpr;
-      canvas.height = window.innerHeight * dpr;
+
+      canvas.width = width * dpr;
+      canvas.height = height * dpr;
+      
+      canvas.style.width = `${width}px`;
+      canvas.style.height = `${height}px`;
+      
       ctx.scale(dpr, dpr);
-      canvas.style.width = `${window.innerWidth}px`;
-      canvas.style.height = `${window.innerHeight}px`;
+
+      initParticles();
     };
 
-    window.addEventListener('resize', handleResize);
-    handleResize();
+    let particles = [];
 
-    const particles = Array.from({ length: 50 }, () => ({
-      x: Math.random() * canvas.width,
-      y: Math.random() * canvas.height,
-      size: Math.random() * 3 + 1,
-      speedX: Math.random() * 2 - 1,
-      speedY: Math.random() * 2 - 1,
-      opacity: Math.random() * 0.5 + 0.2
-    }));
+    const initParticles = () => {
+      const width = canvas.width / (window.devicePixelRatio || 1);
+      const height = canvas.height / (window.devicePixelRatio || 1);
+      
+      particles = Array.from({ length: 50 }, () => ({
+        x: Math.random() * width,
+        y: Math.random() * height,
+        size: Math.random() * 3 + 1,
+        speedX: (Math.random() - 0.5) * 2,
+        speedY: (Math.random() - 0.5) * 2,
+        opacity: Math.random() * 0.5 + 0.2,
+        hue: Math.random() * 20
+      }));
+    };
 
     const animate = () => {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      const width = canvas.width / (window.devicePixelRatio || 1);
+      const height = canvas.height / (window.devicePixelRatio || 1);
+
+      ctx.clearRect(0, 0, width, height);
       
-      const gradient = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
+      const gradient = ctx.createLinearGradient(0, 0, width, height);
       gradient.addColorStop(0, '#0A0A0A');
       gradient.addColorStop(1, '#1A1A1A');
       ctx.fillStyle = gradient;
-      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      ctx.fillRect(0, 0, width, height);
 
       particles.forEach(particle => {
         particle.x += particle.speedX;
         particle.y += particle.speedY;
 
-        if (particle.x < 0 || particle.x > canvas.width) particle.speedX *= -1;
-        if (particle.y < 0 || particle.y > canvas.height) particle.speedY *= -1;
+        if (particle.x < 0 || particle.x > width) {
+          particle.speedX *= -1;
+          particle.x = Math.max(0, Math.min(width, particle.x));
+        }
+        if (particle.y < 0 || particle.y > height) {
+          particle.speedY *= -1;
+          particle.y = Math.max(0, Math.min(height, particle.y));
+        }
 
         ctx.shadowBlur = 15;
-        ctx.shadowColor = 'rgba(255, 107, 0, 0.5)';
+        ctx.shadowColor = `hsla(30, 100%, 50%, ${particle.opacity})`;
         
         ctx.beginPath();
         ctx.arc(particle.x, particle.y, particle.size, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(255, 107, 0, ${particle.opacity})`;
+        ctx.fillStyle = `hsla(${30 + particle.hue}, 100%, 50%, ${particle.opacity})`;
         ctx.fill();
         
         ctx.shadowBlur = 0;
@@ -60,12 +80,21 @@ const IntroSection = ({ openModal }) => {
       requestAnimationFrame(animate);
     };
 
+    handleResize();
     animate();
+
+    window.addEventListener('resize', handleResize);
+    window.addEventListener('orientationchange', handleResize);
 
     return () => {
       window.removeEventListener('resize', handleResize);
+      window.removeEventListener('orientationchange', handleResize);
     };
   }, []);
+
+  const handleStartNow = () => {
+    openModal('start');
+  };
 
   return (
     <section className="intro-section">
@@ -75,80 +104,67 @@ const IntroSection = ({ openModal }) => {
         <div className="container mx-auto px-4 relative z-10">
           <div className="grid xl:grid-cols-2 gap-8 xl:gap-16 items-center">
             {/* Coluna da Esquerda */}
-            <div className="space-y-6 md:space-y-8 text-left">
-              <div className="logo-container">
-                <img
-                  src={logo}
-                  alt="BlackBox"
-                  className="w-28 sm:w-32 md:w-40 xl:w-48 hover:opacity-90 transition-all logo-glow"
-                />
-              </div>
-
-              <div className="text-left space-y-4 md:space-y-6">
-                <h1 className="hero-title text-2xl sm:text-3xl md:text-4xl xl:text-6xl font-bold leading-tight">
-                Seu site de apostas online e cassino 
-                  <br className="hidden xl:block" />
-                  a partir de R$300,00
-                  <br className="hidden xl:block" />
+            <div className="space-y-8 md:space-y-10 text-left">
+              <div className="text-left space-y-6 md:space-y-8">
+                <h1 className="hero-title text-3xl sm:text-4xl md:text-5xl xl:text-6xl font-bold leading-tight md:leading-tight xl:leading-tight">
+                  <span className="block mb-2">Bem-vindo à BlackBox</span>
+                  <span className="block text-gradient">Sua plataforma de jogos</span>
                 </h1>
 
-                <div className="flex flex-wrap gap-2 md:gap-3">
-                  <span className="gaming-chip">Pronto em 3 dias</span>
-                  <span className="gaming-chip">Suporte 24/7</span>
-                  <span className="gaming-chip">100% personalizado</span>
+                <div className="flex flex-wrap gap-3 md:gap-4 py-2">
+                  <span className="gaming-chip">Jogos Exclusivos</span>
+                  <span className="gaming-chip">Apostas Online</span>
+                  <span className="gaming-chip">Cassino ao Vivo</span>
                 </div>
 
-                <p className="text-base text-left md:text-lg text-neutral-300 max-w-2xl leading-relaxed">
-                  Plataforma completa com esportes e slots e cassino ao vivo
+                <p className="text-base md:text-lg text-neutral-300 max-w-2xl leading-relaxed">
+                  Explore um mundo de entretenimento e emoção
                   <br />
-                  <span className="whitespace-normal xl:whitespace-nowrap">Tenha até 50% mais conversão em seu site</span>
-                  <br />
-                  <span className="whitespace-normal xl:whitespace-nowrap">com um sistema de altíssima qualidade e conversão.</span>
-                  
+                  <span className="whitespace-normal xl:whitespace-nowrap">com os melhores jogos de apostas online.</span>
                 </p>
 
-                <div className="flex flex-col sm:flex-row gap-3">
-                  <button
-                    onClick={() => openModal('Intro')}
-                    className="cta-primary px-5 sm:px-6 md:px-8 py-3 md:py-4 rounded-xl text-white text-sm md:text-base w-full sm:w-auto"
+                <div className="flex flex-col sm:flex-row gap-4">
+                  <button 
+                    className="cta-primary px-6 sm:px-8 py-4 rounded-xl text-white text-base md:text-lg w-full sm:w-auto"
+                    onClick={handleStartNow}
                   >
-                    Falar com especialista →
+                    Começar Agora →
                   </button>
                 </div>
               </div>
             </div>
 
-            {/* Coluna da Direita - Stats Cards em grid 2x2 */}
+            {/* Coluna da Direita - Stats Cards */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 xl:gap-6">
               <div className="stats-card">
-                <div className="highlight-number text-xl sm:text-2xl md:text-3xl xl:text-4xl">+500</div>
-                <h3 className="text-sm sm:text-base md:text-lg xl:text-xl font-medium mb-2 text-white">Clientes Ativos</h3>
+                <div className="highlight-number">+1M</div>
+                <h3 className="text-sm sm:text-base md:text-lg xl:text-xl font-medium mb-2 text-white">Jogadores</h3>
                 <p className="text-xs md:text-sm text-neutral-400">
-                  Empresas confiam em nossa tecnologia
+                  Ativos em nossa plataforma
                 </p>
               </div>
 
               <div className="stats-card">
-                <div className="highlight-number text-xl sm:text-2xl md:text-3xl xl:text-4xl">99.9%</div>
-                <h3 className="text-sm sm:text-base md:text-lg xl:text-xl font-medium mb-2 text-white">Uptime Garantido</h3>
+                <div className="highlight-number">+500</div>
+                <h3 className="text-sm sm:text-base md:text-lg xl:text-xl font-medium mb-2 text-white">Jogos</h3>
                 <p className="text-xs md:text-sm text-neutral-400">
-                  Disponibilidade máxima para seu negócio
+                  Diferentes para você explorar
                 </p>
               </div>
 
               <div className="stats-card">
-                <div className="highlight-number text-xl sm:text-2xl md:text-3xl xl:text-4xl">24/7</div>
-                <h3 className="text-sm sm:text-base md:text-lg xl:text-xl font-medium mb-2 text-white">Suporte Premium</h3>
+                <div className="highlight-number">24/7</div>
+                <h3 className="text-sm sm:text-base md:text-lg xl:text-xl font-medium mb-2 text-white">Suporte</h3>
                 <p className="text-xs md:text-sm text-neutral-400">
-                  Equipe especializada sempre disponível
+                  Sempre disponível para você
                 </p>
               </div>
 
               <div className="stats-card">
-                <div className="highlight-number text-xl sm:text-2xl md:text-3xl xl:text-4xl">3 dias</div>
-                <h3 className="text-sm sm:text-base md:text-lg xl:text-xl font-medium mb-2 text-white">Setup Rápido</h3>
+                <div className="highlight-number">100%</div>
+                <h3 className="text-sm sm:text-base md:text-lg xl:text-xl font-medium mb-2 text-white">Seguro</h3>
                 <p className="text-xs md:text-sm text-neutral-400">
-                  Do conceito ao lançamento em 3 dias
+                  Proteção total dos seus dados
                 </p>
               </div>
             </div>
@@ -156,11 +172,8 @@ const IntroSection = ({ openModal }) => {
         </div>
       </div>
 
-      {/* Indicador de próxima seção */}
-      <div className="next-section-space">
-      </div>
     </section>
   );
 };
 
-export default IntroSection;
+export default IntroSection; 

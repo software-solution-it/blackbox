@@ -192,6 +192,22 @@ const AdditionalServicesSection = () => {
     };
   }, []);
 
+  const RoadmapCard = ({ service, isActive, onClick }) => (
+    <div
+      className={`roadmap-service-card ${isActive ? 'active' : ''}`}
+      onClick={onClick}
+    >
+      <div className="roadmap-service-icon">{service.icon}</div>
+      <div className="roadmap-service-info">
+        <h3 className="roadmap-title">{service.title}</h3>
+        <p className="roadmap-description">{service.description}</p>
+        <div className="roadmap-card-arrow">
+          <FaArrowRight />
+        </div>
+      </div>
+    </div>
+  );
+
   return (
     <section className="additional-services bg-gradient-to-b from-[#1E1E1E] to-[#2A2A2A]">
       <div className="container mx-auto px-4">
@@ -233,14 +249,7 @@ const AdditionalServicesSection = () => {
                 onClick={() => handleCardClick(index)}
               >
                 <div className="roadmap-dot"></div>
-                <div className="roadmap-card">
-                  <div className="service-icon">{service.icon}</div>
-                  <h3 className="service-title">{service.title}</h3>
-                  <p className="service-description">{service.description}</p>
-                  <div className="card-arrow">
-                    <FaArrowRight />
-                  </div>
-                </div>
+                <RoadmapCard service={service} isActive={expandedCard === index} onClick={() => handleCardClick(index)} />
               </motion.div>
             ))}
           </div>

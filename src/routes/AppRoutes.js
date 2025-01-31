@@ -1,20 +1,17 @@
-// src/routes/AppRoutes.js
 import React from 'react';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import HomePage from '../pages/HomePage';
-import BlogPost from '../pages/BlogPost';
-import BlogSection from '../pages/BlogSection';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import HomeNew from '../pages/HomeNew';
+import BlogPost from '../pages/BlogPost'; // Precisamos criar este componente
 
 const AppRoutes = () => {
   return (
-    <Router>
+    <BrowserRouter>
       <Routes>
-        <Route path="/" element={<HomePage />} />
-        <Route path="/blog" element={<BlogSection />} />
+        <Route path="/" element={<HomeNew />} />
         <Route path="/blog/:slug" element={<BlogPost />} />
       </Routes>
-    </Router>
+    </BrowserRouter>
   );
 };
 
-export default AppRoutes;
+export default AppRoutes; 
