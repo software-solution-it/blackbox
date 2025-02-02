@@ -9,6 +9,7 @@ const ModalComponent = ({ closeModal }) => {
   const [whatsappNumber, setWhatsappNumber] = useState('');
   const [whatsappError, setWhatsappError] = useState('');
   const [isValidNumber, setIsValidNumber] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleClose = () => {
     setIsExiting(true);
@@ -75,10 +76,16 @@ const ModalComponent = ({ closeModal }) => {
       setWhatsappError('Por favor, insira um número válido com DDD (Ex: 11999999999)');
       return;
     }
+    
+    setIsSubmitting(true);
     try {
       await saveToGoogleSheets();
+      openWhatsApp();
     } catch (error) {
       console.error('Erro ao enviar dados:', error);
+      setWhatsappError('Erro ao salvar os dados. Por favor, tente novamente.');
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -208,13 +215,20 @@ const ModalComponent = ({ closeModal }) => {
             )}
           </div>
           <motion.button
-            className={`contact-button ${!isValidNumber ? 'disabled' : ''}`}
+            className={`contact-button ${!isValidNumber || isSubmitting ? 'disabled' : ''}`}
             onClick={handleWhatsAppSubmit}
-            whileHover={isValidNumber ? { scale: 1.05 } : {}}
-            whileTap={isValidNumber ? { scale: 0.95 } : {}}
-            disabled={!isValidNumber}
+            whileHover={isValidNumber && !isSubmitting ? { scale: 1.05 } : {}}
+            whileTap={isValidNumber && !isSubmitting ? { scale: 0.95 } : {}}
+            disabled={!isValidNumber || isSubmitting}
           >
-            Entrar em Contato
+            {isSubmitting ? (
+              <div className="button-loading">
+                <div className="spinner"></div>
+                <span>Enviando...</span>
+              </div>
+            ) : (
+              'Entrar em Contato'
+            )}
           </motion.button>
         </motion.div>
       );
