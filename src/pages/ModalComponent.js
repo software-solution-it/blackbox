@@ -83,14 +83,8 @@ const ModalComponent = ({ closeModal }) => {
   };
 
   const openWhatsApp = () => {
-    const message = encodeURIComponent(
-      `Olá! Tenho interesse em montar um cassino online.\n` +
-      `Investimento: ${answers.investment}\n` +
-      `Experiência: ${answers.experience}\n` +
-      `Interesse: ${answers.interest}`
-    );
-    window.open(`https://wa.me/${whatsappNumber}?text=${message}`);
-  };
+    window.open(`https://wa.me/5522988270013`);
+  }; 
 
   const saveToGoogleSheets = async () => {
     try {
@@ -119,8 +113,7 @@ const ModalComponent = ({ closeModal }) => {
         body: JSON.stringify(data)
       });
 
-      console.log('Dados enviados com sucesso');
-     // openWhatsApp();
+     openWhatsApp();
       
     } catch (error) {
       console.error('Error saving to Google Sheets:', error);
