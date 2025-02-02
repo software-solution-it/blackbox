@@ -111,7 +111,10 @@ const HomeNew = () => {
         />
       )}
 
-      <WhatsAppButton isLoading={isLoading} />
+      <WhatsAppButton 
+        isLoading={isLoading} 
+        openModal={handleOpenModal}
+      />
     </>
   );
 };
