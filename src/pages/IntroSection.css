@@ -1,25 +1,16 @@
 .intro-section {
-  min-height: 100vh;
-  position: relative;
-  overflow: hidden;
-  display: flex;
-  align-items: center;
-  padding: 80px 0;
+  @apply relative min-h-screen flex items-center justify-center overflow-hidden;
+  background: linear-gradient(145deg, #0A0A0A, #1A1A1A);
 }
 
 .animated-background {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 0;
+  @apply absolute inset-0 w-full h-full;
+  z-index: 1;
 }
 
 .hero-content {
-  width: 100%;
-  position: relative;
-  z-index: 1;
+  @apply relative w-full py-16 md:py-24;
+  z-index: 2;
 }
 
 .hero-title {
@@ -40,59 +31,32 @@
 }
 
 .gaming-chip {
-  display: inline-flex;
-  align-items: center;
-  padding: 0.5rem 1rem;
-  background: rgba(255, 107, 0, 0.1);
-  border: 1px solid rgba(255, 107, 0, 0.2);
-  border-radius: 9999px;
-  color: #FF6B00;
-  font-size: 0.875rem;
-  font-weight: 500;
-  transition: all 0.3s ease;
+  @apply px-4 py-2 rounded-full text-sm md:text-base 
+         bg-[#1A1A1A]/50 backdrop-blur-sm text-white/90
+         border border-white/10 transition-all duration-300;
 }
 
 .gaming-chip:hover {
-  background: rgba(255, 107, 0, 0.15);
-  transform: translateY(-1px);
+  @apply border-primary/50 bg-primary/10;
 }
 
 .cta-primary {
-  background: linear-gradient(135deg, #FF6B00 0%, #FF8533 100%);
-  border: none;
-  font-weight: 600;
-  transition: all 0.3s ease;
-  box-shadow: 0 4px 20px rgba(255, 107, 0, 0.3);
-}
-
-.cta-primary:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 25px rgba(255, 107, 0, 0.4);
+  @apply bg-gradient-to-r from-primary to-primary-light
+         hover:from-primary-light hover:to-primary
+         transition-all duration-300 transform hover:-translate-y-1
+         shadow-lg shadow-primary/20 hover:shadow-xl hover:shadow-primary/30;
 }
 
 .stats-card {
-  background: rgba(255, 255, 255, 0.03);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(10px);
-  padding: 1.5rem;
-  border-radius: 1rem;
-  transition: all 0.3s ease;
-}
-
-.stats-card:hover {
-  background: rgba(255, 255, 255, 0.05);
-  transform: translateY(-2px);
+  @apply bg-[#1A1A1A]/50 backdrop-blur-sm p-6 rounded-2xl
+         border border-white/5 transition-all duration-300
+         hover:border-primary/20 hover:bg-primary/5;
 }
 
 .highlight-number {
-  font-size: 2rem;
-  font-weight: 700;
-  background: linear-gradient(135deg, #FF6B00 0%, #FF8533 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  text-fill-color: transparent;
-  margin-bottom: 0.5rem;
+  @apply text-2xl md:text-3xl xl:text-4xl font-bold mb-2
+         bg-clip-text text-transparent bg-gradient-to-r
+         from-primary to-primary-light;
 }
 
 .next-section-space {
@@ -150,14 +114,8 @@
 }
 
 @media (max-width: 768px) {
-  .intro-section {
-    padding: 0;
-    min-height: calc(100vh - 70px);
-    margin-top: 70px;
-  }
-
   .hero-content {
-    padding: 2rem 1rem;
+    @apply py-12;
   }
 
   .hero-title {
@@ -171,11 +129,11 @@
   }
 
   .stats-card {
-    padding: 1.25rem;
+    @apply p-4;
   }
 
   .highlight-number {
-    font-size: 1.75rem;
+    @apply text-xl;
   }
 }
 

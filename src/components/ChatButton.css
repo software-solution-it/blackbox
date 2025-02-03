@@ -5,23 +5,23 @@
   width: 60px;
   height: 60px;
   border-radius: 50%;
-  background: #FF6B00;
+  background: #25D366; /* Cor do WhatsApp */
   border: none;
   color: white;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 4px 12px rgba(37, 211, 102, 0.3);
   z-index: 9998;
   transition: all 0.3s ease;
   animation: float 3s ease-in-out infinite;
 }
 
 .chat-trigger-button:hover {
-  background: #ff8533;
-  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+  background: #22c35e; /* Versão mais escura para hover */
   transform: translateY(-5px);
+  box-shadow: 0 6px 16px rgba(37, 211, 102, 0.4);
 }
 
 .chat-trigger-button svg {

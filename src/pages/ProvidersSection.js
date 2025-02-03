@@ -114,71 +114,46 @@ const useIsMobile = () => {
 };
 
 const CategoryCard = ({ title, count, details, type }) => {
-  const [isFlipped, setIsFlipped] = useState(false);
+  const [isExpanded, setIsExpanded] = useState(false);
   const isMobile = useIsMobile();
 
   const handleCardClick = () => {
-    if (isMobile) {
-      setIsFlipped(true);
-    }
-  };
-
-  const handleBackButtonClick = (e) => {
-    e.stopPropagation();
-    setIsFlipped(false);
+    setIsExpanded(!isExpanded);
   };
 
   return (
     <div 
-      className={`category-card ${isFlipped ? 'flipped' : ''}`}
+      className={`category-card ${isExpanded ? 'expanded' : ''}`}
       onClick={handleCardClick}
     >
-      <div className="category-card-inner">
-        {/* Frente do Card */}
-        <div className="category-card-front">
-          <div className="category-content">
-            <h3 className="category-title">{title}</h3>
-            <p className="category-subtitle">{count} jogos disponíveis</p>
-            <div className="hover-indicator">
-              <FiMousePointer size={24} />
-            </div>
+      <div className="category-content">
+        <h3 className="category-title">{title}</h3>
+        <p className="category-subtitle">{count} jogos disponíveis</p>
+        
+        <div className={`category-details ${isExpanded ? 'show' : ''}`}>
+          <p className="category-details-subtitle">{details.description}</p>
+
+          <div className="category-stats">
+            {details.stats.map((stat, index) => (
+              <div key={index} className="category-stat-item">
+                <div className="category-stat-number">{stat.number}</div>
+                <div className="category-stat-label">{stat.label}</div>
+              </div>
+            ))}
+          </div>
+
+          <div className="category-features">
+            {details.features.map((feature, index) => (
+              <div key={index} className="category-feature">
+                <span className="category-feature-icon">{feature.icon}</span>
+                <span>{feature.text}</span>
+              </div>
+            ))}
           </div>
         </div>
 
-        {/* Verso do Card */}
-        <div className="category-card-back">
-          {isMobile && (
-            <button 
-              className="flip-back-button"
-              onClick={handleBackButtonClick}
-              aria-label="Fechar"
-            >
-              ✕
-            </button>
-          )}
-
-          <div className="category-back-content">
-            <h4 className="category-back-title">{details.title}</h4>
-            <p className="category-back-subtitle">{details.description}</p>
-
-            <div className="category-stats">
-              {details.stats.map((stat, index) => (
-                <div key={index} className="category-stat-item">
-                  <div className="category-stat-number">{stat.number}</div>
-                  <div className="category-stat-label">{stat.label}</div>
-                </div>
-              ))}
-            </div>
-
-            <div className="category-features">
-              {details.features.map((feature, index) => (
-                <div key={index} className="category-feature">
-                  <span className="category-feature-icon">{feature.icon}</span>
-                  <span>{feature.text}</span>
-                </div>
-              ))}
-            </div>
-          </div>
+        <div className="expand-indicator">
+          {isExpanded ? 'Ver menos' : 'Ver mais'}
         </div>
       </div>
     </div>

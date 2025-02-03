@@ -1,114 +1,22 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import './ModalComponent.css';
 
 const ModalComponent = ({ closeModal }) => {
-  const [step, setStep] = useState(1);
-  const [answers, setAnswers] = useState({});
-  const [isExiting, setIsExiting] = useState(false);
-  const [whatsappNumber, setWhatsappNumber] = useState('');
   const [userName, setUserName] = useState('');
+  const [whatsappNumber, setWhatsappNumber] = useState('');
   const [whatsappError, setWhatsappError] = useState('');
   const [isValidNumber, setIsValidNumber] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [messages, setMessages] = useState([]);
-  const [showNameInput, setShowNameInput] = useState(false);
-  const [showWhatsAppInput, setShowWhatsAppInput] = useState(false);
-  const [showFinalButtons, setShowFinalButtons] = useState(false);
-  const [isTyping, setIsTyping] = useState(false);
-  const messagesEndRef = React.useRef(null);
+
+  const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxTucbL04sMf0QOsg8SJh7v0kkhIff0mAgxEt_SjBL1TwlAKs7eqGqXOZDwyvhxH_oq/exec';
 
   const handleClose = () => {
-    setIsExiting(true);
-    setTimeout(() => {
-      closeModal();
-    }, 300);
-  }; 
-
-  const stepContent = {
-    1: {
-      message: "Olá! 👋 Sou Carlos, consultor especializado em cassinos online. Para te ajudar melhor, preciso saber: Qual é seu orçamento para investimento?",
-      options: [
-        { value: 'Até R$5.000', label: 'Até R$5.000' },
-        { value: 'R$10.000 - R$15.000', label: 'R$10.000 - R$15.000' },
-        { value: 'Acima de R$20.000', label: 'Acima de R$20.000' }  
-      ]
-    },
-    2: {
-      message: "Entendi! E me diz uma coisa, você já tem experiência com cassinos online?",
-      options: [
-        { value: 'Sim, já operei', label: 'Sim, já operei um cassino' },
-        { value: 'Tenho conhecimento', label: 'Tenho conhecimento, mas nunca operei' },
-        { value: 'Sou iniciante', label: 'Sou iniciante no mercado' }
-      ]
-    },
-    3: {
-      message: "Legal! E o que mais te interessa em nossos serviços?",
-      options: [
-        { value: 'Plataforma completa', label: 'Plataforma completa de cassino' },
-        { value: 'Suporte técnico', label: 'Suporte técnico especializado' },
-        { value: 'Consultoria', label: 'Consultoria para operação' }
-      ]
-    }
-  };
-
-  const handleOptionSelect = (question, answer, label) => {
-    setAnswers({ ...answers, [question]: answer });
-    
-    // Remove as opções anteriores
-    setMessages(prev => prev.filter(msg => !msg.isOptions));
-    
-    // Adiciona a resposta do usuário
-    setMessages(prev => [...prev, { type: 'user', text: label }]);
-    
-    // Simula digitação
-    setIsTyping(true);
-    
-    setTimeout(() => {
-      setIsTyping(false);
-      if (step < 3) {
-        // Adiciona a próxima mensagem do bot
-        setMessages(prev => [...prev, {
-          type: 'bot',
-          text: stepContent[step + 1].message,
-          delay: 500
-        }]);
-        
-        // Adiciona as novas opções como mensagem
-        setTimeout(() => {
-          setMessages(prev => [...prev, {
-            type: 'options',
-            options: stepContent[step + 1].options,
-            isOptions: true,
-            delay: 500
-          }]);
-        }, 1000);
-      } else {
-        setMessages(prev => [...prev, {
-          type: 'bot',
-          text: 'Ótimo! Agora preciso de algumas informações para continuar.',
-          delay: 500
-        }]);
-        
-        setTimeout(() => {
-          setMessages(prev => [...prev, {
-            type: 'bot',
-            text: 'Por favor, me diga seu nome:',
-            delay: 500
-          }]);
-          setShowNameInput(true);
-        }, 2000);
-      }
-    }, 1500);
-    
-    setStep(step + 1);
+    closeModal();
   };
 
   const formatWhatsApp = (value) => {
-    // Remove tudo que não é número
     const numbers = value.replace(/\D/g, '');
-    
-    // Aplica a máscara (XX) XXXXX-XXXX
     let formatted = numbers;
     if (numbers.length > 0) {
       formatted = `(${numbers.slice(0,2)}`;
@@ -123,355 +31,154 @@ const ModalComponent = ({ closeModal }) => {
   };
 
   const validateWhatsApp = (number) => {
-    // Remove todos os caracteres não numéricos
     const cleanNumber = number.replace(/\D/g, '');
-    
-    // Verifica se tem 11 dígitos (DDD + 9 + número)
-    if (cleanNumber.length !== 11) {
-      return false;
-    }
-    
-    // Verifica se começa com DDD válido
+    if (cleanNumber.length !== 11) return false;
     const ddd = parseInt(cleanNumber.substring(0, 2));
-    if (ddd < 11 || ddd > 99) {
-      return false;
-    }
-    
+    if (ddd < 11 || ddd > 99) return false;
     return true;
   };
 
   const handleWhatsAppInput = (e) => {
-    const value = e.target.value;
-    const formatted = formatWhatsApp(value);
+    const formatted = formatWhatsApp(e.target.value);
     setWhatsappNumber(formatted);
-    
-    const isValid = validateWhatsApp(value);
+    const isValid = validateWhatsApp(formatted);
     setIsValidNumber(isValid);
-    if (isValid) {
-      setWhatsappError('');
+    setWhatsappError(isValid ? '' : 'Número inválido');
+  };
+
+  const saveToGoogleSheets = async (data) => {
+    try {
+      const response = await fetch(GOOGLE_SCRIPT_URL, {
+        method: 'POST',
+        mode: 'no-cors',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          timestamp: data.timestamp,
+          name: data.name,
+          whatsapp: data.whatsapp,
+          source: data.source
+        })
+      });
+      
+      return true;
+    } catch (error) {
+      console.error('Erro ao salvar dados:', error);
+      return false;
     }
   };
 
-  const handleNameInput = (e) => {
-    setUserName(e.target.value);
-  };
-
-  const handleNameSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!userName.trim()) return;
-
-    setShowNameInput(false);
-    setMessages(prev => [...prev, { type: 'user', text: userName }]);
-    setIsTyping(true);
-
-    setTimeout(() => {
-      setIsTyping(false);
-      setMessages(prev => [...prev, {
-        type: 'bot',
-        text: `Prazer em conhecer você, ${userName}! 👋`,
-        delay: 500
-      }]);
-
-      setIsTyping(true);
-      setTimeout(() => {
-        setIsTyping(false);
-        setMessages(prev => [...prev, {
-          type: 'bot',
-          text: 'Para finalizar, preciso do seu número de WhatsApp para enviar informações detalhadas sobre como podemos te ajudar.',
-          delay: 500
-        }]);
-        setShowWhatsAppInput(true);
-      }, 2000);
-    }, 1500);
-  };
-
-  const handleWhatsAppSubmit = async (e) => {
-    e.preventDefault();
-    if (!validateWhatsApp(whatsappNumber)) {
-      setWhatsappError('Por favor, insira um número válido com DDD');
-      return;
-    }
+    if (!isValidNumber || !userName.trim() || isSubmitting) return;
 
     setIsSubmitting(true);
-    setShowWhatsAppInput(false);
-    setMessages(prev => [...prev, { type: 'user', text: whatsappNumber }]);
-    setIsTyping(true);
+
+    const cleanNumber = whatsappNumber.replace(/\D/g, '');
+    const timestamp = new Date().toISOString();
+
+    const sheetData = {
+      timestamp: timestamp,
+      name: userName.trim(),
+      whatsapp: cleanNumber,
+      source: 'Chat Modal'
+    };
 
     try {
-      await saveToGoogleSheets();
+      const saved = await saveToGoogleSheets(sheetData);
       
-      setTimeout(() => {
-        setMessages(prev => [...prev, {
-          type: 'bot',
-          text: 'Perfeito! Seus dados foram salvos com sucesso. 🎉',
-          delay: 500
-        }]);
+      if (!saved) {
+        throw new Error('Falha ao salvar os dados');
+      }
 
-        setTimeout(() => {
-          setMessages(prev => [...prev, {
-            type: 'bot',
-            text: 'Gostaria de iniciar agora uma conversa no WhatsApp para discutirmos seu projeto?',
-            delay: 500
-          }]);
-          
-          // Adiciona as opções finais como mensagem
-          setTimeout(() => {
-            setMessages(prev => [...prev, {
-              type: 'options',
-              options: [
-                { value: 'whatsapp', label: 'Sim, abrir WhatsApp' },
-                { value: 'close', label: 'Não, fechar chat' }
-              ],
-              isOptions: true,
-              delay: 500
-            }]);
-            setIsTyping(false);
-          }, 1000);
-        }, 1000);
-      }, 1000);
+      const message = `Olá! Me chamo ${userName} e gostaria de saber mais sobre os serviços da BlackBox iGaming.`;
+      const whatsappUrl = `https://wa.me/+55${cleanNumber}?text=${encodeURIComponent(message)}`;
+      
+      const newWindow = window.open(whatsappUrl, '_blank', 'noopener,noreferrer');
+      if (newWindow) newWindow.opener = null;
+      
+      closeModal();
     } catch (error) {
-      setWhatsappError('Erro ao salvar os dados. Por favor, tente novamente.');
-      setShowWhatsAppInput(true);
+      console.error('Erro ao processar submissão:', error);
+      alert('Ocorreu um erro ao enviar seus dados. Por favor, tente novamente.');
     } finally {
       setIsSubmitting(false);
     }
   };
-
-  const handleFinalOption = (option) => {
-    setMessages(prev => [...prev, { type: 'user', text: option.label }]);
-    
-    if (option.value === 'whatsapp') {
-      setTimeout(() => {
-        setMessages(prev => [...prev, {
-          type: 'bot',
-          text: 'Ótimo! Redirecionando para o WhatsApp... 👋',
-          delay: 300
-        }]);
-        setTimeout(() => {
-          openWhatsApp();
-          handleClose();
-        }, 1500);
-      }, 500);
-    } else {
-      setTimeout(() => {
-        setMessages(prev => [...prev, {
-          type: 'bot',
-          text: 'Obrigado pelo contato! Até a próxima! 👋',
-          delay: 300
-        }]);
-        setTimeout(handleClose, 1500);
-      }, 500);
-    }
-  };
-
-  const openWhatsApp = () => {
-    window.open(`https://wa.me/5522988270013`);
-  }; 
-
-  const saveToGoogleSheets = async () => {
-    try {
-      const GOOGLE_SHEETS_URL = 'https://script.google.com/macros/s/AKfycbzjXLpdCKITsIX2bC6bY_wiout33hGFdK-qtFrkKeNYvcMTRiobhecAajorGzw5ssH8/exec';
-      
-      const currentDate = new Date().toLocaleString('pt-BR', { 
-        timeZone: 'America/Sao_Paulo' 
-      });
-      
-      const cleanWhatsapp = whatsappNumber.replace(/\D/g, '');
-      
-      const data = {
-        timestamp: currentDate,
-        name: userName,
-        investment: answers.investment || '',
-        experience: answers.experience || '',
-        interest: answers.interest || '',
-        whatsapp: cleanWhatsapp
-      };
-
-      await fetch(GOOGLE_SHEETS_URL, {
-        method: 'POST',
-        mode: 'no-cors',
-        headers: {
-          'Content-Type': 'text/plain',
-        },
-        body: JSON.stringify(data)
-      });
-      
-    } catch (error) {
-      console.error('Error saving to Google Sheets:', error);
-      throw error;
-    }
-  };
-
-  const initializeChat = () => {
-    setIsTyping(true);
-    setTimeout(() => {
-      setMessages([
-        { 
-          type: 'bot', 
-          text: stepContent[1].message,
-          delay: 500 
-        },
-        {
-          type: 'options',
-          options: stepContent[1].options,
-          isOptions: true,
-          delay: 1000
-        }
-      ]);
-      setIsTyping(false);
-    }, 1000);
-  };
-
-  const scrollToBottom = () => {
-    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
-  };
-
-  // Scroll quando mensagens são atualizadas
-  useEffect(() => {
-    scrollToBottom();
-  }, [messages]);
-
-  useEffect(() => {
-    initializeChat();
-  }, []);
-
+ 
   return (
-    <AnimatePresence>
-      <motion.div 
-        className="chat-widget"
-        initial={{ opacity: 0, y: 20, scale: 0.95 }}
-        animate={{ opacity: 1, y: 0, scale: 1 }}
-        exit={{ opacity: 0, y: 20, scale: 0.95 }}
+    <AnimatePresence mode="wait">
+      <motion.div
+        className="modal-overlay"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0 }}
+        transition={{ duration: 0.2 }}
+        onClick={handleClose}
       >
-        <div className="chat-header">
-          <div className="chat-title">
-            <div className="avatar">
-              <svg viewBox="0 0 24 24" width="24" height="24" fill="#FF6B00">
-                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z"/>
-              </svg>
+        <motion.div 
+          className="chat-widget"
+          initial={{ scale: 0.95 }}
+          animate={{ scale: 1 }}
+          exit={{ scale: 0.95 }}
+          transition={{ duration: 0.2 }}
+          onClick={e => e.stopPropagation()}
+        >
+          <div className="chat-header">
+            <div className="chat-title">
+              <span>Fale com um especialista</span>
             </div>
-            <span>Carlos - Consultor</span>
+            <button className="close-chat" onClick={handleClose}>
+              <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" strokeWidth="2">
+                <path d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            </button>
           </div>
-          <button className="close-chat" onClick={handleClose}>
-            <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" strokeWidth="2">
-              <path d="M6 18L18 6M6 6l12 12" />
-            </svg>
-          </button>
-        </div>
 
-        <div className="chat-messages">
-          {messages.map((message, index) => (
-            <motion.div
-              key={index}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: message.delay / 1000 }}
-              className={`chat-message ${message.type}`}
-            >
-              {message.type === 'bot' && (
-                <div className="avatar">
-                  <svg viewBox="0 0 24 24" width="24" height="24" fill="#FF6B00">
-                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z"/>
-                  </svg>
-                </div>
-              )}
-              {message.type === 'options' ? (
-                <div className="chat-options">
-                  {message.options.map((option, optIndex) => (
-                    <motion.button
-                      key={optIndex}
-                      className="chat-option-button"
-                      onClick={() => {
-                        if (option.value === 'whatsapp' || option.value === 'close') {
-                          handleFinalOption(option);
-                        } else {
-                          handleOptionSelect(
-                            step === 1 ? 'investment' : 
-                            step === 2 ? 'experience' : 'interest',
-                            option.value,
-                            option.label
-                          );
-                        }
-                      }}
-                      initial={{ opacity: 0, y: 10 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ delay: optIndex * 0.1 }}
-                      whileHover={{ scale: 1.02 }}
-                      whileTap={{ scale: 0.98 }}
-                    >
-                      {option.label}
-                    </motion.button>
-                  ))}
-                </div>
-              ) : (
-                <div className={`message-content ${message.type}`}>
-                  {message.text}
-                </div>
-              )}
-            </motion.div>
-          ))}
-          {isTyping && (
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              className="chat-message bot"
-            >
-              <div className="avatar">
-                <svg viewBox="0 0 24 24" width="24" height="24" fill="#FF6B00">
-                  <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z"/>
-                </svg>
+          <div className="chat-content">
+            <p className="intro-message">
+              Antes de seguirmos, me conta seu nome e um número para que eu possa te chamar da melhor forma!
+            </p>
+            
+            <form onSubmit={handleSubmit} className="contact-form">
+              <div className="input-group">
+                <input
+                  type="text"
+                  value={userName}
+                  onChange={(e) => setUserName(e.target.value)}
+                  placeholder="Seu nome"
+                  className="contact-input"
+                  required
+                />
               </div>
-              <div className="typing-indicator">
-                <span></span>
-                <span></span>
-                <span></span>
-              </div>
-            </motion.div>
-          )}
-          {/* Elemento de referência para o scroll */}
-          <div ref={messagesEndRef} />
-        </div>
 
-        <div className="chat-input-area">
-          {showNameInput && (
-            <form onSubmit={handleNameSubmit} className="chat-input-form">
-              <input
-                type="text"
-                value={userName}
-                onChange={handleNameInput}
-                placeholder="Digite seu nome..."
-                className="chat-input"
-              />
-              <button type="submit" className="send-button">
-                <svg viewBox="0 0 24 24" width="24" height="24" fill="#FF6B00">
-                  <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/>
+              <div className="input-group">
+                <input
+                  type="tel"
+                  value={whatsappNumber}
+                  onChange={handleWhatsAppInput}
+                  placeholder="Seu WhatsApp"
+                  className={`contact-input ${whatsappError ? 'error' : ''}`}
+                  maxLength="15"
+                  required
+                />
+                {whatsappError && <span className="error-message">{whatsappError}</span>}
+              </div>
+
+              <button 
+                type="submit" 
+                className="whatsapp-submit-button"
+                disabled={!isValidNumber || !userName.trim() || isSubmitting}
+              >
+                <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor">
+                  <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/>
                 </svg>
+                {isSubmitting ? 'Enviando...' : 'Iniciar Atendimento no WhatsApp'}
               </button>
             </form>
-          )}
-
-          {showWhatsAppInput && (
-            <form onSubmit={handleWhatsAppSubmit} className="chat-input-form">
-              <input
-                type="tel"
-                value={whatsappNumber}
-                onChange={handleWhatsAppInput}
-                placeholder="(XX) XXXXX-XXXX"
-                className="chat-input"
-                maxLength="15"
-              />
-              <button type="submit" className="send-button" disabled={!isValidNumber || isSubmitting}>
-                {isSubmitting ? (
-                  <div className="spinner" />
-                ) : (
-                  <svg viewBox="0 0 24 24" width="24" height="24" fill="#FF6B00">
-                    <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/>
-                  </svg>
-                )}
-              </button>
-            </form>
-          )}
-        </div>
+          </div>
+        </motion.div>
       </motion.div>
     </AnimatePresence>
   );

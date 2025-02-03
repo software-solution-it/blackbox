@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import { FiMenu, FiX } from 'react-icons/fi';
+import logo from '../assets/images/logo.png'; // Importar a logo
 import './NavigationMenu.css';
 
 const NavigationMenu = ({ isScrolled }) => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [isLogoHovered, setIsLogoHovered] = useState(false);
 
   const sections = [
     { id: 'home', label: 'Home' },
@@ -36,29 +36,12 @@ const NavigationMenu = ({ isScrolled }) => {
     }`}>
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-20">
-          {/* Logo com Cubo */}
+          {/* Logo */}
           <div 
             className="logo-wrapper cursor-pointer"
             onClick={() => handleClick('home')}
-            onMouseEnter={() => setIsLogoHovered(true)}
-            onMouseLeave={() => setIsLogoHovered(false)}
           >
-            <div className="logo-content">
-              <div className="cube-wrapper">
-                <div className="animated-cube">
-                  <div className="cube-face front"></div>
-                  <div className="cube-face back"></div>
-                  <div className="cube-face right"></div>
-                  <div className="cube-face left"></div>
-                  <div className="cube-face top"></div>
-                  <div className="cube-face bottom"></div>
-                </div>
-              </div>
-              <div className={`logo-text ${isLogoHovered ? 'show' : ''}`}>
-                <span className="text-gradient">Black</span>
-                <span className="text-orange-500">Box</span>
-              </div>
-            </div>
+            <img src={logo} alt="BlackBox iGaming" className="logo-image" />
           </div>
           
           {/* Desktop Menu */}

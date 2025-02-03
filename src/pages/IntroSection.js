@@ -9,8 +9,9 @@ const IntroSection = ({ openModal }) => {
     const ctx = canvas.getContext('2d');
     
     const handleResize = () => {
-      const width = document.documentElement.clientWidth;
-      const height = document.documentElement.clientHeight;
+      const section = document.querySelector('.intro-section');
+      const width = section.clientWidth;
+      const height = section.clientHeight;
       const dpr = window.devicePixelRatio || 1;
 
       canvas.width = width * dpr;
@@ -30,12 +31,12 @@ const IntroSection = ({ openModal }) => {
       const width = canvas.width / (window.devicePixelRatio || 1);
       const height = canvas.height / (window.devicePixelRatio || 1);
       
-      particles = Array.from({ length: 50 }, () => ({
+      particles = Array.from({ length: 100 }, () => ({
         x: Math.random() * width,
         y: Math.random() * height,
         size: Math.random() * 3 + 1,
-        speedX: (Math.random() - 0.5) * 2,
-        speedY: (Math.random() - 0.5) * 2,
+        speedX: (Math.random() - 0.5) * 1.5,
+        speedY: (Math.random() - 0.5) * 1.5,
         opacity: Math.random() * 0.5 + 0.2,
         hue: Math.random() * 20
       }));
@@ -47,24 +48,17 @@ const IntroSection = ({ openModal }) => {
 
       ctx.clearRect(0, 0, width, height);
       
-      const gradient = ctx.createLinearGradient(0, 0, width, height);
-      gradient.addColorStop(0, '#0A0A0A');
-      gradient.addColorStop(1, '#1A1A1A');
-      ctx.fillStyle = gradient;
+      ctx.fillStyle = 'transparent';
       ctx.fillRect(0, 0, width, height);
 
       particles.forEach(particle => {
         particle.x += particle.speedX;
         particle.y += particle.speedY;
 
-        if (particle.x < 0 || particle.x > width) {
-          particle.speedX *= -1;
-          particle.x = Math.max(0, Math.min(width, particle.x));
-        }
-        if (particle.y < 0 || particle.y > height) {
-          particle.speedY *= -1;
-          particle.y = Math.max(0, Math.min(height, particle.y));
-        }
+        if (particle.x < 0) particle.x = width;
+        if (particle.x > width) particle.x = 0;
+        if (particle.y < 0) particle.y = height;
+        if (particle.y > height) particle.y = 0;
 
         ctx.shadowBlur = 15;
         ctx.shadowColor = `hsla(30, 100%, 50%, ${particle.opacity})`;
@@ -106,12 +100,13 @@ const IntroSection = ({ openModal }) => {
             {/* Coluna da Esquerda */}
             <div className="space-y-8 md:space-y-10 text-left">
               <div className="text-left space-y-6 md:space-y-8">
-                <h1 className="text-2xl sm:text-3xl md:text-4xl xl:text-6xl font-bold leading-tight text-white">
-                  Seu site de apostas online e cassino 
-                  <br className="hidden xl:block" />
-                  a partir de <span className="text-[#FF6B00]">R$300,00</span>
-                  <br className="hidden xl:block" />
-                </h1>
+              <h1 className="text-2xl sm:text-3xl md:text-4xl xl:text-6xl font-bold leading-tight text-white">
+  Sua plataforma
+  <br className="hidden xl:block" />
+  profissional de apostas e cassino
+  <br className="hidden xl:block" />
+  <span className="text-[#FF6B00]">pronta para operar</span>
+</h1>
 
                 <div className="flex flex-wrap gap-3 md:gap-4 py-4">
                   <span className="gaming-chip">Jogos Exclusivos</span>
