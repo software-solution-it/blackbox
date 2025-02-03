@@ -115,7 +115,7 @@ const IntroSection = ({ openModal }) => {
                 </div>
 
                 <p className="text-base text-left md:text-lg text-neutral-300 max-w-2xl leading-relaxed space-y-2">
-                  Plataforma completa com esportes e slots e cassino ao vivo
+                  Plataforma completa com esportes, slots e cassino ao vivo
                   <br />
                   <span className="whitespace-normal xl:whitespace-nowrap">Tenha até 50% mais conversão em seu site</span>
                   <br />
