@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import NavigationMenu from '../components/NavigationMenu';
-import WhatsAppButton from '../components/WhatsAppButton';
+import ChatButton from '../components/ChatButton';
 import IntroSection from './IntroSection';
 import ServicesSection from './ServicesSection';
 import ProductsSection from './ProductsSection';
@@ -13,7 +13,7 @@ const HomeNew = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [isScrolled, setIsScrolled] = useState(false);
   const [modalContext, setModalContext] = useState(null);
-  const [showModal, setShowModal] = useState(false);
+  const [isChatOpen, setIsChatOpen] = useState(false);
 
   // Mover a restauração do scroll para antes da renderização
   const scrollPosition = sessionStorage.getItem('scrollPosition');
@@ -37,19 +37,24 @@ const HomeNew = () => {
 
   const handleOpenModal = (context) => {
     setModalContext(context);
-    setShowModal(true);
+    setIsChatOpen(true);
+  };
+
+  const handleChatToggle = () => {
+    setIsChatOpen(prev => !prev);
+    if (!isChatOpen) {
+      setModalContext(null);
+    }
   };
 
   const handleCloseModal = () => {
-    setShowModal(false);
     setModalContext(null);
+    setIsChatOpen(false);
   };
 
   return (
     <>
-      <NavigationMenu 
-        isScrolled={isScrolled}
-      />
+      <NavigationMenu isScrolled={isScrolled} />
 
       {isLoading && (
         <div className="loading-screen">
@@ -104,16 +109,16 @@ const HomeNew = () => {
         </section>
       </main>
 
-      {showModal && (
+      {isChatOpen && (
         <ModalComponent 
           closeModal={handleCloseModal}
           context={modalContext}
         />
       )}
 
-      <WhatsAppButton 
-        isLoading={isLoading} 
-        openModal={handleOpenModal}
+      <ChatButton 
+        onClick={handleChatToggle}
+        isOpen={isChatOpen}
       />
     </>
   );

@@ -1,0 +1,54 @@
+.chat-trigger-button {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: #FF6B00;
+  border: none;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  z-index: 9998;
+  transition: all 0.3s ease;
+  animation: float 3s ease-in-out infinite;
+}
+
+.chat-trigger-button:hover {
+  background: #ff8533;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+  transform: translateY(-5px);
+}
+
+.chat-trigger-button svg {
+  width: 28px;
+  height: 28px;
+}
+
+/* Animação de flutuação */
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-5px);
+  }
+}
+
+@media (max-width: 480px) {
+  .chat-trigger-button {
+    bottom: 20px;
+    right: 16px;
+    width: 50px;
+    height: 50px;
+  }
+  
+  .chat-trigger-button svg {
+    width: 24px;
+    height: 24px;
+  }
+} 
