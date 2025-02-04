@@ -93,7 +93,7 @@ const ModalComponent = ({ closeModal }) => {
       }
 
       const message = `Olá! Me chamo ${userName} e gostaria de saber mais sobre os serviços da BlackBox iGaming.`;
-      const whatsappUrl = `https://wa.me/+55${cleanNumber}?text=${encodeURIComponent(message)}`;
+      const whatsappUrl = `https://wa.me/5522988270013?text=${encodeURIComponent(message)}`;
       
       const newWindow = window.open(whatsappUrl, '_blank', 'noopener,noreferrer');
       if (newWindow) newWindow.opener = null;
