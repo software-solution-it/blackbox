@@ -174,7 +174,12 @@ const ModalComponent = ({ closeModal }) => {
                   id="userName"
                   type="text"
                   value={userName}
-                  onChange={(e) => setUserName(e.target.value)}
+                  onChange={(e) => {
+                    setUserName(e.target.value);
+                    if (e.target.value.trim()) {
+                      setUserNameError('');
+                    }
+                  }}
                   placeholder="Seu nome"
                   className={`contact-input ${userNameError ? 'error' : ''}`}
                 />
