@@ -5,7 +5,7 @@ import { FiMessageCircle } from 'react-icons/fi';
 
 const ChatButton = ({ onClick, isOpen }) => {
   return (
-    <div className="chat-button-container">
+    <div className="chat-button-container" onClick={onClick} style={{ cursor: 'pointer' }}>
       <AnimatePresence>
         {!isOpen && (
           <motion.div 
@@ -15,7 +15,7 @@ const ChatButton = ({ onClick, isOpen }) => {
             exit={{ opacity: 0, x: -20 }}
             transition={{ duration: 0.4, ease: "easeOut" }}
           >
-            <div className="hint-content">
+            <div className="hint-content" onClick={onClick} style={{ cursor: 'pointer' }}>
               <div className="hint-text-container">
                 <span className="hint-title">Fale com um especialista</span>
                 <span className="hint-subtitle">Atendimento online</span>

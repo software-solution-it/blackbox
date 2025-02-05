@@ -1,5 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 import './IntroSection.css';
+import { FaWhatsapp } from 'react-icons/fa';
 
 const IntroSection = ({ openModal }) => {
   const canvasRef = useRef(null);
@@ -91,7 +92,7 @@ const IntroSection = ({ openModal }) => {
   };
 
   return (
-    <section className="intro-section">
+    <section className="intro-section pt-20 md:pt-0">
       <canvas ref={canvasRef} className="animated-background" />
       
       <div className="hero-content">
@@ -101,12 +102,13 @@ const IntroSection = ({ openModal }) => {
             <div className="space-y-8 md:space-y-10 text-left">
               <div className="text-left space-y-6 md:space-y-8">
               <h1 className="text-2xl sm:text-3xl md:text-4xl xl:text-6xl font-bold leading-tight text-white">
-  Sua plataforma
-  <br className="hidden xl:block" />
-  profissional de apostas e cassino
-  <br className="hidden xl:block" />
-  <span className="text-[#FF6B00]">pronta para operar</span>
-</h1>
+                Sua plataforma
+                <br />
+                profissional de apostas
+                <br />
+                e cassino{" "}
+                <span className="text-[#FF6B00]">pronta para operar</span>
+              </h1>
 
                 <div className="flex flex-wrap gap-3 md:gap-4 py-4">
                   <span className="gaming-chip">Jogos Exclusivos</span>
@@ -124,10 +126,11 @@ const IntroSection = ({ openModal }) => {
 
                 <div className="flex flex-col sm:flex-row gap-4 pt-4">
                   <button 
-                    className="cta-primary px-5 sm:px-6 py-3 rounded-xl text-white text-base w-auto"
+                    className="cta-primary px-5 sm:px-6 py-3 rounded-xl text-white text-[0.95rem] sm:text-lg font-bold w-auto flex items-center justify-center gap-2"
                     onClick={handleStartNow}
                   >
-                    Começar Agora →
+                    Falar com um especialista
+                    <FaWhatsapp size={20} />
                   </button>
                 </div>
               </div>

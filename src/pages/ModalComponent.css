@@ -71,6 +71,14 @@
   margin: 0;
 }
 
+
+.input-label {
+  font-size: 0.95rem;
+  color: white;
+  text-align: left;
+  margin-bottom: 0.25rem;
+}
+
 .contact-form {
   display: flex;
   flex-direction: column;
@@ -96,8 +104,8 @@
 
 .contact-input:focus {
   outline: none;
-  border-color: #FF6B00;
-  background: rgba(255, 107, 0, 0.05);
+  border-color: #28a745;
+  background: rgba(40, 167, 69, 0.05);
 }
 
 .contact-input.error {
@@ -109,10 +117,11 @@
   color: #ff4d4d;
   font-size: 0.9rem;
   margin-top: 0.25rem;
+  text-align: left;
 }
 
 .whatsapp-submit-button {
-  background: #FF6B00;
+  background: #28a745;
   color: white;
   border: none;
   border-radius: 8px;
@@ -125,17 +134,18 @@
   gap: 0.5rem;
   cursor: pointer;
   transition: all 0.3s ease;
-  margin-top: 0.5rem;
+  margin-top: 0rem;
 }
 
-.whatsapp-submit-button:hover:not(:disabled) {
-  background: #ff8533;
-  transform: translateY(-2px);
-}
-
-.whatsapp-submit-button:disabled {
-  opacity: 0.7;
+/* Botão desativado com opacidade total */
+.whatsapp-submit-button.disabled {
+  opacity: 0.3;
   cursor: not-allowed;
+}
+
+.whatsapp-submit-button:hover:not(.disabled) {
+  background: #218838;
+  transform: translateY(-2px);
 }
 
 .whatsapp-submit-button svg {
