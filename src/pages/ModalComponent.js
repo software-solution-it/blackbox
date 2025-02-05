@@ -118,10 +118,17 @@ const ModalComponent = ({ closeModal }) => {
       }
 
       const message = `Olá! Me chamo ${userName} e gostaria de saber mais sobre os serviços da BlackBox iGaming.`;
-      const whatsappUrl = `https://wa.me/5522988270013?text=${encodeURIComponent(message)}`;
+      const whatsappNumber = '5522988270013';
       
-      const newWindow = window.open(whatsappUrl, '_blank', 'noopener,noreferrer');
-      if (newWindow) newWindow.opener = null;
+      // Detecta se é iOS
+      const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
+      
+      // Cria URLs diferentes para iOS e outros dispositivos
+      const whatsappUrl = isIOS
+        ? `whatsapp://send?phone=${whatsappNumber}&text=${encodeURIComponent(message)}`
+        : `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
+      
+      window.location.href = whatsappUrl;
       
       closeModal();
     } catch (error) {
